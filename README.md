@@ -13,6 +13,8 @@ A scheduled Claude task runs every morning at **9:54 (Toronto time)** and acts a
 
 Exercises are delivered in the task result, not as files in this repo. Each answer goes in its own folder.
 
+**Same-chat review:** After pushing an answer to `main`, I reply "done" in that morning's chat. The coach pulls the latest code, reviews it and suggests changes. I can revise and ask again as many times as needed. The next morning's run only confirms the final state before issuing the next exercise.
+
 ## Repository layout
 
 ```
