@@ -8,7 +8,7 @@
 
 - 出题日期：2026-10-19
 - 阶段：第一阶段 · 格式基础
-- 状态：已出题，待完成
+- 状态：已提交，chat 评审 4/5，待次日确认最终版本
 
 **交付物**
 - `day-01/conventional-commits/SKILL.md`
@@ -23,3 +23,6 @@
 5. 正文不超过 150 行，不依赖任何特定厂商的工具名或路径。
 6. TRIGGER-TESTS.md 列出 5 条应触发和 5 条不应触发的提示词，其中不应触发的至少 2 条是"近似反例"（和 git/commit 相关但不该用这个 skill，如解释 git rebase、写 PR 描述）。
 7. skill 内容全部使用英文。
+
+**检查与评审**
+- 2026-10-20 chat 评审：评分 4/5，7 条完成标准全部满足。主要建议：(1) 示例 3 用 `refactor!` 删除公开配置项，和自己对 refactor 的定义（不改变行为）矛盾，改成 `feat(config)!` 或调整定义；(2) description 补一句排除范围（PR 描述、changelog、release notes），并覆盖 "how should I word this commit" 这类说法；(3) 写明 `BREAKING CHANGE` 必须大写，50 字符是 git 惯例而非 Conventional Commits 规范；TRIGGER-TESTS.md 加一列实际结果并真实跑一遍。
