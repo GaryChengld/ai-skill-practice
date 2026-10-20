@@ -8,7 +8,7 @@
 
 - 出题日期：2026-10-19
 - 阶段：第一阶段 · 格式基础
-- 状态：已提交，chat 评审 4/5，待次日确认最终版本
+- 状态：已提交，chat 复查 5/5，待次日确认最终版本
 
 **交付物**
 - `day-01/conventional-commits/SKILL.md`
@@ -26,3 +26,4 @@
 
 **检查与评审**
 - 2026-10-20 chat 评审：评分 4/5，7 条完成标准全部满足。主要建议：(1) 示例 3 用 `refactor!` 删除公开配置项，和自己对 refactor 的定义（不改变行为）矛盾，改成 `feat(config)!` 或调整定义；(2) description 补一句排除范围（PR 描述、changelog、release notes），并覆盖 "how should I word this commit" 这类说法；(3) 写明 `BREAKING CHANGE` 必须大写，50 字符是 git 惯例而非 Conventional Commits 规范；TRIGGER-TESTS.md 加一列实际结果并真实跑一遍。
+- 2026-10-20 chat 复查：评分 5/5，上次 3 条建议全部改好（示例 3 改为 feat!、description 加排除范围、BREAKING CHANGE 大小写与 50 字符说明、语言规则、TRIGGER-TESTS 增加 Actual 列并记录了 10/10 的路由测试和局限）。新建议：路由测试只给了一个 skill，缺少竞争 skill，偏乐观；frontmatter 用了 `>-` 多行 description，可移植性上单行更稳。
