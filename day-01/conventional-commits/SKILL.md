@@ -1,6 +1,10 @@
 ---
 name: conventional-commits
-description: Generate Conventional Commits messages from git diffs or staged changes. Use when users ask to write a commit message, prepare a git commit, describe staged changes, or suggest a commit message from a diff.
+description: >-
+  Write Conventional Commits messages (type(scope): subject) from git diffs,
+  staged changes, or a description of the change. Use when the user asks for
+  a commit message, how to word or describe a commit, or wants a diff summarized
+  as a commit. Do not use for pull request descriptions, changelogs, or release notes.
 ---
 
 # Conventional Commits Writer
@@ -41,10 +45,11 @@ Use this structure:
 <optional footer(s)>
 ```
 
-- Use lowercase for type and scope.
-- Write the subject in English using an imperative verb such as `add`, `fix`, or `remove`.
-- Keep the subject at or below 50 characters when practical; never sacrifice clarity to meet the target.
-- Do not capitalize the first subject word unless it is a proper noun or identifier.
+- Prefer lowercase for type and scope unless repository conventions differ; the specification treats them as case-insensitive.
+- Write `BREAKING CHANGE:` in uppercase (`BREAKING-CHANGE:` is an accepted synonym).
+- Match the language of the repository's existing commit history; default to English. Use an imperative verb such as `add`, `fix`, or `remove` when writing in English.
+- Keep the subject at or below 50 characters when practical (a common git convention, not part of the Conventional Commits spec); never sacrifice clarity to meet the target.
+- For English subjects, prefer a lowercase first word unless it is a proper noun or identifier, or repository conventions differ.
 - Do not end the subject with a period.
 - Describe what changed, not vague activity such as `update code` or `fix stuff`.
 - Separate the header, body, and footer sections with blank lines when present.
@@ -77,7 +82,7 @@ Include tests for the export flow.
 Diff summary: Remove the deprecated `legacyMode` option from public configuration.
 
 ```text
-refactor(config)!: remove legacyMode option
+feat(config)!: remove legacyMode option
 
 BREAKING CHANGE: Configurations using legacyMode must remove
 that option before upgrading.
