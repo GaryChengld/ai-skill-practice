@@ -36,7 +36,7 @@
 - 出题日期：2026-10-20
 - 阶段：第一阶段 · 格式基础
 - 针对弱点：day-01 路由测试没有竞争 skill；description 用了 `>-` 多行写法
-- 状态：已出题，待完成
+- 状态：已完成，chat 评审 4/5，待确认是否修改
 
 **交付物**
 - `day-02/release-notes/SKILL.md`（frontmatter 用最终选中的 description，正文 ≤ 40 行）
@@ -57,4 +57,5 @@
 
 **检查与评审**
 - 2026-10-21 检查：未完成（main 上没有 day-02/ 文件夹，7 项交付物全部缺失）。
+- 2026-10-21 chat 评审：评分 4/5，7 条完成标准全部满足（字符数、SHA-256 指纹已核对）。主要建议：(1) 多条反例和 T05 在查询里自带“not a PR description / not for a product release”这类免责声明，等于把答案写进题目，导致 V2/V3 都是 100%、评测区分不出版本，需要补一批不带提示的难例；(2) description 开头“Write summaries of software changes”太泛，应改成以交付物为中心的写法，并删掉写给路由器看的“route by the requested deliverable”；(3) 补上 CHANGELOG.md / Keep a Changelog 文件更新这个边界，示例里加一条 Breaking Change。
 
