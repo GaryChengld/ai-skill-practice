@@ -1,0 +1,22 @@
+[
+  {"id":"T01","query":"Write release notes for v2.4 using the commits between v2.3 and v2.4.","should_trigger":true,"split":"train","expected_skill":"release-notes"},
+  {"id":"T02","query":"Turn these commits into a customer-facing changelog for our next version.","should_trigger":true,"split":"train","expected_skill":"release-notes"},
+  {"id":"T03","query":"Here are the merged PRs for this milestone. Tell our users what shipped, grouped by features and fixes.","should_trigger":true,"split":"train","expected_skill":"release-notes"},
+  {"id":"T04","query":"Draft a What's New page for version 3.0 from this change list, including upgrade guidance.","should_trigger":true,"split":"train","expected_skill":"release-notes"},
+  {"id":"T05","query":"This release contains just one merged pull request. Write its release notes for customers, not a PR description.","should_trigger":true,"split":"train","expected_skill":"release-notes"},
+  {"id":"T06","query":"Prepare a release digest from these commits with user-visible improvements, bug fixes, and breaking changes.","should_trigger":true,"split":"train","expected_skill":"release-notes"},
+  {"id":"T07","query":"Write a commit message for my staged changes.","should_trigger":false,"split":"train","expected_skill":"conventional-commits"},
+  {"id":"T08","query":"I fixed a crash in authentication. How should I word this commit using Conventional Commits?","should_trigger":false,"split":"train","expected_skill":"conventional-commits"},
+  {"id":"T09","query":"Write a pull request description from this diff, including a test plan for reviewers.","should_trigger":false,"split":"train","expected_skill":"pr-description"},
+  {"id":"T10","query":"Draft the PR title and body for my change to the release notes generator.","should_trigger":false,"split":"train","expected_skill":"pr-description"},
+  {"id":"T11","query":"Prepare a Markdown change summary of these CI and test commits for the infrastructure team's retrospective. Keep every internal job and test detail; this is not for a product release.","should_trigger":false,"split":"train","expected_skill":"none"},
+  {"id":"T12","query":"Summarize these diffs into a Markdown engineering report listing modified functions and coverage changes. This is not a PR description or a customer announcement.","should_trigger":false,"split":"train","expected_skill":"none"},
+  {"id":"V01","query":"Create release notes from this list of merged PRs for version 5.1.","should_trigger":true,"split":"validation","expected_skill":"release-notes"},
+  {"id":"V02","query":"Use the changes since v4.0 to write a customer changelog explaining improvements and migration steps.","should_trigger":true,"split":"validation","expected_skill":"release-notes"},
+  {"id":"V03","query":"Draft an upgrade bulletin for users covering the differences between tags v1.8 and v2.0.","should_trigger":true,"split":"validation","expected_skill":"release-notes"},
+  {"id":"V04","query":"Convert these completed tickets and merged PRs into a What's New announcement for our users.","should_trigger":true,"split":"validation","expected_skill":"release-notes"},
+  {"id":"V05","query":"Suggest a Conventional Commits subject for the changes in this release-notes file.","should_trigger":false,"split":"validation","expected_skill":"conventional-commits"},
+  {"id":"V06","query":"Summarize this branch in a pull request body so a maintainer can review the proposed merge.","should_trigger":false,"split":"validation","expected_skill":"pr-description"},
+  {"id":"V07","query":"Write an internal weekly activity report from these commits, including every refactor, CI edit, and test-only change. There is no release or customer audience.","should_trigger":false,"split":"validation","expected_skill":"none"},
+  {"id":"V08","query":"Explain how to use git log to compare two tags; do not draft any release documentation.","should_trigger":false,"split":"validation","expected_skill":"none"}
+]
