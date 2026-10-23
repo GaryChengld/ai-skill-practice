@@ -100,7 +100,7 @@
 - 出题日期：2026-10-23
 - 阶段：第一阶段 · 格式基础（可选 frontmatter 字段）
 - 针对弱点：day-03 的正文示例与测试输入同题（评测污染），本题要求示例与冒烟测试场景完全不同；继续控制说明文档篇幅
-- 状态：已提交，chat 评审 4/5
+- 状态：已完成，chat 复查 5/5
 
 **交付物**
 - `day-04/stale-branches/SKILL.md`
@@ -121,4 +121,5 @@
 
 **检查与评审**
 - 2026-10-23 chat 评审：评分 4/5，8 条完成标准全部满足（正文约 39 行；FIELDS 18 行；INVALID 6 例；smoke 6 个分支，用 trunk 作默认分支；正文无示例，没有评测污染；skills-ref 0.1.0 通过）。主要建议：(1) description 把“执行删除”整体排除，导致最常见的说法“delete my merged branches”不会触发本 skill，应改为触发并只给建议；(2) 正文用 `git symbolic-ref` 读 origin/HEAD，但它不在 allowed-tools 里，而且带两个参数时会写入，不能按前缀预批准，改用已批准的 `git rev-parse --abbrev-ref origin/HEAD`；(3) 正文句子过密、术语化（如 “verified upstream safety”“ancestry-merged”），宜拆短；smoke 只测了基于给定证据的分类，没有测真实 git 采集，可加一个临时仓库的加分测试。
+- 2026-10-23 chat 复查：评分 5/5，上次 3 条建议全部改好（f7432ae）：description 覆盖 clean up/delete 请求且只给建议；改用 `git rev-parse --abbrev-ref` 读 origin/HEAD，并顺带去掉了 `git log` 预批准、改用 for-each-ref 的 upstream:track 和 `git worktree list`；正文改成短句，45 行。新增真实 git 采集测试，我在 Git 2.43 上复跑也是 5 条 PASS。新建议：正文没覆盖“分支指向 baseline 同一提交、没有独有提交”的情况（提交时间旧不代表分支旧，可能是刚建的分支）；smoke 输出仍是初版正文跑的，宜用新正文重跑一次；测试脚本留下临时目录，可改用 TemporaryDirectory。
 
