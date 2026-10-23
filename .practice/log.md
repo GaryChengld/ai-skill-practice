@@ -100,7 +100,7 @@
 - 出题日期：2026-10-23
 - 阶段：第一阶段 · 格式基础（可选 frontmatter 字段）
 - 针对弱点：day-03 的正文示例与测试输入同题（评测污染），本题要求示例与冒烟测试场景完全不同；继续控制说明文档篇幅
-- 状态：已出题
+- 状态：已提交，chat 评审 4/5
 
 **交付物**
 - `day-04/stale-branches/SKILL.md`
@@ -118,4 +118,7 @@
 5. FIELDS.md ≤ 40 行：一张表覆盖 4 个可选字段（取值、为什么写/写成这样、Claude Code / GitHub Copilot / Codex 中至少两个平台对它的处理、客户端忽略它时会发生什么），外加 2-3 句说明哪些字段对这个 skill 真正必要、哪些可以删掉。
 6. INVALID-EXAMPLES.md 至少 4 个故意写错的 frontmatter 片段，每个附一句英文说明违反了哪条规则，至少覆盖：metadata 值不是字符串、compatibility 超过 500 字符（可描述而不必真写满）、allowed-tools 写成 YAML 列表、name 与目录不一致或格式非法。
 7. tests/smoke.md ≤ 30 行：描述一个虚构仓库状态（至少 5 个分支，含 1 个 squash merge 和 1 个有未推送提交的分支）并贴出在全新会话中加载 skill 后的输出；SKILL.md 里的示例不能使用该场景的分支名或相同情形（避免评测污染）。skill 内容全部使用英文。
+
+**检查与评审**
+- 2026-10-23 chat 评审：评分 4/5，8 条完成标准全部满足（正文约 39 行；FIELDS 18 行；INVALID 6 例；smoke 6 个分支，用 trunk 作默认分支；正文无示例，没有评测污染；skills-ref 0.1.0 通过）。主要建议：(1) description 把“执行删除”整体排除，导致最常见的说法“delete my merged branches”不会触发本 skill，应改为触发并只给建议；(2) 正文用 `git symbolic-ref` 读 origin/HEAD，但它不在 allowed-tools 里，而且带两个参数时会写入，不能按前缀预批准，改用已批准的 `git rev-parse --abbrev-ref origin/HEAD`；(3) 正文句子过密、术语化（如 “verified upstream safety”“ancestry-merged”），宜拆短；smoke 只测了基于给定证据的分类，没有测真实 git 采集，可加一个临时仓库的加分测试。
 
