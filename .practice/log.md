@@ -68,7 +68,7 @@
 - 出题日期：2026-10-22
 - 阶段：第一阶段 · 格式基础（正文指令的写法）
 - 针对弱点：前两题重心在 description 和路由评测，正文指令本身练得少；文档篇幅偏长（本题对说明文档设行数上限）；day-02 的“模糊请求先澄清还是给默认值”在本题正文里以“缺失信息处理”的形式练习
-- 状态：已完成，chat 复查 5/5
+- 状态：已完成，最终评分 5/5
 
 **交付物**
 - `day-03/incident-postmortem/BEFORE.md`（题目给出的糟糕版本，原样复制）
@@ -91,4 +91,31 @@
 **检查与评审**
 - 2026-10-23 chat 评审：评分 4/5，7 条完成标准全部满足（BEFORE 与题目逐字一致；正文约 71 行；无大写绝对词；REWRITE-NOTES 37 行、10 个问题；COMPARISON 14 行，PDT 换算正确）。主要建议：(1) 过度保守：after 输出 4 条行动项全是 Investigate，canary 漏检这一已观察到的检测缺口也没有 Detect 项，需允许“条件式”修复项并要求为已观察到的防护缺口给 Detect/Mitigate；(2) Gotcha 写死了 “October 14, 2026”，是针对测试输入的声明而非可复用规则，改为按日期判断 PDT/PST 的通用规则；(3) “估计≠测量”“回滚≠原因”在 Evidence/Analysis/Gotchas 重复出现，正文可削减约 15 行；description 的 “after an outage” 过窄，补上 degradation/incident review 等说法。
 - 2026-10-23 chat 复查：评分 5/5，上次 3 条建议全部改好（ab236a3：新增“已观察到的防护缺口必须有 Detect/Mitigate”和条件式修复规则，R3 输出含 1 条 Detect + 1 条条件式 Prevent；时区 Gotcha 改为按日期和地区的通用规则并设 PT 默认；重复的谨慎规则合并到 Gotchas，正文 72 行；description 扩展到 degradation/incident review）。R1-R3 迭代记录如实保留。新建议：Actions 里的示例“cap payment-client retries”和测试输入同题，R3 的条件式 Prevent 几乎照抄，属于评测污染，示例应换成其他领域；时区 Gotcha 一条塞了三件事，宜拆开；canary Gotcha 里的“propose an improvement”与 Actions 重复。
+- 2026-10-23 检查：复查（ab236a3）之后没有新修改，确认已完成，最终评分 5/5。复查提出的 3 条新建议（Actions 示例与测试输入同题造成评测污染、时区 Gotcha 拆分、canary Gotcha 与 Actions 重复）尚未处理，评测污染这一点带入 day-04。
+
+---
+
+## day-04：Optional Frontmatter Fields — a stale-branch report skill
+
+- 出题日期：2026-10-23
+- 阶段：第一阶段 · 格式基础（可选 frontmatter 字段）
+- 针对弱点：day-03 的正文示例与测试输入同题（评测污染），本题要求示例与冒烟测试场景完全不同；继续控制说明文档篇幅
+- 状态：已出题
+
+**交付物**
+- `day-04/stale-branches/SKILL.md`
+- `day-04/stale-branches/LICENSE.txt`
+- `day-04/stale-branches/FIELDS.md`
+- `day-04/stale-branches/INVALID-EXAMPLES.md`
+- `day-04/stale-branches/tests/smoke.md`
+- （可选）`day-04/NOTES.md`
+
+**完成标准**
+1. `name` 为 `stale-branches`，与目录同名；description 是单行纯字符串，说明做什么和什么时候用，并至少排除 1 个边界（如 rebase/merge 冲突、git 概念讲解）。
+2. frontmatter 包含全部 4 个可选字段且都合法：`license` 简短并指向同目录的 LICENSE.txt；`compatibility` 为 1-500 字符、只写真实环境需求（git、仓库访问、是否需要网络 fetch）；`metadata` 只含字符串键值（版本号加引号，键名不易冲突）；`allowed-tools` 为空格分隔的字符串（不是 YAML 列表），只预批准只读 git 命令，不包含能删除分支或推送的命令（不能用 `Bash(git:*)` 这类宽泛写法）。
+3. 正文 ≤ 60 行，包含：如何确定默认分支（不能假设一定是 main）；“已合并”和“过期”的判断方法及默认阈值；输出报告格式（分支、最后提交日期、作者、是否已合并、建议）；删除命令只作为建议列出，执行前必须得到用户明确确认，并写明原因；至少 3 个边界情况（如受保护/当前分支、未推送的本地提交、squash merge 导致看起来未合并）。
+4. 安全不依赖 allowed-tools：正文自己写明不执行破坏性命令，因为该字段是实验性的、只做预批准而不做限制、部分客户端会忽略它。
+5. FIELDS.md ≤ 40 行：一张表覆盖 4 个可选字段（取值、为什么写/写成这样、Claude Code / GitHub Copilot / Codex 中至少两个平台对它的处理、客户端忽略它时会发生什么），外加 2-3 句说明哪些字段对这个 skill 真正必要、哪些可以删掉。
+6. INVALID-EXAMPLES.md 至少 4 个故意写错的 frontmatter 片段，每个附一句英文说明违反了哪条规则，至少覆盖：metadata 值不是字符串、compatibility 超过 500 字符（可描述而不必真写满）、allowed-tools 写成 YAML 列表、name 与目录不一致或格式非法。
+7. tests/smoke.md ≤ 30 行：描述一个虚构仓库状态（至少 5 个分支，含 1 个 squash merge 和 1 个有未推送提交的分支）并贴出在全新会话中加载 skill 后的输出；SKILL.md 里的示例不能使用该场景的分支名或相同情形（避免评测污染）。skill 内容全部使用英文。
 
