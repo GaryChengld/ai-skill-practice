@@ -21,7 +21,7 @@
 | --- | --- | --- |
 | Evidence and time | low | Fabricated facts or inconsistent clocks corrupt the incident record. |
 | Analysis | high | Causal depth and branching depend on evidence; a default method guides without forcing an answer. |
-| Actions | medium | Choose relevant actions and count; owner, due date, type, and success criterion are fixed fields. |
+| Actions | medium | Choose relevant actions and count, including a Detect or Mitigate response to observed safeguard gaps; tracking fields and explicit conditions on hypothesis-dependent fixes are fixed. |
 | Boundaries | medium | Ongoing incidents, sensitive details, and conflicting reports require context-sensitive handling within explicit safeguards. |
 | Gotchas | low | Preserve distinctions that commonly produce false certainty about time, impact, and causality. |
 | Output template | medium | Keep comparable core sections while varying detail to match the evidence. |
@@ -35,3 +35,8 @@ Freeze the rewrite before testing. Use two fresh agents with no inherited conver
 
 - [Agent Skills best practices](https://agentskills.io/skill-creation/best-practices) informed the defaults, freedom levels, template, and self-check.
 - [NIST DST rules](https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-saving-time-dst) place October 14, 2026 within daylight saving time; the local system's Pacific timezone conversion independently returned 16:12Z for 09:12 PT.
+
+## Review revision
+
+The initial after output proposed four investigations and no safeguard improvement. Add a Detect or Mitigate action for each observed safeguard gap even with an Unknown root cause, and make hypothesis-dependent fixes conditional. Broaden the description beyond outages, replace the case-specific timezone fact with a date-and-region conversion procedure, and consolidate estimate and rollback cautions in Gotchas.
+Preserve the original outputs and save fresh revision runs separately as `tests/output-after-r1.md` through `tests/output-after-r3.md`. R1 produced Detect and conditional Prevent actions but omitted seconds; clarify that `:00` is padding, not observed precision. R2 retained Detect but deferred PT conversion, revealing a missing default. Default PT to US Pacific with an explicit interpretation unless context conflicts, then run one final R3 check. Use the same input and no outcome hints; report every run without relabeling the original results.
