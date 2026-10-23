@@ -68,7 +68,7 @@
 - 出题日期：2026-10-22
 - 阶段：第一阶段 · 格式基础（正文指令的写法）
 - 针对弱点：前两题重心在 description 和路由评测，正文指令本身练得少；文档篇幅偏长（本题对说明文档设行数上限）；day-02 的“模糊请求先澄清还是给默认值”在本题正文里以“缺失信息处理”的形式练习
-- 状态：已出题
+- 状态：已提交，chat 评审 4/5
 
 **交付物**
 - `day-03/incident-postmortem/BEFORE.md`（题目给出的糟糕版本，原样复制）
@@ -87,4 +87,7 @@
 5. 不出现没有理由的全大写 MUST/NEVER/ALWAYS：每条绝对规则后面都有原因。
 6. 用同一个输入分别在全新会话中跑 BEFORE 和 SKILL.md，输出保存到 tests/；COMPARISON.md ≤ 20 行，至少比较时区处理、指责性措辞、是否编造数字（约 1.2k 次失败结账）、行动项数量。
 7. skill 内容（SKILL.md、REWRITE-NOTES、COMPARISON）使用英文；REWRITE-NOTES.md ≤ 60 行。
+
+**检查与评审**
+- 2026-10-23 chat 评审：评分 4/5，7 条完成标准全部满足（BEFORE 与题目逐字一致；正文约 71 行；无大写绝对词；REWRITE-NOTES 37 行、10 个问题；COMPARISON 14 行，PDT 换算正确）。主要建议：(1) 过度保守：after 输出 4 条行动项全是 Investigate，canary 漏检这一已观察到的检测缺口也没有 Detect 项，需允许“条件式”修复项并要求为已观察到的防护缺口给 Detect/Mitigate；(2) Gotcha 写死了 “October 14, 2026”，是针对测试输入的声明而非可复用规则，改为按日期判断 PDT/PST 的通用规则；(3) “估计≠测量”“回滚≠原因”在 Evidence/Analysis/Gotchas 重复出现，正文可削减约 15 行；description 的 “after an outage” 过窄，补上 degradation/incident review 等说法。
 
