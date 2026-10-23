@@ -68,7 +68,7 @@
 - 出题日期：2026-10-22
 - 阶段：第一阶段 · 格式基础（正文指令的写法）
 - 针对弱点：前两题重心在 description 和路由评测，正文指令本身练得少；文档篇幅偏长（本题对说明文档设行数上限）；day-02 的“模糊请求先澄清还是给默认值”在本题正文里以“缺失信息处理”的形式练习
-- 状态：已提交，chat 评审 4/5
+- 状态：已完成，chat 复查 5/5
 
 **交付物**
 - `day-03/incident-postmortem/BEFORE.md`（题目给出的糟糕版本，原样复制）
@@ -90,4 +90,5 @@
 
 **检查与评审**
 - 2026-10-23 chat 评审：评分 4/5，7 条完成标准全部满足（BEFORE 与题目逐字一致；正文约 71 行；无大写绝对词；REWRITE-NOTES 37 行、10 个问题；COMPARISON 14 行，PDT 换算正确）。主要建议：(1) 过度保守：after 输出 4 条行动项全是 Investigate，canary 漏检这一已观察到的检测缺口也没有 Detect 项，需允许“条件式”修复项并要求为已观察到的防护缺口给 Detect/Mitigate；(2) Gotcha 写死了 “October 14, 2026”，是针对测试输入的声明而非可复用规则，改为按日期判断 PDT/PST 的通用规则；(3) “估计≠测量”“回滚≠原因”在 Evidence/Analysis/Gotchas 重复出现，正文可削减约 15 行；description 的 “after an outage” 过窄，补上 degradation/incident review 等说法。
+- 2026-10-23 chat 复查：评分 5/5，上次 3 条建议全部改好（ab236a3：新增“已观察到的防护缺口必须有 Detect/Mitigate”和条件式修复规则，R3 输出含 1 条 Detect + 1 条条件式 Prevent；时区 Gotcha 改为按日期和地区的通用规则并设 PT 默认；重复的谨慎规则合并到 Gotchas，正文 72 行；description 扩展到 degradation/incident review）。R1-R3 迭代记录如实保留。新建议：Actions 里的示例“cap payment-client retries”和测试输入同题，R3 的条件式 Prevent 几乎照抄，属于评测污染，示例应换成其他领域；时区 Gotcha 一条塞了三件事，宜拆开；canary Gotcha 里的“propose an improvement”与 Actions 重复。
 
