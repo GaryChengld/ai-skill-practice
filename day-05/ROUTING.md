@@ -22,3 +22,5 @@ Result: 12/12 label matches. Q01-Q04, Q06-Q07, and Q09 probe cross-skill confusi
 Closest to failure: Q12's actual reason was "This is an internal sprint summary for a team demo, not customer-facing release notes." Its NONE label matches our conservative policy, but the audience is unspecified; clarification is warranted rather than confidently calling it internal.
 No description change: release-notes already distinguishes customer deliverables from internal reports; this ambiguous result does not justify another wording rule. Q12 reuses a day-02 challenge, so it is not held-out evidence.
 This is one conversational metadata-selection run, not application activation or skill-body execution; 100% here does not establish general routing accuracy or correct follow-up behavior.
+
+Review follow-up: these explicit-deliverable queries remain an easy historical baseline. See [four harder independent-session cases](ROUTING-CHALLENGE.md) for the added test; do not pool its score with this context-sharing run.

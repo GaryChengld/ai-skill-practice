@@ -5,7 +5,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = {
-    "day-01/conventional-commits": None,
+    "day-01/conventional-commits": 150,
     "day-02/release-notes": 40,
     "day-02/competitors/pr-description": None,
     "day-03/incident-postmortem": 80,

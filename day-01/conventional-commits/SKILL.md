@@ -50,7 +50,7 @@ Use this structure:
 - Describe what changed, not vague activity such as `update code` or `fix stuff`.
 - Separate the header, body, and footer sections with blank lines when present.
 - Explain motivation and notable consequences in the body instead of repeating the subject.
-- Do not invent issue numbers, breaking impacts, or implementation details.
+- Do not invent issue numbers, breaking impacts, or implementation details, because a wrong reference links the commit to unrelated work and misleads reviewers.
 
 ## Examples
 

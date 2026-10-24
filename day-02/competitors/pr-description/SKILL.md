@@ -7,4 +7,4 @@ description: Write a title and body for a pull request from a diff, commit list,
 
 Describe the problem, the proposed behavior, and relevant validation for reviewers.
 Use the supplied diff or summary; ask for missing changes rather than inventing them.
-Return a proposed title and body. Do not publish the pull request.
+Return a proposed title and body. Do not publish the pull request, because requesting a draft does not authorize opening a pull request.

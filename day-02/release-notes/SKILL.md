@@ -10,7 +10,7 @@ description: Draft user-facing release notes, changelog entries, or What's New a
 Accept a commit list, a list of merged PRs, or a range between two tags.
 Confirm the target version or Unreleased section and audience when they are not clear.
 Use supplied material or inspect the requested range if repository access is available.
-If sources cannot be read, request them; do not invent changes, dates, or links.
+If sources cannot be read, request them; do not invent changes, dates, or links, because inaccurate release information can lead users to make the wrong upgrade decisions.
 
 ## Drafting
 

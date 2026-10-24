@@ -31,4 +31,5 @@ The reference validator checks selected structural constraints, not every specif
 
 The first single-line day-01 edit failed YAML parsing at the embedded `: `; removing the redundant format parenthesis fixed it. The message format remains in the body.
 Generated `catalog.xml` by capturing stdout bytes without editing: `agentskills to-prompt day-01/conventional-commits day-02/release-notes day-02/competitors/pr-description day-03/incident-postmortem day-04/stale-branches`.
+Review follow-up: all five revised skills passed validate again; lint includes the day-01 150-line cap, all body/report limits pass, and the unchanged catalog still matches fresh CLI stdout byte-for-byte. Independent routing cases are recorded separately in ROUTING-CHALLENGE.md.
 Sources: [specification](https://agentskills.io/specification), [PyPI CLI documentation](https://pypi.org/project/skills-ref/), [upstream reference implementation](https://github.com/agentskills/agentskills/tree/main/skills-ref).

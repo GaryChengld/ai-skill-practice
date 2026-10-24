@@ -43,8 +43,8 @@ State baseline ref/ID, report time, threshold, scope, and freshness. Use one row
 | Branch (full ref) | Last commit (UTC) | Tip author | Merged | Stale | Recommendation |
 | --- | --- | --- | --- | --- | --- |
 
-- Keep the default, current, protected, and any branch checked out in a worktree. Hold branches with missing information or commits absent from upstream for review.
-- Recommend local deletion only when the branch is merged into the baseline, has no commits missing from upstream, is known to be unprotected, and is not checked out in any worktree.
+- Keep the default, current, protected, and any branch checked out in a worktree. Hold branches with missing information, commits absent from upstream, or a tip equal to the baseline for owner review.
+- Recommend local deletion only when the branch is merged into the baseline, its tip differs from the baseline, it has no commits missing from upstream, is known to be unprotected, and is not checked out in any worktree.
 - List `git branch -d -- '<branch>'` only for eligible local branches. Quote each name and label suggestions Not executed; explicit confirmation required.
 - If `-d` refuses deletion, leave the branch for review. Do not suggest `-D`, because it bypasses the merge safeguard.
 - Stale but unmerged branches need review. Remote-tracking refs only describe cached state; list remote candidates for owner review without remote deletion commands.
@@ -53,4 +53,4 @@ State baseline ref/ID, report time, threshold, scope, and freshness. Use one row
 - A branch at the same commit as the baseline has no unique commits and is Merged Yes. Its commit age is not its creation date; mark Stale by the stated threshold but flag branch age Unknown and request owner review before recommending deletion.
 - Squash/rebase integration may not pass the history check. Record confirmed PR evidence separately, keep Merged No by history, and request review without force deletion.
 - Explain limits from shallow history, detached HEAD, missing remotes, or conflicting default evidence. History repair belongs outside this report; detached HEAD does not make other worktree branches disposable.
-- Before returning, check the baseline, UTC cutoff, both flags, upstream/protection/worktree holds, quoting, and that no mutations ran. Say when there are no candidates.
+- Before returning, check the baseline, UTC cutoff, both flags, upstream/protection/worktree/baseline-equal holds, quoting, and that no mutations ran. Say when there are no candidates.
