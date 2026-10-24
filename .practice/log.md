@@ -132,7 +132,7 @@
 - 阶段：第一阶段 · 格式基础（阶段小结）
 - 针对弱点：前几题积压的遗留建议（day-01 的 `>-` 多行 description、day-03 Actions 示例与测试输入同题、day-04 baseline 同提交情况和 smoke 未重跑）；之前路由测试每次只放 2-3 个 skill，本题第一次把全部 skill 放进同一个目录做路由；继续控制文档篇幅
 - 背景核实：PyPI 上 skills-ref 当前为 0.1.1，安装后命令名是 `agentskills`（validate / read-properties / to-prompt）；它会拒绝规范外的 frontmatter 字段、超长 compatibility、非小写 name，但不检查 metadata 值是否为字符串、allowed-tools 是否写成 YAML 列表
-- 状态：已出题
+- 状态：已提交，chat 评审 4/5
 
 **交付物**
 - `day-05/VALIDATION.md`
@@ -150,3 +150,5 @@
 5. ROUTING.md ≤ 30 行：在全新会话中只提供 catalog.xml（只有元数据）做路由，至少 10 条查询，其中至少 5 条是目录内两个 skill 之间的近似混淆（如 changelog vs commit message、release notes vs PR description、清理分支 vs 写 commit），至少 2 条应当不触发任何 skill；表格列出 expected / actual / pass，至少分析 1 条失败或最接近失败的查询，并说明是否需要改 description。
 6. skill 内容和 day-05 下所有文档使用英文。
 
+**检查与评审**
+- 2026-10-24 chat 评审：评分 4/5，6 条完成标准全部满足（已复核：5 个目录 validate 全部通过；lint.py 退出码 0；catalog.xml 去掉 location 后与我本地 to-prompt 输出一致；git-collection.py 在 Git 2.43 上 PASS 并清理临时目录；VALIDATION 34 行、AUDIT 30 行、ROUTING 24 行；修复在 bc5cf45）。主要建议：(1) 路由测试又是 12/12，和 day-02 的问题一样：几乎每条查询都直接写出了交付物名词（commit message、PR description、RCA、release notes），混淆只停留在话题层面；而且 12 条在同一个会话里依次发送，前面的查询会影响后面的判断。应补 4-5 条不带交付物名词的难例（如 “Clean up my feature branch before review.”），每条在独立会话里跑；(2) day-04 新增的“与 baseline 同一提交”规则只写在 Edge cases 里，没有接进第 3 节的 Hold 列表和最终自检，可能被删除建议规则覆盖；(3) AUDIT 中 day-01 的 Length 标成 N/A，但 day-01 有正文 ≤150 行的上限，应为 Pass（93/150），lint.py 的 SKILLS 也要补上 150；Rationale 的 3 个 Fail 可以各补一句原因来关闭。
