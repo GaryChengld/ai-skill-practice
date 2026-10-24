@@ -19,7 +19,7 @@ Keep the review blameless: describe system conditions, safeguards, and available
 
 Choose as many actions as supported gaps warrant; use no actions if none are justified and say why. Label new actions Proposed so readers do not mistake suggestions for commitments.
 An observed safeguard gap, such as a late alert or a canary that missed the failure, is evidence by itself: propose at least one Detect or Mitigate action for it even while the root cause is Unknown, because reducing a known exposure need not wait for a complete diagnosis.
-When a fix depends on an unconfirmed hypothesis, state the condition, for example "If retry amplification is confirmed, cap payment-client retries and add backoff." This keeps a useful proposal separate from a confirmed remedy.
+When a fix depends on an unconfirmed hypothesis, state the condition, for example "If a stale search-index alias is confirmed, switch aliases atomically after index validation." This keeps a useful proposal separate from a confirmed remedy.
 For each action include type (Prevent, Detect, Mitigate, or Investigate), owner, due date (`YYYY-MM-DD` or TBD), and a verifiable success criterion. Use TBD for unassigned owners or dates because a draft cannot create commitments.
 
 ## Boundaries
@@ -30,10 +30,11 @@ For each action include type (Prevent, Detect, Mitigate, or Investigate), owner,
 
 ## Gotchas
 
-- Convert named local zones using the event date and region's timezone rules, preferably a timezone database. Default "PT" to US Pacific and state that interpretation unless context conflicts; the date determines PDT (UTC-7) or PST (UTC-8), not the label alone. For minute-precision sources, keep the default format with `:00` padding and state that seconds were not observed, so formatting does not imply extra precision.
+- Convert named local zones using the event date and region's timezone rules, preferably a timezone database. Default "PT" to US Pacific and state that interpretation unless context conflicts; the date determines PDT (UTC-7) or PST (UTC-8), not the label alone.
+- For minute-precision sources, keep the default format with `:00` padding and state that seconds were not observed, so formatting does not imply extra precision.
 - Estimates are not measurements: preserve their units, approximate status, and confirmation needs. Failed checkout attempts are not unique customers or lost revenue.
 - A rollback is a mitigation, not proof that the deployment was the sole cause. A suspected exhausted pool remains a hypothesis without corroboration.
-- A canary that missed the failure establishes a detection gap; its traffic share and duration alone do not establish why. Propose a measurable safeguard improvement without presenting an unverified mechanism as fact.
+- A canary that missed the failure establishes a detection gap; its traffic share and duration alone do not establish why.
 - First observed impact and reported recovery bound an observation interval, not a verified outage duration; retain that distinction when calculating elapsed time.
 
 ## Output template

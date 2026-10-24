@@ -1,10 +1,6 @@
 ---
 name: conventional-commits
-description: >-
-  Write Conventional Commits messages (type(scope): subject) from git diffs,
-  staged changes, or a description of the change. Use when the user asks for
-  a commit message, how to word or describe a commit, or wants a diff summarized
-  as a commit. Do not use for pull request descriptions, changelogs, or release notes.
+description: Write Conventional Commits messages from git diffs, staged changes, or a description of the change. Use when the user asks for a commit message, how to word or describe a commit, or wants a diff summarized as a commit. Do not use for pull request descriptions, changelogs, or release notes.
 ---
 
 # Conventional Commits Writer

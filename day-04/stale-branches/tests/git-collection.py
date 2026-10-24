@@ -12,8 +12,9 @@ def git(*args):
     return result.stdout.strip()
 
 
-# Five setup lines. Mutations here create the fixture; they are not skill actions.
-root = Path(tempfile.mkdtemp(prefix="stale-branches-collection-"))
+# Setup mutations create only the temporary fixture; they are not skill actions.
+fixture = tempfile.TemporaryDirectory(prefix="stale-branches-collection-")
+root = Path(fixture.name)
 git("init", "--quiet", root / "source")
 git("-C", root / "source", "symbolic-ref", "HEAD", "refs/heads/develop")
 git("-C", root / "source", "-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid", "commit", "--quiet", "--allow-empty", "-m", "Seed")
@@ -63,3 +64,6 @@ print("PASS: dates, tip authors, and current-worktree path collected")
 print("PASS: develop is ahead 1; topic/retired-notes has no commits missing from upstream")
 print("PASS: only topic/retired-notes is included in the baseline history")
 print("PASS: refs unchanged during read-only collection; no cleanup commands executed")
+fixture.cleanup()
+assert not root.exists()
+print("PASS: temporary fixture removed after collection")

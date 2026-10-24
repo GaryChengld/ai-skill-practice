@@ -50,6 +50,7 @@ State baseline ref/ID, report time, threshold, scope, and freshness. Use one row
 - Stale but unmerged branches need review. Remote-tracking refs only describe cached state; list remote candidates for owner review without remote deletion commands.
 
 ## Edge cases and final check
+- A branch at the same commit as the baseline has no unique commits and is Merged Yes. Its commit age is not its creation date; mark Stale by the stated threshold but flag branch age Unknown and request owner review before recommending deletion.
 - Squash/rebase integration may not pass the history check. Record confirmed PR evidence separately, keep Merged No by history, and request review without force deletion.
 - Explain limits from shallow history, detached HEAD, missing remotes, or conflicting default evidence. History repair belongs outside this report; detached HEAD does not make other worktree branches disposable.
 - Before returning, check the baseline, UTC cutoff, both flags, upstream/protection/worktree holds, quoting, and that no mutations ran. Say when there are no candidates.
