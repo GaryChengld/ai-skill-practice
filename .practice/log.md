@@ -100,7 +100,7 @@
 - 出题日期：2026-10-23
 - 阶段：第一阶段 · 格式基础（可选 frontmatter 字段）
 - 针对弱点：day-03 的正文示例与测试输入同题（评测污染），本题要求示例与冒烟测试场景完全不同；继续控制说明文档篇幅
-- 状态：已完成，chat 复查 5/5
+- 状态：已完成，最终评分 5/5
 
 **交付物**
 - `day-04/stale-branches/SKILL.md`
@@ -122,4 +122,31 @@
 **检查与评审**
 - 2026-10-23 chat 评审：评分 4/5，8 条完成标准全部满足（正文约 39 行；FIELDS 18 行；INVALID 6 例；smoke 6 个分支，用 trunk 作默认分支；正文无示例，没有评测污染；skills-ref 0.1.0 通过）。主要建议：(1) description 把“执行删除”整体排除，导致最常见的说法“delete my merged branches”不会触发本 skill，应改为触发并只给建议；(2) 正文用 `git symbolic-ref` 读 origin/HEAD，但它不在 allowed-tools 里，而且带两个参数时会写入，不能按前缀预批准，改用已批准的 `git rev-parse --abbrev-ref origin/HEAD`；(3) 正文句子过密、术语化（如 “verified upstream safety”“ancestry-merged”），宜拆短；smoke 只测了基于给定证据的分类，没有测真实 git 采集，可加一个临时仓库的加分测试。
 - 2026-10-23 chat 复查：评分 5/5，上次 3 条建议全部改好（f7432ae）：description 覆盖 clean up/delete 请求且只给建议；改用 `git rev-parse --abbrev-ref` 读 origin/HEAD，并顺带去掉了 `git log` 预批准、改用 for-each-ref 的 upstream:track 和 `git worktree list`；正文改成短句，45 行。新增真实 git 采集测试，我在 Git 2.43 上复跑也是 5 条 PASS。新建议：正文没覆盖“分支指向 baseline 同一提交、没有独有提交”的情况（提交时间旧不代表分支旧，可能是刚建的分支）；smoke 输出仍是初版正文跑的，宜用新正文重跑一次；测试脚本留下临时目录，可改用 TemporaryDirectory。
+- 2026-10-24 检查：复查（f7432ae）之后没有新修改，确认已完成，最终评分 5/5。复查提出的 3 条新建议（分支与 baseline 指向同一提交的情况、用新正文重跑 smoke、测试脚本改用 TemporaryDirectory）尚未处理，前两条带入 day-05 的修复任务。
+
+---
+
+## day-05：Stage Review — what the validator catches, and what it doesn't
+
+- 出题日期：2026-10-24
+- 阶段：第一阶段 · 格式基础（阶段小结）
+- 针对弱点：前几题积压的遗留建议（day-01 的 `>-` 多行 description、day-03 Actions 示例与测试输入同题、day-04 baseline 同提交情况和 smoke 未重跑）；之前路由测试每次只放 2-3 个 skill，本题第一次把全部 skill 放进同一个目录做路由；继续控制文档篇幅
+- 背景核实：PyPI 上 skills-ref 当前为 0.1.1，安装后命令名是 `agentskills`（validate / read-properties / to-prompt）；它会拒绝规范外的 frontmatter 字段、超长 compatibility、非小写 name，但不检查 metadata 值是否为字符串、allowed-tools 是否写成 YAML 列表
+- 状态：已出题
+
+**交付物**
+- `day-05/VALIDATION.md`
+- `day-05/AUDIT.md`
+- `day-05/catalog.xml`
+- `day-05/ROUTING.md`
+- 对 day-01 / day-03 / day-04 已有 skill 的原地修复（提交记录在 AUDIT.md 中列出）
+- （可选）`day-05/lint.py`、`day-05/NOTES.md`
+
+**完成标准**
+1. VALIDATION.md ≤ 40 行：写明工具名、版本和安装命令；贴出修复后对 5 个 skill 目录（含 pr-description 存根）的 validate 结果；另把 day-04 INVALID-EXAMPLES 中至少 4 个片段放进临时目录逐个验证，用表格列出“被拦截 / 漏过”，并用 2-3 句说明校验器的覆盖范围意味着什么（例如平台专有字段会被判为不合法）。
+2. AUDIT.md ≤ 40 行：一张表，5 个 skill × 至少 6 项校验器不覆盖的质量检查（如单行 description、有 “Use when”、有排除边界、正文行数、无厂商专有工具名/路径、绝对规则带理由、示例不与测试输入同题、遗留评审建议已处理），每格 Pass / Fail / N/A。
+3. 至少 3 处修复，分布在至少 2 个旧 skill 中，必须包括：day-01 description 改为单行纯字符串；day-03 Actions 示例换成与测试输入无关的领域；day-04 补上“分支与 baseline 指向同一提交、没有独有提交”的边界情况或用新正文重跑 smoke（二选一或都做）。AUDIT.md 的 Fixes 部分逐条列出提交哈希和一句说明；修复后 validate 仍全部通过，原有行数上限不被突破。
+4. catalog.xml 是对修复后全部 5 个 skill 运行 `agentskills to-prompt` 的输出。
+5. ROUTING.md ≤ 30 行：在全新会话中只提供 catalog.xml（只有元数据）做路由，至少 10 条查询，其中至少 5 条是目录内两个 skill 之间的近似混淆（如 changelog vs commit message、release notes vs PR description、清理分支 vs 写 commit），至少 2 条应当不触发任何 skill；表格列出 expected / actual / pass，至少分析 1 条失败或最接近失败的查询，并说明是否需要改 description。
+6. skill 内容和 day-05 下所有文档使用英文。
 
