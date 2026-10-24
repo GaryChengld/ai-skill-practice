@@ -132,7 +132,7 @@
 - 阶段：第一阶段 · 格式基础（阶段小结）
 - 针对弱点：前几题积压的遗留建议（day-01 的 `>-` 多行 description、day-03 Actions 示例与测试输入同题、day-04 baseline 同提交情况和 smoke 未重跑）；之前路由测试每次只放 2-3 个 skill，本题第一次把全部 skill 放进同一个目录做路由；继续控制文档篇幅
 - 背景核实：PyPI 上 skills-ref 当前为 0.1.1，安装后命令名是 `agentskills`（validate / read-properties / to-prompt）；它会拒绝规范外的 frontmatter 字段、超长 compatibility、非小写 name，但不检查 metadata 值是否为字符串、allowed-tools 是否写成 YAML 列表
-- 状态：已提交，chat 评审 4/5
+- 状态：已完成，chat 复查 5/5
 
 **交付物**
 - `day-05/VALIDATION.md`
@@ -152,3 +152,4 @@
 
 **检查与评审**
 - 2026-10-24 chat 评审：评分 4/5，6 条完成标准全部满足（已复核：5 个目录 validate 全部通过；lint.py 退出码 0；catalog.xml 去掉 location 后与我本地 to-prompt 输出一致；git-collection.py 在 Git 2.43 上 PASS 并清理临时目录；VALIDATION 34 行、AUDIT 30 行、ROUTING 24 行；修复在 bc5cf45）。主要建议：(1) 路由测试又是 12/12，和 day-02 的问题一样：几乎每条查询都直接写出了交付物名词（commit message、PR description、RCA、release notes），混淆只停留在话题层面；而且 12 条在同一个会话里依次发送，前面的查询会影响后面的判断。应补 4-5 条不带交付物名词的难例（如 “Clean up my feature branch before review.”），每条在独立会话里跑；(2) day-04 新增的“与 baseline 同一提交”规则只写在 Edge cases 里，没有接进第 3 节的 Hold 列表和最终自检，可能被删除建议规则覆盖；(3) AUDIT 中 day-01 的 Length 标成 N/A，但 day-01 有正文 ≤150 行的上限，应为 Pass（93/150），lint.py 的 SKILLS 也要补上 150；Rationale 的 3 个 Fail 可以各补一句原因来关闭。
+- 2026-10-24 chat 复查：评分 5/5，上次 3 条建议全部改好（998c513 + a6c9bf0）：新增 ROUTING-CHALLENGE.md，4 条不带交付物名词的难例各开独立会话，4/4，并如实记录了一次因 catalog 抄错而作废的 H03；baseline 同提交规则已接进第 3 节的 Hold 列表、删除条件和最终自检；AUDIT 的 day-01 Length 改为 93/150，lint.py 补上 150，三个 Rationale 各补原因后改为 Pass。复核：validate 全部通过，lint 退出码 0，catalog 仍与 CLI 输出一致，ROUTING.md 26 行。新建议：Edge cases 里 “request owner review before recommending deletion” 和主流程“同提交永不建议删除”略有出入，可改为 “hold for owner review; do not recommend deletion”；4 条难例来自教练，不算留出集，下次自己写一批再跑；H03 抄错说明 catalog 应直接粘贴原始文件而不是手工转写。
