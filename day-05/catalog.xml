@@ -1,0 +1,57 @@
+<available_skills>
+<skill>
+<name>
+conventional-commits
+</name>
+<description>
+Write Conventional Commits messages from git diffs, staged changes, or a description of the change. Use when the user asks for a commit message, how to word or describe a commit, or wants a diff summarized as a commit. Do not use for pull request descriptions, changelogs, or release notes.
+</description>
+<location>
+C:\Workspaces\ai-skill-practice\day-01\conventional-commits\SKILL.md
+</location>
+</skill>
+<skill>
+<name>
+release-notes
+</name>
+<description>
+Draft user-facing release notes, changelog entries, or What&#x27;s New announcements for a release from commits, merged PRs, or a tag range. Use this skill when the user wants to tell users or customers what changed in a release, even if the input is a list of commits or PRs. Do not use for single commit messages, pull request descriptions for reviewers, code review, Git how-to questions, or internal engineering or activity reports.
+</description>
+<location>
+C:\Workspaces\ai-skill-practice\day-02\release-notes\SKILL.md
+</location>
+</skill>
+<skill>
+<name>
+pr-description
+</name>
+<description>
+Write a title and body for a pull request from a diff, commit list, or change summary. Use this skill when the user asks for a PR description, pull request body, or reviewer-facing summary and test plan for a proposed merge. Do not use for commit messages, release notes, code review, or internal engineering reports.
+</description>
+<location>
+C:\Workspaces\ai-skill-practice\day-02\competitors\pr-description\SKILL.md
+</location>
+</skill>
+<skill>
+<name>
+incident-postmortem
+</name>
+<description>
+Draft blameless postmortems, post-incident reviews, incident reviews, outage write-ups, and RCA documents from incident logs, chat exports, alerts, or investigation notes after an outage, degradation, or other service incident. Use when the user wants to document what happened, why, and what to change. Do not use for live incident response or customer-facing status-page updates.
+</description>
+<location>
+C:\Workspaces\ai-skill-practice\day-03\incident-postmortem\SKILL.md
+</location>
+</skill>
+<skill>
+<name>
+stale-branches
+</name>
+<description>
+Report merged or inactive Git branches and propose cleanup commands without running them. Use when the user asks to audit, clean up, or delete stale or merged branches; it lists candidates and suggested commands for confirmation. Do not use for merge or rebase conflict resolution or Git tutorials.
+</description>
+<location>
+C:\Workspaces\ai-skill-practice\day-04\stale-branches\SKILL.md
+</location>
+</skill>
+</available_skills>
