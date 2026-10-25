@@ -132,7 +132,7 @@
 - 阶段：第一阶段 · 格式基础（阶段小结）
 - 针对弱点：前几题积压的遗留建议（day-01 的 `>-` 多行 description、day-03 Actions 示例与测试输入同题、day-04 baseline 同提交情况和 smoke 未重跑）；之前路由测试每次只放 2-3 个 skill，本题第一次把全部 skill 放进同一个目录做路由；继续控制文档篇幅
 - 背景核实：PyPI 上 skills-ref 当前为 0.1.1，安装后命令名是 `agentskills`（validate / read-properties / to-prompt）；它会拒绝规范外的 frontmatter 字段、超长 compatibility、非小写 name，但不检查 metadata 值是否为字符串、allowed-tools 是否写成 YAML 列表
-- 状态：已完成，chat 复查 5/5
+- 状态：已完成，最终评分 5/5
 
 **交付物**
 - `day-05/VALIDATION.md`
@@ -153,3 +153,33 @@
 **检查与评审**
 - 2026-10-24 chat 评审：评分 4/5，6 条完成标准全部满足（已复核：5 个目录 validate 全部通过；lint.py 退出码 0；catalog.xml 去掉 location 后与我本地 to-prompt 输出一致；git-collection.py 在 Git 2.43 上 PASS 并清理临时目录；VALIDATION 34 行、AUDIT 30 行、ROUTING 24 行；修复在 bc5cf45）。主要建议：(1) 路由测试又是 12/12，和 day-02 的问题一样：几乎每条查询都直接写出了交付物名词（commit message、PR description、RCA、release notes），混淆只停留在话题层面；而且 12 条在同一个会话里依次发送，前面的查询会影响后面的判断。应补 4-5 条不带交付物名词的难例（如 “Clean up my feature branch before review.”），每条在独立会话里跑；(2) day-04 新增的“与 baseline 同一提交”规则只写在 Edge cases 里，没有接进第 3 节的 Hold 列表和最终自检，可能被删除建议规则覆盖；(3) AUDIT 中 day-01 的 Length 标成 N/A，但 day-01 有正文 ≤150 行的上限，应为 Pass（93/150），lint.py 的 SKILLS 也要补上 150；Rationale 的 3 个 Fail 可以各补一句原因来关闭。
 - 2026-10-24 chat 复查：评分 5/5，上次 3 条建议全部改好（998c513 + a6c9bf0）：新增 ROUTING-CHALLENGE.md，4 条不带交付物名词的难例各开独立会话，4/4，并如实记录了一次因 catalog 抄错而作废的 H03；baseline 同提交规则已接进第 3 节的 Hold 列表、删除条件和最终自检；AUDIT 的 day-01 Length 改为 93/150，lint.py 补上 150，三个 Rationale 各补原因后改为 Pass。复核：validate 全部通过，lint 退出码 0，catalog 仍与 CLI 输出一致，ROUTING.md 26 行。新建议：Edge cases 里 “request owner review before recommending deletion” 和主流程“同提交永不建议删除”略有出入，可改为 “hold for owner review; do not recommend deletion”；4 条难例来自教练，不算留出集，下次自己写一批再跑；H03 抄错说明 catalog 应直接粘贴原始文件而不是手工转写。
+- 2026-10-25 检查：复查（998c513 + a6c9bf0）之后没有新修改，确认已完成，最终评分 5/5。复查提出的 3 条新建议尚未处理：day-04 Edge cases 的 “request owner review before recommending deletion” 措辞（列为 day-06 加分项）；自己编写留出测试输入（带入 day-06 的完成标准）；直接粘贴原始文件而非手工转写（带入 day-06 的加载测试方法）。
+
+---
+
+## day-06：Split the Body — progressive disclosure for incident-postmortem
+
+- 出题日期：2026-10-25
+- 阶段：第二阶段 · 渐进式披露
+- 针对弱点：day-05 的难例由教练提供、不算留出集（本题测试输入由自己编写）；day-05 H03 因手工转写 catalog 作废（本题要求直接加载原始文件）；继续防评测污染（参考文件里的例子不能和测试输入同题）
+- 背景核实：agentskills.io 规范——元数据约 100 tokens 启动时加载；正文建议 < 5000 tokens、SKILL.md < 500 行；scripts/references/assets 按需加载；文件引用用相对 skill 根目录的路径，只保持一层深度
+
+**交付物**
+- `day-06/incident-postmortem/SKILL.md`
+- `day-06/incident-postmortem/references/timezones.md`
+- `day-06/incident-postmortem/references/rca-methods.md`
+- `day-06/incident-postmortem/references/sensitive-incidents.md`
+- `day-06/incident-postmortem/tests/input-a.md`、`input-b.md`、`input-c.md`（自己编写）
+- `day-06/incident-postmortem/tests/LOADING.md`
+- （可选）`day-06/NOTES.md`
+
+**完成标准**
+1. 目录为 `day-06/incident-postmortem/`（从 day-03 复制后重构，day-03 原样保留）；`name` 与目录同名，description 单行纯字符串；`agentskills validate` 通过。
+2. SKILL.md 正文 ≤ 55 行，仍包含始终需要的内容：证据规则、blameless 规则、行动项规则、输出模板、返回前自检。
+3. 每个参考文件在正文中用相对路径（`references/<file>.md`）引用，并带明确的加载条件（“Read … when …”）；正文不要求“先读完所有参考文件”；参考文件之间不互相引用（只一层深度）。
+4. 每个参考文件只讲一个主题，30-120 行；超过 100 行的在开头有目录；每个文件至少有一项 day-03 正文里没有的新内容（如 timezones：DST 切换时不存在/重复的本地时间；rca-methods：因果树的完整小例子及何时从 5 Whys 切换；sensitive-incidents：脱敏清单和对外分发前的审阅要求）。
+5. 同一条规则只出现在一个地方：正文与参考文件之间没有重复的规则（正文可以用一句话指向参考文件）。参考文件里的例子不能使用 INC-482 结账场景，也不能与 tests/ 的输入同题。
+6. tests/ 下 3 个自己编写的输入：A 只需正文（单一时区 UTC、无敏感信息），B 涉及跨时区且跨 DST 切换，C 涉及泄露的凭证或客户数据。每个在全新会话中运行，加载的是磁盘上的原始 skill 文件夹（不手工转写）。
+7. LOADING.md ≤ 30 行：表格列出每个输入的预期加载文件、实际打开的文件（依据会话记录/工具调用日志）、是否通过；列出各层大小（description 字符数、正文行数和约 tokens、每个参考文件约 tokens，按字符数/4 估算）；至少一段分析多读或漏读的情况及对加载条件措辞的修改。
+8. skill 内容和 tests/ 下的文档使用英文。
+
