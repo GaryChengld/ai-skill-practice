@@ -1,0 +1,60 @@
+{
+  "a": {
+    "session_id": "01a18fa7-1e0f-7b61-b0ec-4ec134055ead",
+    "source_file": "rollout-2026-10-30T21-50-56-01a18fa7-1e0f-7b61-b0ec-4ec134055ead.jsonl",
+    "source_sha256": "32977e541fa2c92b7ba559fc94ac36fcc5745ad15b36c033d745d77a893cc8be",
+    "tool_excerpt_sha256": "9f3ed667d806a5c669d92d42907ee6f3f47602fd5019043aa83e04a31abc5f61",
+    "model": "gpt-6.1-sol",
+    "checklist_revision": "five-field assertion",
+    "omitted_metadata_only_result_call_ids": [
+      "call_b21b25eaf25448f389bf064ff8583735"
+    ],
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-06/incident-postmortem to draft a postmortem from C:/Workspaces/ai-skill-practice/day-06/incident-postmortem/tests/input-a.md."
+  },
+  "b": {
+    "session_id": "01a18fa7-394d-7de1-a985-f2937c32c85d",
+    "source_file": "rollout-2026-10-30T21-51-04-01a18fa7-394d-7de1-a985-f2937c32c85d.jsonl",
+    "source_sha256": "9a3514607c9636fcf0873210ccf7a0f9c06d7ac76f7f199b6c3fc7c77b558552",
+    "tool_excerpt_sha256": "3560f04e34ec8553073987c2c5e5c2261de5911f1235fe10dd26782e9940800f",
+    "model": "gpt-6.1-sol",
+    "checklist_revision": "five-field assertion",
+    "omitted_metadata_only_result_call_ids": [],
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-06/incident-postmortem to draft a postmortem from C:/Workspaces/ai-skill-practice/day-06/incident-postmortem/tests/input-b.md."
+  },
+  "c": {
+    "session_id": "01a18fa7-4b37-7003-bd59-b9aa2e4082ae",
+    "source_file": "rollout-2026-10-30T21-51-08-01a18fa7-4b37-7003-bd59-b9aa2e4082ae.jsonl",
+    "source_sha256": "38ea34b5803429de506f2c5f02635d2a823049cd51ab49b1684f9b88d0c560d3",
+    "tool_excerpt_sha256": "c2553c44e9bce20043f6957607d64462f66a6d755b06d2368f0e7f7c7161c120",
+    "model": "gpt-6.1-sol",
+    "checklist_revision": "five-field assertion",
+    "omitted_metadata_only_result_call_ids": [
+      "call_e07c79d3e54d4728bc0ed83a64315720"
+    ],
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-06/incident-postmortem to draft a postmortem from C:/Workspaces/ai-skill-practice/day-06/incident-postmortem/tests/input-c.md."
+  },
+  "d": {
+    "session_id": "01a18fa7-5869-7571-848f-82273f8c40d2",
+    "source_file": "rollout-2026-10-30T21-51-12-01a18fa7-5869-7571-848f-82273f8c40d2.jsonl",
+    "source_sha256": "0ffd66a78201ca60413d70545938e3dad1516508cf29f86d02e69ac9f6134f84",
+    "tool_excerpt_sha256": "ae5b96fe02c9156a16abf4c6f105fb77094ca5c4066fda17da643e47c866ef04",
+    "model": "gpt-6.1-sol",
+    "checklist_revision": "five-field assertion",
+    "omitted_metadata_only_result_call_ids": [
+      "call_8dd1c11053774f46937bacccc568d6d1"
+    ],
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-06/incident-postmortem to draft a postmortem from C:/Workspaces/ai-skill-practice/day-06/incident-postmortem/tests/input-d.md."
+  },
+  "c-followup": {
+    "session_id": "01a18faa-6a6a-70e2-8db0-f7fc6b751528",
+    "source_file": "rollout-2026-10-30T21-54-33-01a18faa-6a6a-70e2-8db0-f7fc6b751528.jsonl",
+    "source_sha256": "0da227f919ff3267d6ebca2222fb7d78f334f329c255da413fd72ee702a5e625",
+    "tool_excerpt_sha256": "73fc0934d81b9cf0b2b857eff9254496b14052010da535f57673daba27aeb3dc",
+    "model": "gpt-6.1-sol",
+    "checklist_revision": "count-and-repair",
+    "omitted_metadata_only_result_call_ids": [
+      "call_a082a9168fe1450087896c134fca2e69"
+    ],
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-06/incident-postmortem to draft a postmortem from C:/Workspaces/ai-skill-practice/day-06/incident-postmortem/tests/input-c.md."
+  }
+}

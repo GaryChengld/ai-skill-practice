@@ -12,7 +12,7 @@ description: Draft blameless postmortems, post-incident reviews, incident review
 - First observed impact and reported recovery bound an observation interval, not a verified total incident duration.
 - Use evidence-limited 5 Whys by default; stop at unsupported links rather than forcing five answers.
 - Keep the review blameless: describe system conditions and available information, because blame discourages accurate reporting and hides systemic fixes.
-- Use UTC `YYYY-MM-DDTHH:mm:ssZ`; document the source time basis. Pad minute-only timestamps with `:00` and disclose their precision. Preserve unresolved source times as UTC Unknown rather than guessing their order.
+- Use UTC `YYYY-MM-DDTHH:mm:ssZ`; document the source time basis. Pad minute-only timestamps with `:00` and disclose their precision. Preserve unresolved source times as UTC Unknown.
 - For an ongoing incident, label the draft Preliminary and recovery Unknown; defer final conclusions so the draft does not imply resolution.
 
 ## Conditional references
@@ -55,4 +55,4 @@ Time basis: <source zones, conversion basis, and precision or uncertainty>
 ## Before returning
 - [ ] Claims, uncertainty, time basis, source conflicts, and blameless language checked against the evidence rules.
 - [ ] Applicable references applied, including any handling or distribution requirements.
-- [ ] Actions satisfy the action rules and expose outstanding commitments.
+- [ ] Count pipe-delimited cells in every Action Items row: exactly five (action, type, owner or TBD, due date `YYYY-MM-DD` or TBD, observable success criterion). Repair short rows before returning; unassigned owner and due date need separate TBD cells.

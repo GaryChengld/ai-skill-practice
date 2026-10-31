@@ -1,27 +1,29 @@
 # Loading evaluation
 
-Method: six independent `fork_turns:none` sessions, three initial and three final, with inherited model settings (not pinned). Each received only the original skill-folder path, its input path, and an instruction to use the skill; file contents were not pasted or transcribed. Reads used `exec_command` with `cmd.exe type`.
-Expected loads were recorded before testing. Input reads are excluded below; detailed final traces include all content reads. Final outputs are `output-a.md`, `output-b.md`, and `output-c.md`; initial read traces remain in `trace-*-initial.md`.
+Method: five new independent Codex tasks, with inherited model settings and no conversation history. Each received one ordinary task prompt; none was told about loading tests or asked to write a trace. The original skill folder was read from disk.
+Prompt: `Use the skill at SKILL_DIR to draft a postmortem from INPUT_FILE.` Literal paths, session IDs, model, and source/excerpt hashes are in [manifest.json](harness-review/manifest.json).
+Evidence comes from local `~/.codex/sessions/**/*.jsonl`, extracted by [collect-harness.py](collect-harness.py). [READS.md](harness-review/READS.md) correlates calls and returned content; historical model-authored traces are not used as proof. Input reads, failed attempts, and directory listings are excluded below.
 
-| Input | Expected skill files | Actually opened in final run | Pass |
+| Input/run | Expected skill files | Confirmed content loads | Loading pass |
 | --- | --- | --- | --- |
-| A | SKILL.md | SKILL.md ([trace](trace-a.md)) | Pass |
-| B | SKILL.md; references/timezones.md | SKILL.md; references/timezones.md ([trace](trace-b.md)) | Pass |
-| C | SKILL.md; references/sensitive-incidents.md | SKILL.md; references/sensitive-incidents.md ([trace](trace-c.md)) | Pass |
+| A | SKILL.md | SKILL.md | Pass |
+| B | SKILL.md; references/timezones.md | SKILL.md; references/timezones.md | Pass |
+| C | SKILL.md; references/sensitive-incidents.md | SKILL.md; references/sensitive-incidents.md | Pass |
+| D | SKILL.md; references/rca-methods.md | SKILL.md; references/rca-methods.md | Pass |
+| C follow-up | SKILL.md; references/sensitive-incidents.md | SKILL.md; references/sensitive-incidents.md | Pass |
 
-Sizes use UTF-8 decoded character counts with LF newlines, divided by 4 and rounded; these are estimates, not tokenizer measurements. Body counts trim outer blank lines.
+Sizes use decoded characters with LF newlines divided by 4 and rounded; body counts trim outer blank lines. These are estimates, not tokenizer measurements.
 
 | Layer | Characters | Lines | Approx. tokens |
 | --- | --- | --- | --- |
 | description | 381 | 1 | 95 |
-| SKILL.md body | 3,628 | 53 (55 including separator padding) | 907 |
+| Final SKILL.md body | 3,774 | 53 (55 including separator padding) | 944 |
 | references/timezones.md | 2,580 | 41 | 645 |
 | references/rca-methods.md | 2,604 | 46 | 651 |
 | references/sensitive-incidents.md | 2,968 | 40 | 742 |
 
-Neither round showed over-reading or under-reading. B preserved a repeated-hour timestamp as Unknown without loading RCA guidance: timestamp uncertainty alone is not a competing cause. Clarified the RCA condition from "competing explanations" to "competing causal explanations" to prevent that possible over-read; this is a preventive clarification, not a demonstrated failure fix.
+No unrelated reference content or missed required reference was observed. D triggered RCA from two independent paths without explicitly requesting a tree, and its output includes one. B preserved both UTC candidates for its repeated-hour timestamp. The earlier clarification to "competing causal explanations" remains; this review removed the redundant timeline-order phrase without changing reference conditions.
 
-Initial inputs included routing hints (negative sensitive-data statements and single-chain assertions) and explicit redaction/order instructions. Removed those hints, then reran A/B/C in new sessions against the final files; loading results stayed the same. Initial failed sandbox starts read no content; final traces have no failed reads.
+Output checks: original C had 3/4 short action rows, correcting the old report's count of one. An enumerated five-field checklist still left 4/5 C and 3/4 D rows short in the first review run. Replaced it with pipe-cell counting, repair, and separate owner/due TBD cells; a fresh C follow-up has 4/4 complete rows. All raw outputs are retained without repair. A–D used the enumerated revision; only C follow-up used the final checklist.
 
-Validation: `skills-ref` 0.1.1, `agentskills validate day-06/incident-postmortem` → Valid; skill-creator's `quick_validate.py` also passed. Day-03 remains unchanged.
-Scope: these explicit-invocation tests exercise conditional reads, not automatic client startup loading. The RCA reference's positive trigger and the spring DST gap remain untested. C's Detect-action row omits a Due cell in the raw output; a loading Pass is not an output-quality Pass. Three fixtures do not establish general loading accuracy.
+Validation: `skills-ref` 0.1.1 `agentskills validate day-06/incident-postmortem` and skill-creator `quick_validate.py` passed. Day-03 remains unchanged. The spring DST gap and general loading/output reliability remain unproven by these few explicit-invocation cases.
