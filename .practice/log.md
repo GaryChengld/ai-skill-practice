@@ -164,6 +164,7 @@
 - 阶段：第二阶段 · 渐进式披露
 - 针对弱点：day-05 的难例由教练提供、不算留出集（本题测试输入由自己编写）；day-05 H03 因手工转写 catalog 作废（本题要求直接加载原始文件）；继续防评测污染（参考文件里的例子不能和测试输入同题）
 - 背景核实：agentskills.io 规范——元数据约 100 tokens 启动时加载；正文建议 < 5000 tokens、SKILL.md < 500 行；scripts/references/assets 按需加载；文件引用用相对 skill 根目录的路径，只保持一层深度
+- 状态：已完成，最终评分 5/5
 
 **交付物**
 - `day-06/incident-postmortem/SKILL.md`
@@ -193,3 +194,37 @@
 - 2026-10-30 检查：未完成（main 上仍没有 day-06/ 文件夹，8 项交付物全部缺失；远端只有 main 分支，自 10-29 检查后没有新提交）。
 - 2026-10-31 chat 评审：评分 4/5，8 条完成标准全部满足（正文 54 行；3 个参考文件 41/46/40 行，各有新内容；正文与参考无重复规则，例子不与测试同题；A/B/C 自写且在独立会话加载原始文件夹，3/3 加载符合预期；LOADING 27 行；validate 结果采信提交记录，本地未能重跑）。主要建议：(1) trace 由被测模型自己书写，不是独立的工具调用日志，且提示中告知了“这是加载测试”，可能影响读取行为，应从 harness 的会话 jsonl 中提取读取记录，并用不提及测试的提示重跑；(2) rca-methods 从未被加载过，正向触发和 spring gap 未测试，补一个需要因果树的输入 D；(3) output-c 的 4 行行动项中有 3 行缺 Due 列，问题已记录但没有回馈到 skill，自检清单应改为具体可检查的条目（如 every Action Items row has five cells）。加分项（day-04 措辞）未做。
 - 2026-10-31 chat 复查：评分 5/5，上次 3 条建议全部改好（1301f71）：(1) 用不提及测试的普通提示在 5 个新 Codex 会话中重跑，读取证据由 collect-harness.py 从 ~/.codex/sessions 的 jsonl 提取，模型自写 trace 不再作为证据（复核：各 jsonl 中出现的参考文件与 LOADING 表一致）；(2) 新增 input-d（两条独立失败路径），rca-methods 被正确加载，输出含因果树；(3) 自检改为逐行数单元格并修补，C follow-up 4/4 行完整（复核：C 首轮 4/5、D 3/4 行缺列，与记录一致）；正文重叠半句已删。新建议：最终版自检只在 C follow-up 跑过一次，应对之前同样缺列的 D 再跑一次；day-04 加分项仍未做。
+- 2026-10-31 检查：复查（1301f71）之后 day-06/ 没有新修改（之后的提交只改 .practice/），确认已完成，最终评分 5/5。复查提出的新建议尚未处理：用最终版自检对 input-d 再跑一次（带入 day-07 完成标准）；day-04 Edge cases 措辞（继续列为加分项）。
+
+---
+
+## day-07：Load Only Your Domain — an ecosystem-aware dependency-fix skill
+
+- 出题日期：2026-10-31
+- 阶段：第二阶段 · 渐进式披露（第 2 题：按领域拆分参考文件）
+- 针对弱点：day-06 最终版自检只在 C follow-up 验证过（本题要求对 D 重跑）；继续以 harness 会话日志而非模型自述作为读取证据、用不提及测试的普通提示；新增“仓库里有多个领域、但只该加载一个”和“没有匹配领域、一个都不该加载”两类过读/漏读测试
+- 背景核实：Anthropic 最佳实践的 “Domain-specific organization” 模式（按领域分 reference 文件，只加载相关的一个）；npm `overrides`、uv `constraint-dependencies` / `override-dependencies`、Maven `<dependencyManagement>`、Gradle dependency constraints
+
+**交付物**
+- `day-07/dependency-fix-plan/SKILL.md`
+- `day-07/dependency-fix-plan/references/npm.md`
+- `day-07/dependency-fix-plan/references/python.md`
+- `day-07/dependency-fix-plan/references/jvm.md`
+- `day-07/dependency-fix-plan/tests/input-n.md`、`input-p.md`、`input-j.md`、`input-m.md`、`input-g.md`（自己编写）
+- `day-07/dependency-fix-plan/tests/LOADING.md`
+- 读取证据（harness 会话日志的提取结果）和提取脚本，放在 `tests/` 下
+- day-06 input-d 用最终版 skill 重跑的结果（追加到 `day-06/incident-postmortem/tests/LOADING.md` 或写进 `day-07/NOTES.md`）
+- （可选）`day-07/NOTES.md`
+
+**完成标准**
+1. 目录为 `day-07/dependency-fix-plan/`；`name` 与目录同名；description 单行纯字符串，写明做什么、何时用、至少一条排除边界（如普通的版本升级/新功能升级、写 commit message）；`agentskills validate` 通过。
+2. SKILL.md 正文 ≤ 60 行，只放所有生态共用的内容：修复流程（确认受影响包和版本 → 判断直接/传递依赖 → 按“升级直接依赖 > 覆盖传递依赖 > 记录理由后暂缓”的顺序选最小修复 → 验证）、输出模板、返回前自检；外加一张路由表：判断依据（清单文件/锁文件名）→ 对应参考文件。
+3. 路由规则明确：只加载“拥有该漏洞包”的生态对应的文件，而不是仓库里出现的所有生态；没有匹配生态（如 go.mod、Cargo.toml）时不加载任何参考文件，正文给出通用降级做法并说明没有该生态的专门指导。
+4. 三个领域文件各 40-120 行，使用相同的小节骨架（如 Detect / Inspect the tree / Fix a direct dependency / Override a transitive dependency / Verify / Pitfalls），超过 100 行的开头有目录；每个文件至少 1 条该生态特有的坑（如 npm overrides 只在根 package.json 生效、pip 的 constraints 文件本身不安装任何包、Maven 的“最近者优先”依赖调解）；领域文件之间不互相引用，也不重复正文的共用规则。
+5. tests/ 下 5 个自己编写的输入（每个 8-20 行）：N 只有 npm；P 是 Python（uv 或 pip）；J 是 Maven 或 Gradle；M 是同时含 package.json 和 pyproject.toml 的 monorepo，但漏洞只在 Python 侧（预期只加载 python.md）；G 是 Go 或 Rust 项目（预期不加载任何参考文件）。参考文件里的例子不能与这些输入使用同一个包或同一情形。
+6. 每个输入在全新会话中运行，加载磁盘上的原始 skill 文件夹，提示词是普通请求、不提“测试/加载”；读取证据由脚本从 harness 会话日志中提取，模型自述不作为证据。
+7. LOADING.md ≤ 30 行：表格列出输入、预期加载、实际加载（来自日志）、是否通过；各层大小（description 字符数、正文行数和约 tokens、每个领域文件约 tokens，按字符数 ÷ 4）；每次运行实际加载的总 tokens 与“全部内容塞进一个 SKILL.md”的 tokens 对比；至少一段分析过读或漏读（尤其是 M 和 G）及对路由措辞的修改。
+8. day-06 遗留：用 day-06 最终版 skill 在全新会话中重跑 input-d，记录行动项每行是否都有 5 个单元格（附日志依据）。
+9. skill 内容、tests/ 下文档使用英文。
+
+**检查与评审**
