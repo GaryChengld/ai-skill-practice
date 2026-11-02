@@ -1,0 +1,244 @@
+{
+  "n": {
+    "session_id": "01a19a2d-07cd-7883-9387-72a8d322a944",
+    "source_file": "rollout-2026-11-01T21-53-25-01a19a2d-07cd-7883-9387-72a8d322a944.jsonl",
+    "source_sha256": "966453d51c5348ad127a82018ed98e41d2d26acd1662044a0acc81f2d2252f06",
+    "tool_excerpt_sha256": "643e206505aedf2216578c71195623182a3b610a7898cacc790274ffb5f65b7f",
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan. Our scanner flagged this; what should we change? The repository snapshot and finding are in C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan/tests/input-n.md.",
+    "model": "gpt-6.1-sol",
+    "omitted_metadata_only_result_call_ids": [
+      "call_816ad66aa1e64f5185d1a5b296c9b6e1"
+    ],
+    "omitted_web_only_result_call_ids": [
+      "call_ad2455f2b4024927a57b69b762ad2099"
+    ],
+    "confirmed_content_reads": [
+      {
+        "file": "SKILL.md",
+        "call_id": "call_37e31b41a59942fa807c9bbd81760c42",
+        "ordinal": 63,
+        "characters": 5100,
+        "file_sha256": "23fac8602d49f6371b364a0a947cdf846c9bb94a0408e3cb3d51a5b421693dfc"
+      },
+      {
+        "file": "references/npm.md",
+        "call_id": "call_c698be0429f646c09ed72e6c74557079",
+        "ordinal": 73,
+        "characters": 3843,
+        "file_sha256": "f3f30fb376ea1b5bb10ed3386f7e9ea6438d650af0d98ad10114cf27139daaae"
+      }
+    ],
+    "loaded_files": [
+      "SKILL.md",
+      "references/npm.md"
+    ],
+    "expected_files": [
+      "SKILL.md",
+      "references/npm.md"
+    ],
+    "loading_pass": true,
+    "loaded_characters_including_repeat_reads": 8943,
+    "all_in_one_characters": 17078
+  },
+  "p": {
+    "session_id": "01a19a2d-323f-70f2-be26-34219147171c",
+    "source_file": "rollout-2026-11-01T21-53-36-01a19a2d-323f-70f2-be26-34219147171c.jsonl",
+    "source_sha256": "af8cf71d7dd02a11adcd07b4f52b14ba05884d1c96f1e6d160ba510b495eb2f4",
+    "tool_excerpt_sha256": "d8ace12ed3d70774c9b37b19e2276f18a12724402417fa39f880a87c50d9d326",
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan. Our scanner flagged this; what should we change? The repository snapshot and finding are in C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan/tests/input-p.md.",
+    "model": "gpt-6.1-sol",
+    "omitted_metadata_only_result_call_ids": [
+      "call_c9c58b4421ba41cfb88285742cf08a51"
+    ],
+    "omitted_web_only_result_call_ids": [
+      "call_296dd104ef6d4af5bfc54458655dc85e"
+    ],
+    "confirmed_content_reads": [
+      {
+        "file": "SKILL.md",
+        "call_id": "call_5194f046e4b24fb8beae831f346216c6",
+        "ordinal": 66,
+        "characters": 5100,
+        "file_sha256": "23fac8602d49f6371b364a0a947cdf846c9bb94a0408e3cb3d51a5b421693dfc"
+      },
+      {
+        "file": "references/python.md",
+        "call_id": "call_7c7349820bfd4cc49a77e7e290c958f9",
+        "ordinal": 71,
+        "characters": 4332,
+        "file_sha256": "ce952ef371e56c45e43944a4699ee8290174889c266ca237d4b69a6f88f119a1"
+      }
+    ],
+    "loaded_files": [
+      "SKILL.md",
+      "references/python.md"
+    ],
+    "expected_files": [
+      "SKILL.md",
+      "references/python.md"
+    ],
+    "loading_pass": true,
+    "loaded_characters_including_repeat_reads": 9432,
+    "all_in_one_characters": 17078
+  },
+  "j": {
+    "session_id": "01a19a2d-4477-76c3-a400-fb8e69be7da1",
+    "source_file": "rollout-2026-11-01T21-53-40-01a19a2d-4477-76c3-a400-fb8e69be7da1.jsonl",
+    "source_sha256": "7cb4e7f563245967c7cca5db8b99a8694f5c7a1169150c03c6bee785db96c48c",
+    "tool_excerpt_sha256": "707fb0e52a9002cd6b0e7e44b10504f432bb315c424aabac0ff3557fa5c5278c",
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan. Our scanner flagged this; what should we change? The repository snapshot and finding are in C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan/tests/input-j.md.",
+    "model": "gpt-6.1-sol",
+    "omitted_metadata_only_result_call_ids": [
+      "call_e2df1d7ffd214f0999e7a17ac968d733"
+    ],
+    "omitted_web_only_result_call_ids": [],
+    "confirmed_content_reads": [
+      {
+        "file": "SKILL.md",
+        "call_id": "call_995302e1504f430dbab09b846e51ba96",
+        "ordinal": 68,
+        "characters": 5100,
+        "file_sha256": "23fac8602d49f6371b364a0a947cdf846c9bb94a0408e3cb3d51a5b421693dfc"
+      },
+      {
+        "file": "references/jvm.md",
+        "call_id": "call_992af8a6bc1c4252ae68fcdc5622e3fb",
+        "ordinal": 79,
+        "characters": 3803,
+        "file_sha256": "b2b6edff3b9fa2957e6ff19e3a2d03a462eb54042d7a8b59bd1bf52a0627b4cd"
+      }
+    ],
+    "loaded_files": [
+      "SKILL.md",
+      "references/jvm.md"
+    ],
+    "expected_files": [
+      "SKILL.md",
+      "references/jvm.md"
+    ],
+    "loading_pass": true,
+    "loaded_characters_including_repeat_reads": 8903,
+    "all_in_one_characters": 17078
+  },
+  "m": {
+    "session_id": "01a19a2d-5669-7581-b168-fcc11777a561",
+    "source_file": "rollout-2026-11-01T21-53-46-01a19a2d-5669-7581-b168-fcc11777a561.jsonl",
+    "source_sha256": "39f1ae610254304ab21346b261b6e8031963aeaae72b52f4c89e28188a279087",
+    "tool_excerpt_sha256": "c97cb9f7aa734bde08a87beaea569d0c48ac3a93f7c2bd6fc5fc8c028481998e",
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan. Our scanner flagged this; what should we change? The repository snapshot and finding are in C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan/tests/input-m.md.",
+    "model": "gpt-6.1-sol",
+    "omitted_metadata_only_result_call_ids": [
+      "call_fb659eabe9e74a0a96449c06df40f15d"
+    ],
+    "omitted_web_only_result_call_ids": [
+      "call_4dadfcd6624d47e1b8c706db3a3f02e4",
+      "call_e32c063ad1c041248f1e7b8566b32be1"
+    ],
+    "confirmed_content_reads": [
+      {
+        "file": "SKILL.md",
+        "call_id": "call_2a1ffd41f8d64500b1b356d63b164917",
+        "ordinal": 66,
+        "characters": 5100,
+        "file_sha256": "23fac8602d49f6371b364a0a947cdf846c9bb94a0408e3cb3d51a5b421693dfc"
+      },
+      {
+        "file": "references/python.md",
+        "call_id": "call_9d9829fa60334d6c93ebcb74857a9fdc",
+        "ordinal": 71,
+        "characters": 4332,
+        "file_sha256": "ce952ef371e56c45e43944a4699ee8290174889c266ca237d4b69a6f88f119a1"
+      }
+    ],
+    "loaded_files": [
+      "SKILL.md",
+      "references/python.md"
+    ],
+    "expected_files": [
+      "SKILL.md",
+      "references/python.md"
+    ],
+    "loading_pass": true,
+    "loaded_characters_including_repeat_reads": 9432,
+    "all_in_one_characters": 17078
+  },
+  "g": {
+    "session_id": "01a19a2d-7398-7ab0-8189-3a6828a15f03",
+    "source_file": "rollout-2026-11-01T21-53-53-01a19a2d-7398-7ab0-8189-3a6828a15f03.jsonl",
+    "source_sha256": "e1a9c57bbbe8596b14ee9870199f46dfb279306c8e1fa91ebf4a6d3f5064509b",
+    "tool_excerpt_sha256": "a9dc7f967f0d9404fad2d5a7bee08987b7700486dfae17f7904e69182d9cc82d",
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan. Our scanner flagged this; what should we change? The repository snapshot and finding are in C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan/tests/input-g.md.",
+    "model": "gpt-6.1-sol",
+    "omitted_metadata_only_result_call_ids": [
+      "call_f7aae330e71a498da4c080e3a121439a"
+    ],
+    "omitted_web_only_result_call_ids": [
+      "call_3807693b931046b1ad9840ec506ea481",
+      "call_d833f2ba6ed9411bacf7fe6a52020a1c"
+    ],
+    "confirmed_content_reads": [
+      {
+        "file": "SKILL.md",
+        "call_id": "call_ec4641c412204f36848e1f5cf8f59728",
+        "ordinal": 67,
+        "characters": 5100,
+        "file_sha256": "23fac8602d49f6371b364a0a947cdf846c9bb94a0408e3cb3d51a5b421693dfc"
+      }
+    ],
+    "loaded_files": [
+      "SKILL.md"
+    ],
+    "expected_files": [
+      "SKILL.md"
+    ],
+    "loading_pass": true,
+    "loaded_characters_including_repeat_reads": 5100,
+    "all_in_one_characters": 17078
+  },
+  "day06-d": {
+    "session_id": "01a19a2d-91e3-7d61-882c-a6c7d5c286a5",
+    "source_file": "rollout-2026-11-01T21-54-01-01a19a2d-91e3-7d61-882c-a6c7d5c286a5.jsonl",
+    "source_sha256": "dc8842a9b79d976e4454a326e58edb717b0296797510dbd1b426db6fb0164f59",
+    "tool_excerpt_sha256": "42a1c9431886a65e79507bdb56c011dc3a7a9f8c8b79246afbf60d3fde52ca1d",
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-06/incident-postmortem to draft a postmortem from C:/Workspaces/ai-skill-practice/day-06/incident-postmortem/tests/input-d.md.",
+    "model": "gpt-6.1-sol",
+    "omitted_metadata_only_result_call_ids": [
+      "call_04c408b6359647448e900bd33bda2826",
+      "call_25d4c5cd33b84ec7b68ab50552e43501"
+    ],
+    "omitted_web_only_result_call_ids": [],
+    "confirmed_content_reads": [
+      {
+        "file": "SKILL.md",
+        "call_id": "call_3c4cf8ff102f4779afedfb223d557d47",
+        "ordinal": 80,
+        "characters": 4205,
+        "file_sha256": "6699d5ebaaa622ae54dc038df15f046d3eb06d3d41e9744b5f4b8a210a7dc043"
+      },
+      {
+        "file": "references/rca-methods.md",
+        "call_id": "call_41a33d63b3cd40f0b8284099ed9cf73e",
+        "ordinal": 88,
+        "characters": 2604,
+        "file_sha256": "902ffefba5f278f0b30e7e7f4d5d9447121be5cc1d8a8db126ca4797b610ec53"
+      }
+    ],
+    "loaded_files": [
+      "SKILL.md",
+      "references/rca-methods.md"
+    ],
+    "expected_files": [
+      "SKILL.md",
+      "references/rca-methods.md"
+    ],
+    "loading_pass": true,
+    "loaded_characters_including_repeat_reads": 6809,
+    "all_in_one_characters": 12357,
+    "action_row_cell_counts": [
+      5,
+      5,
+      5,
+      5
+    ]
+  }
+}
