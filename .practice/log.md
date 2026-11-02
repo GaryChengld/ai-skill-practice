@@ -204,6 +204,7 @@
 - 阶段：第二阶段 · 渐进式披露（第 2 题：按领域拆分参考文件）
 - 针对弱点：day-06 最终版自检只在 C follow-up 验证过（本题要求对 D 重跑）；继续以 harness 会话日志而非模型自述作为读取证据、用不提及测试的普通提示；新增“仓库里有多个领域、但只该加载一个”和“没有匹配领域、一个都不该加载”两类过读/漏读测试
 - 背景核实：Anthropic 最佳实践的 “Domain-specific organization” 模式（按领域分 reference 文件，只加载相关的一个）；npm `overrides`、uv `constraint-dependencies` / `override-dependencies`、Maven `<dependencyManagement>`、Gradle dependency constraints
+- 状态：已完成，最终评分 5/5
 
 **交付物**
 - `day-07/dependency-fix-plan/SKILL.md`
@@ -231,3 +232,36 @@
 - 2026-11-01 检查：未完成（main 上没有 day-07/ 文件夹，全部交付物缺失；day-06 input-d 重跑也未记录；远端只有 main 分支，自出题提交 3fc66b2 后没有新提交）。
 - 2026-11-02 chat 评审：评分 4/5，9 条完成标准全部满足（正文 48 行；3 个领域文件 51/53/62 行，骨架一致，各有生态特有的坑；本地重跑 agentskills validate 通过；5 个输入 11-12 行；复核 jsonl：各参考文件的独有示例字符串只出现在预期的那次运行中，M 只读 python.md，G 不读参考文件；day-06 input-d 重跑 [5,5,5,5]；day-04 加分项已改）。主要建议：(1) M 的输入直接写明了“finding path 是 services/indexer/uv.lock”“web 侧无 findings”，路由答案已经给出，应加一个只给包名、不给路径的歧义输入，验证“ask before reading”规则（预期不读领域文件）；(2) 5 个输入全是“升级直接依赖/父依赖就能修”的路径，领域文件的 Override 小节和暂缓分支从未被用到，应加一个父依赖没有修复版本、必须覆盖传递依赖的输入；(3) SKILL.md 第 10 行 “Treat supplied synthetic findings as fixtures” 是测试情境泄漏进 skill 的措辞，应改为通用写法；description 可补充 CVE/GHSA、Dependabot、npm audit、pip-audit 等触发关键词。
 - 2026-11-02 chat 复查：评分 5/5，上次 3 条建议全部改好（e784182）：(1) 新增 M2（只给包名、无路径），日志确认只读 SKILL.md，输出 ownership Unknown 并先询问 finding 路径；(2) 新增 O（npm workspace，父依赖无修复版本）读 npm.md、在根 package.json 用带版本的父级 override 并写移除条件，H（Python 无兼容修复）读 python.md、按暂缓分支给出缓解、owner 和复审日期，并指出 pip constraint 无效；(3) 第 10 行测试情境措辞已改为通用写法，description 已补充 CVE/GHSA、Dependabot、npm audit、pip-audit 关键词；本地 validate 通过。新的小问题：input-h 的依赖图用了简写包名（rule-eval / calendar-engine），模型把它列为待确认问题，输入应统一用全名；M2 这类只需提问的情况仍套用完整 6 列表格，大部分是 Unknown，可在正文允许“归属未确定时只输出 Ownership + Open questions”的简短形式。
+- 2026-11-02 检查：复查（e784182）之后 day-07/ 没有新修改（之后的提交只改 .practice/），确认已完成，最终评分 5/5。复查提出的两个小问题尚未处理：测试输入统一用全名（带入 day-08 完成标准）；归属/信息不足时的简短输出形式（带入 day-08 的 input-d）。
+
+---
+
+## day-08：Ship the Template, Not the Prose — assets/ for an on-call handoff skill
+
+- 出题日期：2026-11-02
+- 阶段：第二阶段 · 渐进式披露（第 3 题：assets/ 的使用）
+- 针对弱点：day-07 input-h 用了简写包名（本题测试输入必须用全名、前后一致）；day-07 M2 信息不足时仍套完整表格（本题 input-d 要求信息不足时不猜、给出 Unknown + 待确认问题）；继续以 harness 会话日志作为读取证据、普通提示词
+- 背景核实：agentskills.io 规范 assets/ = 静态资源（模板、图片、数据文件如查找表和 schema），与 references/（按需阅读的文档）区分；文件引用用相对 skill 根目录的路径、一层深度；JSON Schema 2020-12（`required`、`enum`、`additionalProperties`）
+
+**交付物**
+- `day-08/oncall-handoff/SKILL.md`
+- `day-08/oncall-handoff/assets/handoff-template.md`
+- `day-08/oncall-handoff/assets/handoff.schema.json`
+- `day-08/oncall-handoff/assets/severity-matrix.csv`
+- `day-08/oncall-handoff/tests/input-a.md`、`input-b.md`、`input-c.md`、`input-d.md`（自己编写）
+- `day-08/oncall-handoff/tests/output-*.md` / `output-c.json`（原样保存的模型输出）
+- `day-08/oncall-handoff/tests/ASSETS.md`
+- `tests/` 下的读取证据和提取脚本（可复用 day-07 的 collect-harness.py）
+- （可选）`day-08/NOTES.md`
+
+**完成标准**
+1. 目录为 `day-08/oncall-handoff/`；`name` 与目录同名；description 单行纯字符串，写明做什么、何时用、至少一条排除边界（如写事故复盘 postmortem、制定值班排班表）；`agentskills validate` 通过。
+2. SKILL.md 正文 ≤ 50 行，不含 references/ 目录；每个 asset 用相对路径引用并带使用条件和用法动词：模板“复制并填写、保持标题和顺序”，查找表“只在缺少已声明严重级别时查一行”，schema“只在请求 JSON 时使用并按它校验”。
+3. 单一来源：输出结构只存在于 handoff-template.md（正文不再重复完整模板）；严重级别规则只存在于 severity-matrix.csv（正文不写“全站故障=SEV1”之类的规则）；JSON 字段只定义在 schema 中。
+4. 三个 asset 都是可直接使用的数据而不是说明文：模板含占位符和固定标题；CSV 有表头、覆盖 impact × urgency 的全部组合（至少 3×3）；schema 使用 draft 2020-12，含 `required`、severity 的 `enum`（含 Unknown）和 `additionalProperties: false`。
+5. tests/ 下 4 个自己编写的输入（每个 8-20 行，服务名、人名、工单号前后一致、用全名不用简写）：A 所有事项都已声明严重级别、要 Markdown（预期只用模板）；B 有一项没有严重级别但给出了 impact 和 urgency（预期模板 + 查找表，输出级别与 CSV 那一行一致）；C 要 JSON 给机器人用（预期用 schema，输出通过 JSON Schema 校验器）；D 有一项缺 urgency（不应猜级别：输出 Unknown 并列入待确认问题）。
+6. 每个输入在全新会话中运行，加载磁盘上的原始 skill 文件夹，提示词是普通请求、不提“测试/加载”；读取证据由脚本从 harness 会话日志中提取。
+7. ASSETS.md ≤ 30 行：表格列出输入、预期打开的 asset、实际打开（来自日志）、是否通过；B 写出查到的 CSV 行和输出级别；C 写出校验命令和结果；A/B/D 的输出标题与模板标题逐个、按顺序一致（可手工或脚本检查）；至少一段分析 asset 多读/漏读或模板被改写的情况及对正文措辞的修改。
+8. skill 内容、assets 和 tests/ 下文档使用英文。
+
+**检查与评审**
