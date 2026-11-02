@@ -1,0 +1,122 @@
+{
+  "m2": {
+    "session_id": "01a19a75-9bba-72e2-91f5-2f47382fd2b5",
+    "source_file": "rollout-2026-11-01T23-12-42-01a19a75-9bba-72e2-91f5-2f47382fd2b5.jsonl",
+    "source_sha256": "6827755cc3096c3371217095b9f33adfee4acedf58a5df2dcee1eec358ce5abb",
+    "tool_excerpt_sha256": "d48d3df73758fa119c23430038054d8e947582b77d9b443420cbd53c8673dc1c",
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan. Our scanner flagged this; what should we change? The repository snapshot and finding are in C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan/tests/input-m2.md.",
+    "model": "gpt-6.1-sol",
+    "skill_revision": "review working tree",
+    "skill_file_sha256": "1b1c2b266d2df149a6793e7cdb1f4748c1cabc48446cdd23445925cea110a366",
+    "omitted_metadata_only_result_call_ids": [
+      "call_380ba4a01a6e41b4b091bc52c1976c5e",
+      "call_908c0d87eed1405097ee4b9571cb393d"
+    ],
+    "omitted_web_only_result_call_ids": [],
+    "confirmed_content_reads": [
+      {
+        "file": "SKILL.md",
+        "call_id": "call_dde91fef52164e0cb6564190de04424b",
+        "ordinal": 87,
+        "characters": 5172,
+        "file_sha256": "1b1c2b266d2df149a6793e7cdb1f4748c1cabc48446cdd23445925cea110a366"
+      }
+    ],
+    "loaded_files": [
+      "SKILL.md"
+    ],
+    "expected_files": [
+      "SKILL.md"
+    ],
+    "loading_pass": true,
+    "loaded_characters_including_repeat_reads": 5172,
+    "all_in_one_characters": 17150
+  },
+  "o": {
+    "session_id": "01a19a75-b4cf-7311-876c-e09c8adf45b8",
+    "source_file": "rollout-2026-11-01T23-12-49-01a19a75-b4cf-7311-876c-e09c8adf45b8.jsonl",
+    "source_sha256": "d2cfc48c43ac4a79b74f76905afc9bcd1aab987363cdb8ff8557adda4aff6493",
+    "tool_excerpt_sha256": "f126e179595c755572c4c1a4c159370ccbc45d6d71f1f730d2e633cf22399ffc",
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan. Our scanner flagged this; what should we change? The repository snapshot and finding are in C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan/tests/input-o.md.",
+    "model": "gpt-6.1-sol",
+    "skill_revision": "review working tree",
+    "skill_file_sha256": "1b1c2b266d2df149a6793e7cdb1f4748c1cabc48446cdd23445925cea110a366",
+    "omitted_metadata_only_result_call_ids": [
+      "call_43e1b9e1eb7642a3a94d391c55131f35",
+      "call_520ac6e084a8420b89f29d69b894f8b6",
+      "call_af0fec7772914ff48307263bdcc81b95"
+    ],
+    "omitted_web_only_result_call_ids": [
+      "call_156132e49b1b4bcf87423a6e170179d7",
+      "call_b060991135964deca169fb843a978365"
+    ],
+    "confirmed_content_reads": [
+      {
+        "file": "SKILL.md",
+        "call_id": "call_4149cbf894cd46369db5efbae9df1224",
+        "ordinal": 88,
+        "characters": 5172,
+        "file_sha256": "1b1c2b266d2df149a6793e7cdb1f4748c1cabc48446cdd23445925cea110a366"
+      },
+      {
+        "file": "references/npm.md",
+        "call_id": "call_eaf4a82b3fb94ee78d2a03dd095888b6",
+        "ordinal": 97,
+        "characters": 3843,
+        "file_sha256": "f3f30fb376ea1b5bb10ed3386f7e9ea6438d650af0d98ad10114cf27139daaae"
+      }
+    ],
+    "loaded_files": [
+      "SKILL.md",
+      "references/npm.md"
+    ],
+    "expected_files": [
+      "SKILL.md",
+      "references/npm.md"
+    ],
+    "loading_pass": true,
+    "loaded_characters_including_repeat_reads": 9015,
+    "all_in_one_characters": 17150
+  },
+  "h": {
+    "session_id": "01a19a75-d0d8-7700-abbd-c8040ce6d47d",
+    "source_file": "rollout-2026-11-01T23-12-55-01a19a75-d0d8-7700-abbd-c8040ce6d47d.jsonl",
+    "source_sha256": "e507b713349fe6d2d28684f780f351a28972d637ee9b8c126502f6226c55de32",
+    "tool_excerpt_sha256": "6548c517a302df47ad2f7ca0a0142d35344061c49c012e92ac907491bf8fcbaf",
+    "prompt": "Use the skill at C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan. Our scanner flagged this; what should we change? The repository snapshot and finding are in C:/Workspaces/ai-skill-practice/day-07/dependency-fix-plan/tests/input-h.md.",
+    "model": "gpt-6.1-sol",
+    "skill_revision": "review working tree",
+    "skill_file_sha256": "1b1c2b266d2df149a6793e7cdb1f4748c1cabc48446cdd23445925cea110a366",
+    "omitted_metadata_only_result_call_ids": [
+      "call_d9b4d62771704a80b132fa93a6214ef5"
+    ],
+    "omitted_web_only_result_call_ids": [],
+    "confirmed_content_reads": [
+      {
+        "file": "SKILL.md",
+        "call_id": "call_ca6cff1cba48473cbc49347ad4e730d0",
+        "ordinal": 66,
+        "characters": 5172,
+        "file_sha256": "1b1c2b266d2df149a6793e7cdb1f4748c1cabc48446cdd23445925cea110a366"
+      },
+      {
+        "file": "references/python.md",
+        "call_id": "call_b9204ac7053a459a89878e707327dea5",
+        "ordinal": 73,
+        "characters": 4332,
+        "file_sha256": "ce952ef371e56c45e43944a4699ee8290174889c266ca237d4b69a6f88f119a1"
+      }
+    ],
+    "loaded_files": [
+      "SKILL.md",
+      "references/python.md"
+    ],
+    "expected_files": [
+      "SKILL.md",
+      "references/python.md"
+    ],
+    "loading_pass": true,
+    "loaded_characters_including_repeat_reads": 9504,
+    "all_in_one_characters": 17150
+  }
+}

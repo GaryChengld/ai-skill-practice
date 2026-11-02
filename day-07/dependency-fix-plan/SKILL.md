@@ -1,13 +1,13 @@
 ---
 name: dependency-fix-plan
-description: Plan minimal fixes for vulnerable dependencies using scanner findings, manifests, lockfiles, and dependency paths. Use when the user asks what to change after a dependency vulnerability alert or needs a direct or transitive dependency remediation plan. Do not use for routine feature upgrades, general dependency modernization, or writing commit messages.
+description: Plan minimal fixes for vulnerable dependencies from scanner or advisory findings (CVE/GHSA alerts, Dependabot, npm audit, pip-audit), using manifests, lockfiles, and dependency paths. Use when the user asks what to change after a dependency vulnerability alert or needs a direct or transitive remediation plan. Do not use for routine feature upgrades, general dependency modernization, or writing commit messages.
 ---
 
 # Dependency Fix Plan
 
 ## Scope and evidence
 - Produce a plan and proposed commands. Apply changes only when requested; a scanner alert alone does not authorize installation or lockfile changes.
-- Record the advisory source, affected range, resolved version, and fixed range. Treat supplied synthetic findings as fixtures; otherwise verify against the advisory. Use Unknown for missing facts, because guessed versions can leave the vulnerability present.
+- Record the advisory source, affected range, resolved version, and fixed range. Cite user-supplied advisory data as the source; when none is supplied, verify against the advisory. Use Unknown for missing facts, because guessed versions can leave the vulnerability present.
 - Distinguish declared ranges, locked versions, and installed versions. Label checks Proposed or Executed with evidence; a suggested command is not a successful verification.
 
 ## Select one domain

@@ -1,0 +1,20 @@
+{
+  "description_characters": 413,
+  "body_lines": 48,
+  "body_characters": 4709,
+  "skill_file_characters": 5172,
+  "references": {
+    "jvm.md": {
+      "lines": 62,
+      "characters": 3803
+    },
+    "npm.md": {
+      "lines": 51,
+      "characters": 3843
+    },
+    "python.md": {
+      "lines": 53,
+      "characters": 4332
+    }
+  }
+}

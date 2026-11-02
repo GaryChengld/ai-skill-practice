@@ -4,9 +4,11 @@ Run from any directory with Python 3.12+. No model-authored trace is consumed.
 Full returned file content, rather than a path in a command, confirms a load.
 """
 from pathlib import Path
+import argparse
 import hashlib
 import json
 import re
+import subprocess
 
 RUNS = {
     "n": "01a19a2d-07cd-7883-9387-72a8d322a944",
@@ -16,15 +18,34 @@ RUNS = {
     "g": "01a19a2d-7398-7ab0-8189-3a6828a15f03",
     "day06-d": "01a19a2d-91e3-7d61-882c-a6c7d5c286a5",
 }
+REVIEW_RUNS = {
+    "m2": "01a19a75-9bba-72e2-91f5-2f47382fd2b5",
+    "o": "01a19a75-b4cf-7311-876c-e09c8adf45b8",
+    "h": "01a19a75-d0d8-7700-abbd-c8040ce6d47d",
+}
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--review", action="store_true", help="Extract only the review runs into a separate evidence folder")
+args = parser.parse_args()
+if args.review:
+    RUNS = REVIEW_RUNS
 TESTS = Path(__file__).resolve().parent
 SKILL = TESTS.parent
 REPO = SKILL.parents[1]
-DEST = TESTS / "harness"
+DEST = TESTS / ("harness-review" if args.review else "harness")
 DEST.mkdir(exist_ok=True)
 
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def document_bytes(path):
+    # Historical runs must be compared with their original instructions, not
+    # silently reclassified against today's edited SKILL.md.
+    if args.review:
+        return path.read_bytes()
+    relative = path.relative_to(REPO).as_posix()
+    return subprocess.check_output(["git", "show", f"e50e15e:{relative}"], cwd=REPO)
 
 
 def strings(value):
@@ -86,17 +107,22 @@ for case, session_id in RUNS.items():
     (DEST / f"{case}-tools.jsonl").write_bytes(excerpt)
     root = REPO / "day-06/incident-postmortem" if case == "day06-d" else SKILL
     candidates = [root / "SKILL.md", *sorted((root / "references").glob("*.md"))]
-    documents = {p.relative_to(root).as_posix(): p.read_text(encoding="utf-8") for p in candidates}
+    documents = {p.relative_to(root).as_posix(): document_bytes(p).decode("utf-8").replace("\r\n", "\n") for p in candidates}
     reads = []
     for _, e in events:
         p = e.get("payload", {})
         if e.get("type") != "response_item" or p.get("type") not in ("function_call_output", "custom_tool_call_output"):
             continue
         fragments = list(strings(p.get("output")))
+        # cmd TYPE with multiple files can interleave stderr filename banners
+        # into stdout, even mid-word. Normalize those banners only for matching;
+        # the exported raw event bytes remain untouched.
+        fragments += [re.sub(r"\n[A-Za-z]:[\\/][^\n]*\.md\n+", "", text)
+                      for text in fragments]
         for name, content in documents.items():
             if any(content.rstrip() in fragment for fragment in fragments):
                 reads.append({"file": name, "call_id": p.get("call_id"), "ordinal": e.get("ordinal"),
-                              "characters": len(content), "file_sha256": sha((root / name).read_bytes())})
+                              "characters": len(content), "file_sha256": sha(document_bytes(root / name))})
     contexts = [e["payload"] for _, e in events if e.get("type") == "turn_context"]
     prompts = [e["payload"].get("message") for _, e in events if e.get("type") == "event_msg"
                and e.get("payload", {}).get("type") == "user_message"]
@@ -111,11 +137,14 @@ for case, session_id in RUNS.items():
         raise ValueError(f"{case}: ordinary prompt not found in harness events")
     loaded = sorted({r["file"] for r in reads})
     expected = {"n": ["references/npm.md"], "p": ["references/python.md"], "j": ["references/jvm.md"],
-                "m": ["references/python.md"], "g": [], "day06-d": ["references/rca-methods.md"]}[case]
+                "m": ["references/python.md"], "g": [], "day06-d": ["references/rca-methods.md"],
+                "m2": [], "o": ["references/npm.md"], "h": ["references/python.md"]}[case]
     record = {
         "session_id": session_id, "source_file": source.name, "source_sha256": sha(raw),
         "tool_excerpt_sha256": sha(excerpt), "prompt": prompts[0],
         "model": contexts[-1].get("model") if contexts else None,
+        "skill_revision": "review working tree" if args.review else "git:e50e15e",
+        "skill_file_sha256": sha(document_bytes(root / "SKILL.md")),
         "omitted_metadata_only_result_call_ids": sorted(discovery),
         "omitted_web_only_result_call_ids": sorted(web_only),
         "confirmed_content_reads": reads, "loaded_files": loaded,
@@ -129,19 +158,19 @@ for case, session_id in RUNS.items():
     print(f"{case}: files={loaded}; pass={record['loading_pass']}; chars={record['loaded_characters_including_repeat_reads']}")
 (DEST / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
-skill_text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+skill_text = document_bytes(SKILL / "SKILL.md").decode("utf-8").replace("\r\n", "\n")
 _, frontmatter, body = skill_text.split("---", 2)
 description = next(line.removeprefix("description: ") for line in frontmatter.splitlines() if line.startswith("description: "))
 sizes = {"description_characters": len(description), "body_lines": len(body.strip().splitlines()),
          "body_characters": len(body.strip()), "skill_file_characters": len(skill_text),
-         "references": {p.name: {"lines": len(p.read_text(encoding='utf-8').splitlines()),
-                                 "characters": len(p.read_text(encoding='utf-8'))}
+         "references": {p.name: {"lines": len(document_bytes(p).decode('utf-8').splitlines()),
+                                 "characters": len(document_bytes(p).decode('utf-8').replace('\r\n', '\n'))}
                         for p in sorted((SKILL / "references").glob("*.md"))}}
 (DEST / "sizes.json").write_text(json.dumps(sizes, indent=2) + "\n", encoding="utf-8", newline="\n")
 print(json.dumps(sizes, indent=2))
 
 report = ["# Harness read evidence", "",
-          "Each row matches the complete LF-normalized file content in a returned tool result, not a command path or model claim.",
+          "Each row matches complete returned file content after LF normalization and removal of interleaved cmd TYPE filename banners, not a command path or model claim.",
           "Raw tool calls and file-read results are retained byte-for-byte in `*-tools.jsonl`; manifest hashes link them to local source logs.",
           "Tool discovery and web-only result bodies are omitted; their requests and omitted call IDs remain recorded. No filesystem result is omitted.",
           "Failed sandbox attempts, empty PowerShell results, and listings count as no content load. Inputs are excluded from skill-size totals.", "",
