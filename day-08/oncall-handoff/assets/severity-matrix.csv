@@ -1,0 +1,10 @@
+impact,urgency,severity
+all-users,worsening,SEV1
+all-users,stable,SEV2
+all-users,no-current-impact,SEV3
+some-users,worsening,SEV2
+some-users,stable,SEV3
+some-users,no-current-impact,SEV4
+internal-only,worsening,SEV3
+internal-only,stable,SEV4
+internal-only,no-current-impact,SEV4

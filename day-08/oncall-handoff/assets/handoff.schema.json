@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "On-call handoff",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["shift_summary", "open_items", "watch_list", "recently_resolved", "open_questions"],
+  "properties": {
+    "shift_summary": {"$ref": "#/$defs/text"},
+    "open_items": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/open_item"}
+    },
+    "watch_list": {"$ref": "#/$defs/entries"},
+    "recently_resolved": {"$ref": "#/$defs/entries"},
+    "open_questions": {"$ref": "#/$defs/entries"}
+  },
+  "$defs": {
+    "text": {"type": "string", "minLength": 1},
+    "entries": {"type": "array", "items": {"$ref": "#/$defs/text"}},
+    "open_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ticket", "service", "status", "severity", "owner", "next_action"],
+      "properties": {
+        "ticket": {"$ref": "#/$defs/text"},
+        "service": {"$ref": "#/$defs/text"},
+        "status": {"$ref": "#/$defs/text"},
+        "severity": {"type": "string", "enum": ["SEV1", "SEV2", "SEV3", "SEV4", "Unknown"]},
+        "owner": {"$ref": "#/$defs/text"},
+        "next_action": {"$ref": "#/$defs/text"}
+      }
+    }
+  }
+}

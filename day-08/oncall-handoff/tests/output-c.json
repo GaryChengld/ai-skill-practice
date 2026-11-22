@@ -1,0 +1,20 @@
+{
+  "shift_summary": "Shift window: 2026-11-21 00:00 to 08:00 UTC. Evelyn Brooks handed off to Daniel Rivera.",
+  "open_items": [
+    {
+      "ticket": "IDN-221",
+      "service": "Account Recovery Service",
+      "status": "Recovery emails are arriving late for some users.",
+      "severity": "SEV3",
+      "owner": "Daniel Rivera",
+      "next_action": "Check email delivery times at 08:15 UTC."
+    }
+  ],
+  "watch_list": [
+    "Watch Account Recovery Service for recovery email delays above five minutes."
+  ],
+  "recently_resolved": [
+    "IDN-219, Account Sign-In Service: The sign-in error alert cleared at 05:42 UTC."
+  ],
+  "open_questions": []
+}

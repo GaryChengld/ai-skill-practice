@@ -1,0 +1,145 @@
+{
+  "skill_and_asset_sha256": {
+    "SKILL.md": "a5135687b8e338d9e9345e7b98004e5bd967bdb2016d103694abf36c8de0bc0d",
+    "assets/handoff-template.md": "2d5fe79dc711927dd09d7fe6fd3a62d512369c2decd6305c67e74a0ef5298471",
+    "assets/handoff.schema.json": "2ca06d0d8db50d75b6170bcec6d36cf905f833074594484b5c7b99179158eb48",
+    "assets/severity-matrix.csv": "9ab917e139cbf7df536357574cd6f176a2279888864161215fdeef1c631dd04e"
+  },
+  "runs": {
+    "a": {
+      "session_id": "01a2018b-7c8c-78a1-866e-6af85072f995",
+      "source_log": "rollout-2026-11-21T23-37-28-01a2018b-7c8c-78a1-866e-6af85072f995.jsonl",
+      "source_sha256": "17c0a7d6ed75d43bed25188c85e912f8cc17fe624dfb03d3678a50e98ba138a4",
+      "tool_excerpt_sha256": "c6547bc7ff81a1a08666e413d3048dcc0997989c8261bd29618208c92e91e764",
+      "omitted_tool_discovery_results": [
+        "call_c79c7f3eb9c64aaebe01416d8b58974f"
+      ],
+      "output_sha256": "0152bc6e8c0adee9a3137d8e5cbaa30adce745228abc4e26a01508865eea7201",
+      "reads": [
+        {
+          "file": "SKILL.md",
+          "call_id": "call_df2ce07228034c4abca6cb59362c2851",
+          "excerpt_line": 8,
+          "coverage": "full"
+        },
+        {
+          "file": "assets/handoff-template.md",
+          "call_id": "call_cd93c6c787da4343bcf6f0ac23e59354",
+          "excerpt_line": 10,
+          "coverage": "full"
+        }
+      ],
+      "expected_assets": [
+        "assets/handoff-template.md"
+      ],
+      "actual_assets": [
+        "assets/handoff-template.md"
+      ],
+      "pass": true
+    },
+    "b": {
+      "session_id": "01a2018b-88ec-7b73-b22a-a0cec0105a7c",
+      "source_log": "rollout-2026-11-21T23-37-31-01a2018b-88ec-7b73-b22a-a0cec0105a7c.jsonl",
+      "source_sha256": "c545a1d2af4eec160d85f64cf8c1e751cc60bff6e57ea9a36759ccfc1119ae5d",
+      "tool_excerpt_sha256": "d031f7c69fc48f5e2b64804a533f7d94ac5239c40db84898d762a9084b352a47",
+      "omitted_tool_discovery_results": [
+        "call_e35396d4c9c84f9680dc82d111e7c607"
+      ],
+      "output_sha256": "b68b118299702f0edad89cb5c0a865b85e5ecb75f620c32fb756742ec110ee49",
+      "reads": [
+        {
+          "file": "SKILL.md",
+          "call_id": "call_08ee19e5966b423fadaee76c4eb79467",
+          "excerpt_line": 8,
+          "coverage": "full"
+        },
+        {
+          "file": "assets/handoff-template.md",
+          "call_id": "call_6de8e98b9f4e4980a3fc0e667ffa1e26",
+          "excerpt_line": 10,
+          "coverage": "full"
+        },
+        {
+          "file": "assets/severity-matrix.csv",
+          "call_id": "call_6de8e98b9f4e4980a3fc0e667ffa1e26",
+          "excerpt_line": 10,
+          "coverage": "rows",
+          "rows": [
+            "some-users,worsening,SEV2"
+          ]
+        }
+      ],
+      "expected_assets": [
+        "assets/handoff-template.md",
+        "assets/severity-matrix.csv"
+      ],
+      "actual_assets": [
+        "assets/handoff-template.md",
+        "assets/severity-matrix.csv"
+      ],
+      "pass": true
+    },
+    "c": {
+      "session_id": "01a2018b-707c-71b0-bbf7-d701c95dd3e9",
+      "source_log": "rollout-2026-11-21T23-37-25-01a2018b-707c-71b0-bbf7-d701c95dd3e9.jsonl",
+      "source_sha256": "d12084d04cec8b1a4fcb33bcd8b0ac9596698d294fff6b25854fc1817e91550c",
+      "tool_excerpt_sha256": "83e58c19daedc299d94ebae020d1bd5532f85546865dd862c52b3bc6658dc79a",
+      "omitted_tool_discovery_results": [
+        "call_63892b4c642e41a48184adfe2ec562ee"
+      ],
+      "output_sha256": "e744ba442b9fed07e5cc0f29f47b244adfeee18515115f4e3f3913f7dc62d298",
+      "reads": [
+        {
+          "file": "SKILL.md",
+          "call_id": "call_cc04a72ef230441fb343a757a69a2d65",
+          "excerpt_line": 8,
+          "coverage": "full"
+        },
+        {
+          "file": "assets/handoff.schema.json",
+          "call_id": "call_704b3440ee324e778b4d4dfedd2eb4fd",
+          "excerpt_line": 10,
+          "coverage": "full"
+        }
+      ],
+      "expected_assets": [
+        "assets/handoff.schema.json"
+      ],
+      "actual_assets": [
+        "assets/handoff.schema.json"
+      ],
+      "pass": true
+    },
+    "d": {
+      "session_id": "01a2018b-642c-77d0-95db-8be62ccc9e71",
+      "source_log": "rollout-2026-11-21T23-37-22-01a2018b-642c-77d0-95db-8be62ccc9e71.jsonl",
+      "source_sha256": "6e99174413adba5405e15e249da43ef743d383df52522e0e1dd04c0df4bc102e",
+      "tool_excerpt_sha256": "e028fac67f4c0235194862630ba2974cf5da61b05b894ca9c33c3178daf588cc",
+      "omitted_tool_discovery_results": [
+        "call_bff8fb8fadb84572b6ece195101e3616"
+      ],
+      "output_sha256": "f97d31c12bd03e1448c869f2ce3ab8a1e45a3f785fa2fbc8909d66dea82810ec",
+      "reads": [
+        {
+          "file": "SKILL.md",
+          "call_id": "call_b09a4f9286e1442d836501ce7f823896",
+          "excerpt_line": 8,
+          "coverage": "full"
+        },
+        {
+          "file": "assets/handoff-template.md",
+          "call_id": "call_1e08d633747046d3830761ba49fef2c8",
+          "excerpt_line": 10,
+          "coverage": "full"
+        }
+      ],
+      "expected_assets": [
+        "assets/handoff-template.md"
+      ],
+      "actual_assets": [
+        "assets/handoff-template.md"
+      ],
+      "pass": true
+    }
+  }
+}

@@ -1,0 +1,4 @@
+# Keep the harness manifest's byte hashes stable on every checkout.
+* text eol=lf
+# Preserve the original response's Markdown hard breaks.
+tests/harness/initial-a.md whitespace=-blank-at-eol
