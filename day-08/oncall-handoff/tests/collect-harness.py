@@ -1,6 +1,6 @@
-"""Save final messages and verify asset reads from four local Codex session logs.
+"""Save final messages and verify asset reads from five local Codex session logs.
 
-Usage: python tests/collect-harness.py SESSION_A SESSION_B SESSION_C SESSION_D
+Usage: python tests/collect-harness.py SESSION_A SESSION_B SESSION_C SESSION_D SESSION_E
 Pass --sessions-dir if the Codex session logs are outside ~/.codex/sessions.
 """
 
@@ -16,7 +16,7 @@ SKILL = TESTS.parent
 TEMPLATE = "assets/handoff-template.md"
 MATRIX = "assets/severity-matrix.csv"
 SCHEMA = "assets/handoff.schema.json"
-EXPECTED = {"a": {TEMPLATE}, "b": {TEMPLATE, MATRIX}, "c": {SCHEMA}, "d": {TEMPLATE}}
+EXPECTED = {"a": {TEMPLATE}, "b": {TEMPLATE, MATRIX}, "c": {SCHEMA}, "d": {TEMPLATE}, "e": {TEMPLATE}}
 CALL_TYPES = {"function_call", "custom_tool_call"}
 RESULT_TYPES = {"function_call_output", "custom_tool_call_output"}
 
@@ -59,9 +59,23 @@ def output_text(value):
                 yield from output_text(value[key])
 
 
+def original_prompt(events):
+    for _, event in events:
+        payload = event.get("payload", {})
+        if event.get("type") == "event_msg" and payload.get("type") == "user_message":
+            return payload["message"]
+        if event.get("type") == "response_item" and payload.get("type") in RESULT_TYPES:
+            for fragment in output_text(payload.get("output")):
+                match = re.search(r"<codex_delegation>.*?<input>(.*?)</input>", fragment, re.S)
+                if match:
+                    return match[1]
+    raise ValueError("no original user prompt in session log")
+
+
 def collect(case, source, destination, documents, matrix_rows):
     raw = source.read_bytes()
     events = [(line, json.loads(line)) for line in raw.splitlines(keepends=True)]
+    prompt = original_prompt(events)
     final = [event["payload"]["last_agent_message"] for _, event in events
              if event.get("type") == "event_msg"
              and event["payload"].get("type") == "task_complete"
@@ -112,6 +126,7 @@ def collect(case, source, destination, documents, matrix_rows):
         and matrix_reads[0]["coverage"] == "rows"
         and matrix_reads[0]["rows"] == [expected_row]
     )
+    implicit = not re.search(r"oncall-handoff|\bskill\b|SKILL\.md", prompt, re.I)
     return {
         "source_log": source.name,
         "source_sha256": digest(raw),
@@ -119,19 +134,21 @@ def collect(case, source, destination, documents, matrix_rows):
         "omitted_tool_discovery_results": sorted(discovery_ids),
         "output_sha256": digest(output),
         "reads": reads,
+        "original_prompt": prompt,
         "expected_assets": sorted(EXPECTED[case]),
         "actual_assets": sorted(assets),
-        "pass": "SKILL.md" in files and assets == EXPECTED[case] and correct_lookup,
+        "pass": ("SKILL.md" in files and assets == EXPECTED[case] and correct_lookup
+                 and (case != "e" or implicit)),
     }
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("sessions", nargs=4, metavar="SESSION_ID")
+    parser.add_argument("sessions", nargs=5, metavar="SESSION_ID")
     parser.add_argument("--sessions-dir", type=Path, default=Path.home() / ".codex" / "sessions")
     args = parser.parse_args()
-    if len(set(args.sessions)) != 4:
-        parser.error("supply four distinct session IDs in case order A through D")
+    if len(set(args.sessions)) != 5:
+        parser.error("supply five distinct session IDs in case order A through E")
 
     destination = TESTS / "harness"
     destination.mkdir(exist_ok=True)
@@ -143,7 +160,7 @@ def main():
     matrix_rows = {",".join(row) for row in matrix_reader}
     manifest = {"skill_and_asset_sha256": {file.relative_to(SKILL).as_posix(): digest(file.read_bytes())
                                           for file in candidates}, "runs": {}}
-    for case, session in zip("abcd", args.sessions):
+    for case, session in zip("abcde", args.sessions):
         sources = list(args.sessions_dir.rglob(f"*{session}.jsonl"))
         if len(sources) != 1:
             raise ValueError(f"{case}: expected one log for {session}, found {len(sources)}")
@@ -152,7 +169,7 @@ def main():
         print(f"{case.upper()}: {', '.join(result['actual_assets']) or 'no asset reads'}; "
               f"{'PASS' if result['pass'] else 'FAIL'}")
 
-    (destination / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    (destination / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
     return 0 if all(run["pass"] for run in manifest["runs"].values()) else 1
 
 

@@ -1,34 +1,35 @@
 {
   "skill_and_asset_sha256": {
-    "SKILL.md": "a5135687b8e338d9e9345e7b98004e5bd967bdb2016d103694abf36c8de0bc0d",
-    "assets/handoff-template.md": "2d5fe79dc711927dd09d7fe6fd3a62d512369c2decd6305c67e74a0ef5298471",
+    "SKILL.md": "d5654b1b878fbf5a4081428f377aeb44ce769df9d86ce74ceb087dea85aa5eea",
+    "assets/handoff-template.md": "075f5cc5b3d3cbcb129ffdfd4fb2c0cc583df9ab52f4abeea8f97e99a9abd23a",
     "assets/handoff.schema.json": "2ca06d0d8db50d75b6170bcec6d36cf905f833074594484b5c7b99179158eb48",
     "assets/severity-matrix.csv": "9ab917e139cbf7df536357574cd6f176a2279888864161215fdeef1c631dd04e"
   },
   "runs": {
     "a": {
-      "session_id": "01a2018b-7c8c-78a1-866e-6af85072f995",
-      "source_log": "rollout-2026-11-21T23-37-28-01a2018b-7c8c-78a1-866e-6af85072f995.jsonl",
-      "source_sha256": "17c0a7d6ed75d43bed25188c85e912f8cc17fe624dfb03d3678a50e98ba138a4",
-      "tool_excerpt_sha256": "c6547bc7ff81a1a08666e413d3048dcc0997989c8261bd29618208c92e91e764",
+      "session_id": "01a20194-76fc-7042-8818-476b2571a007",
+      "source_log": "rollout-2026-11-21T23-47-16-01a20194-76fc-7042-8818-476b2571a007.jsonl",
+      "source_sha256": "d223313bb5aa5cf6bef58909a5976da3bfa9923b88206ea7cae4a86236c6cc61",
+      "tool_excerpt_sha256": "8626e39b38f81095d7cb2f97020a384681b321c556cf64360070df3a39cf4718",
       "omitted_tool_discovery_results": [
-        "call_c79c7f3eb9c64aaebe01416d8b58974f"
+        "call_23d9e79e2516430fb2bf580aa88fed45"
       ],
-      "output_sha256": "0152bc6e8c0adee9a3137d8e5cbaa30adce745228abc4e26a01508865eea7201",
+      "output_sha256": "9b90df10696c50ce093f66075bae8f2b6c1f82f832a4c7e3cb073805b42c6102",
       "reads": [
         {
           "file": "SKILL.md",
-          "call_id": "call_df2ce07228034c4abca6cb59362c2851",
+          "call_id": "call_de2844afdf76436291e012773c4f73ef",
           "excerpt_line": 8,
           "coverage": "full"
         },
         {
           "file": "assets/handoff-template.md",
-          "call_id": "call_cd93c6c787da4343bcf6f0ac23e59354",
+          "call_id": "call_21b580dcf43d4f22a9733487b082255f",
           "excerpt_line": 10,
           "coverage": "full"
         }
       ],
+      "original_prompt": "I'm ending my shift. Can you write the handoff in Markdown from the notes at C:/Workspaces/ai-skill-practice/day-08/oncall-handoff/tests/input-a.md? Use the oncall-handoff skill at C:/Workspaces/ai-skill-practice/day-08/oncall-handoff.",
       "expected_assets": [
         "assets/handoff-template.md"
       ],
@@ -38,30 +39,30 @@
       "pass": true
     },
     "b": {
-      "session_id": "01a2018b-88ec-7b73-b22a-a0cec0105a7c",
-      "source_log": "rollout-2026-11-21T23-37-31-01a2018b-88ec-7b73-b22a-a0cec0105a7c.jsonl",
-      "source_sha256": "c545a1d2af4eec160d85f64cf8c1e751cc60bff6e57ea9a36759ccfc1119ae5d",
-      "tool_excerpt_sha256": "d031f7c69fc48f5e2b64804a533f7d94ac5239c40db84898d762a9084b352a47",
+      "session_id": "01a20194-6955-7790-9d52-25b232ac5030",
+      "source_log": "rollout-2026-11-21T23-47-13-01a20194-6955-7790-9d52-25b232ac5030.jsonl",
+      "source_sha256": "acb5a5117a1d106e53d70f53e28256e055454c34b246c27c75eb51ceaa639dcb",
+      "tool_excerpt_sha256": "8acdf0ede351da82bc88a643a759513ccd3ee49275f70cf0e4a8241d5484b2e3",
       "omitted_tool_discovery_results": [
-        "call_e35396d4c9c84f9680dc82d111e7c607"
+        "call_3971d356506d40c5b598a4ffb3810f73"
       ],
-      "output_sha256": "b68b118299702f0edad89cb5c0a865b85e5ecb75f620c32fb756742ec110ee49",
+      "output_sha256": "0fe39303190eb12b3497579cfa94e13091219c7e1dec511aaa800d3d07a1c3b6",
       "reads": [
         {
           "file": "SKILL.md",
-          "call_id": "call_08ee19e5966b423fadaee76c4eb79467",
+          "call_id": "call_c576545c561b40eab3835e4e1b4b520b",
           "excerpt_line": 8,
           "coverage": "full"
         },
         {
           "file": "assets/handoff-template.md",
-          "call_id": "call_6de8e98b9f4e4980a3fc0e667ffa1e26",
+          "call_id": "call_7c238106be8348d7805eec5869eae47c",
           "excerpt_line": 10,
           "coverage": "full"
         },
         {
           "file": "assets/severity-matrix.csv",
-          "call_id": "call_6de8e98b9f4e4980a3fc0e667ffa1e26",
+          "call_id": "call_7c238106be8348d7805eec5869eae47c",
           "excerpt_line": 10,
           "coverage": "rows",
           "rows": [
@@ -69,6 +70,7 @@
           ]
         }
       ],
+      "original_prompt": "I'm ending my shift. Can you write the handoff in Markdown from the notes at C:/Workspaces/ai-skill-practice/day-08/oncall-handoff/tests/input-b.md? Use the oncall-handoff skill at C:/Workspaces/ai-skill-practice/day-08/oncall-handoff.",
       "expected_assets": [
         "assets/handoff-template.md",
         "assets/severity-matrix.csv"
@@ -80,28 +82,29 @@
       "pass": true
     },
     "c": {
-      "session_id": "01a2018b-707c-71b0-bbf7-d701c95dd3e9",
-      "source_log": "rollout-2026-11-21T23-37-25-01a2018b-707c-71b0-bbf7-d701c95dd3e9.jsonl",
-      "source_sha256": "d12084d04cec8b1a4fcb33bcd8b0ac9596698d294fff6b25854fc1817e91550c",
-      "tool_excerpt_sha256": "83e58c19daedc299d94ebae020d1bd5532f85546865dd862c52b3bc6658dc79a",
+      "session_id": "01a20194-5cca-7e92-8cff-09cfecb9ade0",
+      "source_log": "rollout-2026-11-21T23-47-10-01a20194-5cca-7e92-8cff-09cfecb9ade0.jsonl",
+      "source_sha256": "d2696454116a26595b4f9faa45f39fcc3ef6667d354c8a3eb4c98fac4ce02fd4",
+      "tool_excerpt_sha256": "ac2b36784c3a3ae4ea8268cda269fbad79af867425d5385a3c7905de86a253ec",
       "omitted_tool_discovery_results": [
-        "call_63892b4c642e41a48184adfe2ec562ee"
+        "call_bf4538e4113c485ca2c3c642f45041c3"
       ],
-      "output_sha256": "e744ba442b9fed07e5cc0f29f47b244adfeee18515115f4e3f3913f7dc62d298",
+      "output_sha256": "d7661a43326e00cf7d0c4fb347ab25818d368b82f6cd9a454cbf3b7160114ca4",
       "reads": [
         {
           "file": "SKILL.md",
-          "call_id": "call_cc04a72ef230441fb343a757a69a2d65",
+          "call_id": "call_94c4376253dd4635866344772b81f834",
           "excerpt_line": 8,
           "coverage": "full"
         },
         {
           "file": "assets/handoff.schema.json",
-          "call_id": "call_704b3440ee324e778b4d4dfedd2eb4fd",
+          "call_id": "call_9c1aba242aa44a3d927603987b0e5df0",
           "excerpt_line": 10,
           "coverage": "full"
         }
       ],
+      "original_prompt": "I'm ending my shift. Can you write the handoff as raw JSON for our handoff bot from the notes at C:/Workspaces/ai-skill-practice/day-08/oncall-handoff/tests/input-c.md? Use the oncall-handoff skill at C:/Workspaces/ai-skill-practice/day-08/oncall-handoff.",
       "expected_assets": [
         "assets/handoff.schema.json"
       ],
@@ -111,28 +114,61 @@
       "pass": true
     },
     "d": {
-      "session_id": "01a2018b-642c-77d0-95db-8be62ccc9e71",
-      "source_log": "rollout-2026-11-21T23-37-22-01a2018b-642c-77d0-95db-8be62ccc9e71.jsonl",
-      "source_sha256": "6e99174413adba5405e15e249da43ef743d383df52522e0e1dd04c0df4bc102e",
-      "tool_excerpt_sha256": "e028fac67f4c0235194862630ba2974cf5da61b05b894ca9c33c3178daf588cc",
+      "session_id": "01a20194-5019-7602-914a-7cf01f394f28",
+      "source_log": "rollout-2026-11-21T23-47-06-01a20194-5019-7602-914a-7cf01f394f28.jsonl",
+      "source_sha256": "e74853497f43e407436c3e33ba08409cef7ed8dadc3d8eff8e0372a8b1f48bce",
+      "tool_excerpt_sha256": "bf9a11920b0e2ab3b295020eba93ee77a6f70690fe6257da7687fea3f825aaa1",
       "omitted_tool_discovery_results": [
-        "call_bff8fb8fadb84572b6ece195101e3616"
+        "call_2344e7992d4148a994a8aef2a3b86faf"
       ],
-      "output_sha256": "f97d31c12bd03e1448c869f2ce3ab8a1e45a3f785fa2fbc8909d66dea82810ec",
+      "output_sha256": "53ea4d5280bc51f3701982e0710e0fa32784a387572ece8cca305f46f4cf8fe8",
       "reads": [
         {
           "file": "SKILL.md",
-          "call_id": "call_b09a4f9286e1442d836501ce7f823896",
+          "call_id": "call_dabcaf2d21df4cb1b56e5aae864b104e",
           "excerpt_line": 8,
           "coverage": "full"
         },
         {
           "file": "assets/handoff-template.md",
-          "call_id": "call_1e08d633747046d3830761ba49fef2c8",
+          "call_id": "call_6aa1a250e9bc47c2b9759b2be3cb00d1",
           "excerpt_line": 10,
           "coverage": "full"
         }
       ],
+      "original_prompt": "I'm ending my shift. Can you write the handoff in Markdown from the notes at C:/Workspaces/ai-skill-practice/day-08/oncall-handoff/tests/input-d.md? Use the oncall-handoff skill at C:/Workspaces/ai-skill-practice/day-08/oncall-handoff.",
+      "expected_assets": [
+        "assets/handoff-template.md"
+      ],
+      "actual_assets": [
+        "assets/handoff-template.md"
+      ],
+      "pass": true
+    },
+    "e": {
+      "session_id": "01a20194-bb49-7223-b2bd-f3efc52f48b9",
+      "source_log": "rollout-2026-11-21T23-47-34-01a20194-bb49-7223-b2bd-f3efc52f48b9.jsonl",
+      "source_sha256": "4e8bb71f7126e74fb2ff56b2b4aafd5eb674a58b7557f4d614e61b0a747dde54",
+      "tool_excerpt_sha256": "55164bd90bcbc739dcfc4f786cc78b4bc89e2850a07138dc3e0b73a22dfb60a7",
+      "omitted_tool_discovery_results": [
+        "call_eadad558d01a43f8a80d5c76301f3609"
+      ],
+      "output_sha256": "c877eea181e624f140b44e9fe293a8a90b252114f28bd4a796731cc9d9521546",
+      "reads": [
+        {
+          "file": "SKILL.md",
+          "call_id": "call_38b47611ae6a48f0b03c46ae56982090",
+          "excerpt_line": 8,
+          "coverage": "full"
+        },
+        {
+          "file": "assets/handoff-template.md",
+          "call_id": "call_d4c1b3cfdea9422db8a8b5af1885ecdb",
+          "excerpt_line": 10,
+          "coverage": "full"
+        }
+      ],
+      "original_prompt": "I'm ending my on-call shift. Could you write a shift summary for the next responder from these notes?\n\n# Messaging shift notes\nShift window: 2026-11-21 16:00 to 2026-11-22 00:00 UTC.\nOutgoing responder: Aisha Robinson.\nIncoming responder: Benjamin Clark.\nOpen item MSG-482, Message Delivery Service, declared SEV3.\nMSG-482 status: scheduled notifications are still queued.\nBenjamin Clark owns MSG-482 and will check delivery at 00:15 UTC.\nWatch Message Delivery Service for growth in the queue through 00:30 UTC.\nResolved MSG-477, Message Routing Service: the routing alert cleared at 22:40 UTC.",
       "expected_assets": [
         "assets/handoff-template.md"
       ],

@@ -20,7 +20,7 @@ def verify_assets():
     assert len(re.findall(r"^description: \S.+$", frontmatter, re.M)) == 1
     assert len(body.strip().splitlines()) <= 50
     assert not (SKILL / "references").exists()
-    for case in "abcd":
+    for case in "abcde":
         assert 8 <= len((TESTS / f"input-{case}.md").read_text(encoding="utf-8").splitlines()) <= 20
 
     with (ASSETS / "severity-matrix.csv").open(encoding="utf-8", newline="") as stream:
@@ -45,32 +45,59 @@ def headings(markdown):
     return re.findall(r"^#{1,6} \S.*$", markdown, re.M)
 
 
+def sections(markdown):
+    parts = re.split(r"(?m)^(## \S.*)$", markdown)
+    assert not parts[0].strip(), "unexpected text before the first heading"
+    return {heading: body.strip("\n") for heading, body in zip(parts[1::2], parts[2::2])}
+
+
+def entry_patterns(template):
+    patterns = {}
+    for heading, body in sections(template).items():
+        if body.startswith("- "):
+            literals = re.split(r"<[^>]+>", body)
+            patterns[heading] = re.compile(r"\S(?:.*?\S)?".join(map(re.escape, literals)))
+    return patterns
+
+
+def verify_markdown_sections(output, template, patterns, case):
+    assert headings(output) == headings(template), (case, headings(output))
+    assert not re.search(r"<[^>\n]+>", output), f"{case}: unfilled template placeholder"
+    parts = sections(output)
+    assert parts["## Shift summary"].strip(), f"{case}: missing shift summary"
+    for heading, pattern in patterns.items():
+        body = parts[heading]
+        if body == "None reported.":
+            continue
+        assert body and all(pattern.fullmatch(line) for line in body.splitlines()), (
+            f"{case}: {heading} must use the template entry layout or exactly 'None reported.'"
+        )
+    return parts
+
+
 def verify_outputs(matrix, validator):
     template = (ASSETS / "handoff-template.md").read_text(encoding="utf-8")
-    entry = next(line for line in template.splitlines() if line.startswith("- **<ticket>"))
-    literals = re.split(r"<[^>]+>", entry)
-    entry_pattern = re.compile(r".+?".join(re.escape(literal) for literal in literals))
-    for case in "abd":
+    patterns = entry_patterns(template)
+    for case in "abde":
         output = (TESTS / f"output-{case}.md").read_text(encoding="utf-8")
-        assert headings(output) == headings(template), (case, headings(output))
-        assert not re.search(r"<[^>\n]+>", output), f"{case}: unfilled template placeholder"
-        open_items = output.split("## Open items", 1)[1].split("## Watch list", 1)[0].strip()
-        assert all(entry_pattern.fullmatch(line) for line in open_items.splitlines() if line.strip()), (
-            f"{case}: open item layout changed"
-        )
-        if case == "a":
-            for ticket, severity in (("PAY-341", "SEV3"), ("PAY-342", "SEV4")):
-                assert re.search(rf"^{re.escape('- **' + ticket)}.*Severity: {severity}\b", output, re.M)
+        parts = verify_markdown_sections(output, template, patterns, case)
+        open_items = parts["## Open items"]
+        if case in "ae":
+            declared = {"a": (("PAY-341", "SEV3"), ("PAY-342", "SEV4")), "e": (("MSG-482", "SEV3"),)}
+            for ticket, severity in declared[case]:
+                assert re.search(rf"^- \*\*{ticket} \| .+ Severity: {severity}\.", open_items, re.M)
         if case == "b":
             severity = matrix["some-users", "worsening"]
-            assert re.search(rf"^- \*\*DEL-518.*Severity: {severity}\b", output, re.M)
+            assert re.search(rf"^- \*\*DEL-518.*Severity: {severity}\b", open_items, re.M)
+            assert "Threshold or time: Unknown." in parts["## Watch list"]
         if case == "d":
-            item = next(line for line in output.splitlines() if line.startswith("- **SRC-774"))
+            item = next(line for line in open_items.splitlines() if line.startswith("- **SRC-774"))
             assert "Severity: Unknown." in item
-            questions = output.split("## Open questions", 1)[1]
             assert any("urgency" in line.lower() and ("SRC-774" in line or "Product Search Service" in line)
-                       for line in questions.splitlines())
-        print(f"{case.upper()} headings and severity behavior: PASS")
+                       for line in parts["## Open questions"].splitlines())
+        if case in "ae":
+            assert parts["## Open questions"] == "None reported."
+        print(f"{case.upper()} headings, all entry layouts, and severity behavior: PASS")
 
     handoff = json.loads((TESTS / "output-c.json").read_text(encoding="utf-8"))
     validator.validate(handoff)

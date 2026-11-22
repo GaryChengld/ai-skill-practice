@@ -8,12 +8,12 @@
 
 ## Watch list
 
-- <service, signal to watch, and any supplied threshold or time>
+- **<service>**: <signal to watch>. Threshold or time: <value or Unknown>.
 
 ## Recently resolved
 
-- <ticket or alert, service, and reported resolution>
+- **<ticket or alert> | <service>**: <reported resolution>.
 
 ## Open questions
 
-- <question for the next responder>
+- <question for the next responder>?

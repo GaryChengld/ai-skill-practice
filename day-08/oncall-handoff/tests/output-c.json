@@ -1,5 +1,5 @@
 {
-  "shift_summary": "Shift window: 2026-11-21 00:00 to 08:00 UTC. Evelyn Brooks handed off to Daniel Rivera.",
+  "shift_summary": "Identity shift on 2026-11-21 from 00:00 to 08:00 UTC. Evelyn Brooks handed off to Daniel Rivera.",
   "open_items": [
     {
       "ticket": "IDN-221",
@@ -14,7 +14,7 @@
     "Watch Account Recovery Service for recovery email delays above five minutes."
   ],
   "recently_resolved": [
-    "IDN-219, Account Sign-In Service: The sign-in error alert cleared at 05:42 UTC."
+    "IDN-219, Account Sign-In Service. The sign-in error alert cleared at 05:42 UTC."
   ],
   "open_questions": []
 }
