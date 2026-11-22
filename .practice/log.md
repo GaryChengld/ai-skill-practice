@@ -240,6 +240,7 @@
 
 - 出题日期：2026-11-02
 - 阶段：第二阶段 · 渐进式披露（第 3 题：assets/ 的使用）
+- 状态：已完成，最终评分 5/5
 - 针对弱点：day-07 input-h 用了简写包名（本题测试输入必须用全名、前后一致）；day-07 M2 信息不足时仍套完整表格（本题 input-d 要求信息不足时不猜、给出 Unknown + 待确认问题）；继续以 harness 会话日志作为读取证据、普通提示词
 - 背景核实：agentskills.io 规范 assets/ = 静态资源（模板、图片、数据文件如查找表和 schema），与 references/（按需阅读的文档）区分；文件引用用相对 skill 根目录的路径、一层深度；JSON Schema 2020-12（`required`、`enum`、`additionalProperties`）
 
@@ -286,3 +287,40 @@
 - 2026-11-21 检查：未完成（main 上仍没有 day-08/ 文件夹，全部交付物缺失；远端只有 main 分支，自上次检查提交 c3e5860 后没有新提交）。
 - 2026-11-22 chat 评审（45133ef）：评分 5/5，8 条完成标准全部满足（verify.py 本地复跑通过，日志证据完整）。主要建议：①模板里 Watch list / Recently resolved 的条目没有固定格式，B/D 输出的已解决条目写法各不相同，B 的 "None reported" 少了句号，verify.py 也没查出来；②严重级别查表那一条前后重复（"Skip the lookup…" 应放在最前面），"line filter" 依赖 shell，应写成不限平台的说法；③测试提示词直接点名了 skill 和路径，所以 description 的触发没有测到，下次应加一个不点名的触发测试。
 - 2026-11-22 chat 复查（3fc0545）：上次 3 条建议全部改好（Watch list/Recently resolved 条目格式固定，verify.py 检查所有列表段；查表规则先跳过再查，不依赖 shell；新 description，新增不点名 skill 的 E 并自动触发成功）。verify.py 本地复跑通过。新发现：JSON 的 watch_list/recently_resolved 仍是自由字符串（output-c 写成 "IDN-219, Account Sign-In Service. …"），建议在 schema 里改成对象；E 只测了正向触发，可加一个 postmortem 请求测排除边界。最终评分 5/5。
+- 2026-11-22 检查：复查（3fc0545）之后 day-08/ 没有新修改（之后只有 48233a6 改了 .practice/log.md），确认已完成，最终评分 5/5。复查提出的两个小问题未处理：schema 中 watch_list/recently_resolved 仍是自由字符串（列为 day-09 加分项）；排除边界的反向触发测试（带入 day-09 完成标准）。
+
+
+---
+
+## day-09：Pay for What You Load — a context budget audit and a slimmer conventional-commits
+
+- 出题日期：2026-11-22
+- 阶段：第二阶段 · 渐进式披露（第 4 题：上下文预算）
+- 针对弱点：day-08 的触发测试只有正向（本题加入不点名 skill 的正向 + 近似反例 + 反例触发测试）；day-08 schema 中列表项为自由字符串（列为加分项）；检查清单必须先于输出写好，避免事后对答案
+- 背景核实：agentskills.io 规范：元数据约 100 token（启动时为所有 skill 加载）、正文建议 < 5000 token、SKILL.md 500 行以内、资源按需加载；Anthropic best practices “Concise is key”
+- 完整题目：`.practice/problems/day-09.md`
+
+**交付物**
+- `day-09/tests/count_tokens.py`
+- `day-09/BUDGET.md`
+- `day-09/conventional-commits/SKILL.md`（瘦身版；如确有必要可加 references/，但要在 CUTS.md 说明理由）
+- `day-09/conventional-commits/tests/CUTS.md`
+- `day-09/conventional-commits/tests/input-1.md` ~ `input-4.md`、`CHECKLIST.md`
+- `day-09/conventional-commits/tests/output-N-original.md`、`output-N-slim.md`（共 8 个）
+- `day-09/conventional-commits/tests/` 下 3 个触发测试的提示词、日志证据和提取脚本
+- `day-09/conventional-commits/tests/RESULTS.md`
+- （可选）`day-09/NOTES.md`
+
+**完成标准**
+1. `count_tokens.py` 可以用 `python3 day-09/tests/count_tokens.py <repo-root>` 直接运行，不写死路径，跳过 `tests/` 目录；按 skill 输出元数据、正文、每个资源文件三层的 token 数。
+2. BUDGET.md 包含全部 skill（含 day-02 的 competitors）的表格、元数据总和、写明的计数方法、自定预算，以及超出预算的 skill 列表。
+3. `day-09/conventional-commits/`：`name` 与目录同名，description 为单行纯字符串，仍写明做什么、何时用、至少一条排除边界（PR description / changelog / release notes），且 token 数少于原版；`agentskills validate` 通过；`day-01/` 下的原版没有被修改。
+4. 瘦身版正文 token 比原版少至少 35%（以 count_tokens.py 的输出为准），并且仍保留：允许的 type 列表、breaking change 的写法、多目的改动和空 diff 的处理规则。
+5. CUTS.md 每一行写明删除的内容和理由类别；至少有一行属于“模型已知”、一行属于“重复”。
+6. 4 个行为输入覆盖普通改动、breaking change、多目的改动、空 diff / 空白改动；CHECKLIST.md 每个输入 2-4 条检查项，且提交时间早于输出文件（git log 可见，或写在同一次提交中并在 RESULTS.md 声明是先写的）。
+7. 8 次行为运行都在全新会话中、普通提示词、加载磁盘上的 skill 文件夹；输出原样保存；RESULTS.md 逐条列出原版和瘦身版的检查结果，瘦身版的通过条数不少于原版。
+8. 3 个触发测试的提示词不提 skill 名称、路径或“测试”；T1 激活、T2 和 T3 不激活，证据由脚本从 harness 会话日志提取。
+9. RESULTS.md ≤ 40 行，包含前后 token 对比和至少一段“最危险的删减”分析。
+10. skill 内容、tests/ 下文档使用英文（BUDGET.md 和 NOTES.md 可以用中文）。
+
+**检查与评审**
