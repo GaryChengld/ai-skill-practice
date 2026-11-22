@@ -285,3 +285,4 @@
 - 2026-11-20 检查：未完成（main 上仍没有 day-08/ 文件夹，全部交付物缺失；远端只有 main 分支，自上次检查提交 eaaec9f 后没有新提交）。
 - 2026-11-21 检查：未完成（main 上仍没有 day-08/ 文件夹，全部交付物缺失；远端只有 main 分支，自上次检查提交 c3e5860 后没有新提交）。
 - 2026-11-22 chat 评审（45133ef）：评分 5/5，8 条完成标准全部满足（verify.py 本地复跑通过，日志证据完整）。主要建议：①模板里 Watch list / Recently resolved 的条目没有固定格式，B/D 输出的已解决条目写法各不相同，B 的 "None reported" 少了句号，verify.py 也没查出来；②严重级别查表那一条前后重复（"Skip the lookup…" 应放在最前面），"line filter" 依赖 shell，应写成不限平台的说法；③测试提示词直接点名了 skill 和路径，所以 description 的触发没有测到，下次应加一个不点名的触发测试。
+- 2026-11-22 chat 复查（3fc0545）：上次 3 条建议全部改好（Watch list/Recently resolved 条目格式固定，verify.py 检查所有列表段；查表规则先跳过再查，不依赖 shell；新 description，新增不点名 skill 的 E 并自动触发成功）。verify.py 本地复跑通过。新发现：JSON 的 watch_list/recently_resolved 仍是自由字符串（output-c 写成 "IDN-219, Account Sign-In Service. …"），建议在 schema 里改成对象；E 只测了正向触发，可加一个 postmortem 请求测排除边界。最终评分 5/5。
