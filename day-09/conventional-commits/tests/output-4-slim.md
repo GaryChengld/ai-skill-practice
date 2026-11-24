@@ -1,1 +1,1 @@
-There’s no staged or unstaged diff to base a commit message on. Once you have changes, share the diff or a short summary and I can suggest a Conventional Commit message.
+There’s no basis for a commit message yet: the staged and unstaged diffs are empty. Please share a diff or a brief summary of the changes when you have one.

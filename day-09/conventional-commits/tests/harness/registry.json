@@ -1,14 +1,22 @@
 {
-  "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day09-trigger-jxjtzzhf",
-  "enabled": [
-    {
-      "name": "conventional-commits",
-      "description": "Draft Conventional Commits messages when asked what a commit should say, using a git diff, staged changes, or summary. Excludes PR descriptions, changelogs, and release notes.",
-      "path": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day09-trigger-jxjtzzhf\\.agents\\skills\\conventional-commits\\SKILL.md",
-      "scope": "repo",
-      "enabled": true,
-      "sha256": "e40fea27e5db27463a52e3ac8578a3036d2b2dbb7e6b08d34b49f2e2f5afedd1"
-    }
-  ],
-  "disabled_count": 14
+  "trigger": {
+    "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day09-review-9n87b5pv",
+    "enabled": [
+      {
+        "name": "conventional-commits",
+        "path": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day09-review-9n87b5pv\\.agents\\skills\\conventional-commits\\SKILL.md",
+        "description": "Write Conventional Commits messages from a git diff, staged changes, or a change summary. Use when asked for a commit message or how to word a commit. Not for PR descriptions, changelogs, or release notes.",
+        "scope": "repo",
+        "enabled": true,
+        "sha256": "fd91aea86fbaea508b42eff98e173ea5f23f515f01c8d900b341a0e0bc176f0d"
+      }
+    ],
+    "disabled_count": 14
+  },
+  "raw_diff": {
+    "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day09-review-9n87b5pv",
+    "enabled": [],
+    "disabled_count": 15
+  },
+  "empty_diff_cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day09-review-9n87b5pv\\empty-diff"
 }

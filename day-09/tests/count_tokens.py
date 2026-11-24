@@ -1,10 +1,13 @@
-"""Print an estimated context budget. Requires PyYAML (`python -m pip install PyYAML`)."""
+"""Print an estimated context budget using only the Python standard library."""
 
 import argparse
+import json
 import os
 from pathlib import Path
+import re
+from textwrap import dedent
 
-import yaml
+FIELD = re.compile(r"(name|description):[ \t]*(.*)")
 
 
 def files_under(root):
@@ -19,18 +22,58 @@ def estimate(text):
     return (len(text.strip()) + 3) // 4
 
 
+def scalar(value, continuation):
+    """Read plain, quoted, or implicitly indented block scalar fields."""
+    if value.startswith("'"):
+        match = re.fullmatch(r"'((?:[^']|'')*)'[ \t]*(?:#.*)?", value)
+        if match:
+            return match[1].replace("''", "'")
+    elif value.startswith('"'):
+        decoded, end = json.JSONDecoder().raw_decode(value)
+        tail = value[end:].strip()
+        if not tail or tail.startswith("#"):
+            return decoded
+    else:
+        value = re.split(r"[ \t]+#", value, maxsplit=1)[0].strip()
+        if value in {"|", "|-", "|+", ">", ">-", ">+"}:
+            block = dedent("".join(continuation)).strip("\n")
+            if value.startswith("|"):
+                return block
+            lines = block.splitlines()
+            result = []
+            for line, following in zip(lines, lines[1:] + [""]):
+                result.append(line)
+                if line.startswith(" ") or following.startswith(" ") or not line:
+                    result.append("\n")
+                elif following:
+                    result.append(" ")
+            return "".join(result)
+        if value and value[0] not in "[{&*!%@`#|>":
+            return value
+    raise ValueError("expected a text scalar")
+
+
 def skill_content(path):
     lines = path.read_text(encoding="utf-8-sig").splitlines(keepends=True)
     fences = [i for i, line in enumerate(lines) if line.rstrip() == "---"]
     if len(fences) < 2 or fences[0] != 0:
         raise ValueError(f"{path}: missing YAML frontmatter")
     end = fences[1]
-    metadata = yaml.safe_load("".join(lines[1:end]))
-    if not isinstance(metadata, dict) or any(
-        not isinstance(metadata.get(key), str) or not metadata[key].strip()
-        for key in ("name", "description")
-    ):
-        raise ValueError(f"{path}: expected nonempty string fields for name and description")
+    metadata = {}
+    for index in range(1, end):
+        match = FIELD.fullmatch(lines[index].rstrip())
+        if not match:
+            continue
+        key, value = match.groups()
+        next_line = index + 1
+        while next_line < end and (lines[next_line][0].isspace() or not lines[next_line].strip()):
+            next_line += 1
+        try:
+            metadata[key] = scalar(value, lines[index + 1:next_line])
+        except ValueError as error:
+            raise ValueError(f"{path}:{index + 1}: invalid {key}: {error}") from error
+    if not all(metadata.get(key, "").strip() for key in ("name", "description")):
+        raise ValueError(f"{path}: expected nonempty name and description fields")
     return metadata["name"], metadata["description"], "".join(lines[end + 1:])
 
 
@@ -72,7 +115,7 @@ def main():
         parser.error(f"not a directory: {root}")
     try:
         print("\n".join(report(root)))
-    except (OSError, ValueError, yaml.YAMLError) as error:
+    except (OSError, ValueError) as error:
         parser.error(str(error))
 
 

@@ -1,8 +1,8 @@
-"""Extract and verify evidence from 11 fresh Codex CLI sessions.
+"""Extract and verify evidence from 15 fresh Codex CLI sessions.
 
-Pass IDs in order: 1-original 1-slim through 4-original 4-slim, then t1 t2 t3.
-The default sessions directory is ~/.codex/sessions. The trigger registry must
-come from `skills/list` under the same session-local configuration as t1–t3.
+Pass IDs for 1-original 1-slim through 5-original 5-slim, then 5-baseline and t1–t4.
+The default sessions directory is ~/.codex/sessions. The registries must come
+from `skills/list` under the session-local configurations used for the runs.
 """
 
 import argparse
@@ -17,7 +17,7 @@ ROOT = TESTS.parents[2]
 HARNESS = TESTS / "harness"
 SKILLS = {"original": ROOT / "day-01/conventional-commits/SKILL.md",
           "slim": TESTS.parent / "SKILL.md"}
-CASES = [f"{n}-{v}" for n in range(1, 5) for v in SKILLS] + ["t1", "t2", "t3"]
+CASES = [f"{n}-{v}" for n in range(1, 6) for v in SKILLS] + ["5-baseline", "t1", "t2", "t3", "t4"]
 CALLS = {"function_call", "custom_tool_call"}
 RESULTS = {"function_call_output", "custom_tool_call_output"}
 
@@ -88,11 +88,19 @@ def collect(case, source, registry, docs):
         raise ValueError(f"{case}: missing final answer")
 
     is_trigger = case.startswith("t")
+    baseline = case == "5-baseline"
     version = "slim" if is_trigger else case.split("-")[1]
-    expected_path = Path(registry["enabled"][0]["path"]) if is_trigger else SKILLS[version]
-    expected_cwd = Path(registry["cwd"]) if is_trigger else ROOT
+    expected_path = Path(registry["trigger"]["enabled"][0]["path"]) if is_trigger else SKILLS.get(version)
+    if is_trigger:
+        expected_cwd = Path(registry["trigger"]["cwd"])
+    elif case.startswith("5-"):
+        expected_cwd = Path(registry["raw_diff"]["cwd"])
+    elif case.startswith("4-"):
+        expected_cwd = Path(registry["empty_diff_cwd"])
+    else:
+        expected_cwd = ROOT
     fixture = (TESTS / fixture_for(case)).read_text(encoding="utf-8").rstrip()
-    expected_prompt = fixture if is_trigger else (
+    expected_prompt = fixture if is_trigger or baseline else (
         f"Use the instructions in {expected_path.as_posix()} for this request.\n\n{fixture}"
     )
     if cwd != expected_cwd or prompt != expected_prompt:
@@ -122,7 +130,7 @@ def collect(case, source, registry, docs):
     evidence = b"".join(excerpt)
     skill_attempts = sum("/conventional-commits/skill.md" in command for command in calls.values())
     activated = bool(reads)
-    should_activate = case not in ("t2", "t3")
+    should_activate = case not in ("t2", "t3", "5-baseline")
     correct_file = all(read["version"] == version and path_text(str(expected_path)) in calls[read["call_id"]]
                        for read in reads)
     passed = activated == should_activate and correct_file and (should_activate or skill_attempts == 0)
@@ -146,10 +154,12 @@ def main():
         parser.error("every case must have a distinct session ID")
 
     registry = json.loads((HARNESS / "registry.json").read_bytes())
-    if (len(registry["enabled"]) != 1 or registry["enabled"][0]["name"] != "conventional-commits"
-            or not registry["enabled"][0]["enabled"]
-            or registry["enabled"][0]["sha256"] != digest(SKILLS["slim"].read_bytes())):
-        raise ValueError("registry must have a single enabled copy matching the slim skill")
+    enabled = registry["trigger"]["enabled"]
+    if (len(enabled) != 1 or enabled[0]["name"] != "conventional-commits" or not enabled[0]["enabled"]
+            or enabled[0]["sha256"] != digest(SKILLS["slim"].read_bytes())):
+        raise ValueError("trigger registry must have a single enabled copy matching the slim skill")
+    if registry["raw_diff"]["enabled"]:
+        raise ValueError("raw-diff registry must have no enabled skills")
     preflight = json.loads((HARNESS / "preflight.json").read_bytes())
     inputs = {fixture_for(case) for case in CASES} | {"CHECKLIST.md"}
     if preflight != {name: digest((TESTS / name).read_bytes()) for name in inputs}:

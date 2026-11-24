@@ -16,3 +16,5 @@ Score each item independently using the final response. Match the meaning of the
 | 4 | 4a | The response says the staged diff is empty. |
 | 4 | 4b | The response asks for a diff or change summary before drafting. |
 | 4 | 4c | The response proposes no commit message. |
+| 5 | 5a | Marks the removed `opts` parameter as a breaking change, using `!` or an uppercase `BREAKING CHANGE:` footer. |
+| 5 | 5b | Explains that callers which pass a second argument must update their calls to use only `path`. |

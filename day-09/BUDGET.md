@@ -1,6 +1,6 @@
 # Context budget
 
-Run `python3 day-09/tests/count_tokens.py <repo-root>` with PyYAML installed (`python3 -m pip install PyYAML`). The table uses an estimate of one token per four Unicode characters, rounded up separately for each cell. Inputs are decoded as UTF-8, line endings are normalized to LF, and surrounding whitespace is trimmed. Metadata counts the parsed name and description values joined by one newline. The other metadata keys are excluded.
+Run `python3 day-09/tests/count_tokens.py <repo-root>` with standard Python 3. The scanner reads the top-level `name` and `description` text fields and ignores other frontmatter. It supports plain text, single quotes, JSON-style double quotes, and implicitly indented YAML block scalars. The table uses an estimate of one token per four Unicode characters, rounded up separately for each cell. Inputs are decoded as UTF-8, line endings are normalized to LF, and surrounding whitespace is trimmed. Metadata counts the parsed name and description values joined by one newline. The other metadata keys are excluded.
 
 Metadata is the discovery cost across the listed skill folders, including alternate versions. The body is loaded when its skill is used. Resource rows inventory visible files under each skill folder, including authoring records and evaluations outside `tests/`. Runtime context only incurs a resource's cost when that file is read. Resources in the table are counted individually and excluded from the metadata total.
 
@@ -32,8 +32,9 @@ Metadata is the discovery cost across the listed skill folders, including altern
 | | | | | `assets/handoff-template.md` | 117 |
 | | | | | `assets/handoff.schema.json` | 305 |
 | | | | | `assets/severity-matrix.csv` | 70 |
-| `day-09/conventional-commits` | 49 | 44 | 447 | | |
-| **Total metadata** | **786** | | | | |
+| `day-09/conventional-commits` | 57 | 52 | 447 | | |
+| **Total metadata** | **794** | | | | |
+
 
 ## Budget limits
 

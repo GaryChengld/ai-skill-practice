@@ -1,7 +1,7 @@
 {
   "skill_text_sha256": {
     "original": "39930bada5cfd56771f7801e6179f072d2c363d2bd1623f2eb4ddec1ae5b1129",
-    "slim": "e472cbaf70e23de235160d0ad383f4b07aaf1a803b43e083a85cf702e3d9dd6d"
+    "slim": "17a1b6ae247105ba7ec6a488ad0254cc73b1228f4f11117d66435e84f8d6377d"
   },
   "runs": {
     "1-original": {
@@ -25,10 +25,10 @@
       "pass": true
     },
     "1-slim": {
-      "session_id": "01a20bb5-8aa1-7130-8b7e-5815a004c016",
-      "source_log": "rollout-2026-11-23T22-59-37-01a20bb5-8aa1-7130-8b7e-5815a004c016.jsonl",
-      "source_sha256": "c7a907847158bd8e6b303deb9b8118187f74e09ae96ef9b81f34a8683c4f0bcf",
-      "excerpt_sha256": "5e3ee4fd2e97d758b21d61daa88467370aebd35f6bd5821a53acab29111f0f71",
+      "session_id": "01a20bc3-2591-74e2-8ca0-8a86f26bb218",
+      "source_log": "rollout-2026-11-23T23-14-30-01a20bc3-2591-74e2-8ca0-8a86f26bb218.jsonl",
+      "source_sha256": "1ebb7d6072a5212b0de81208931ade7593e4a842a12f629e1dddb710aae04266",
+      "excerpt_sha256": "bf0bde978b08af3cf03081fe3b250a05cc2b9990b5d94d3f1f8436565eb77048",
       "answer_sha256": "81b89e32f8658e37802002410e2188e801df5c0b4afe7956c3c788daa6a27e47",
       "model": "gpt-6.1-terra",
       "tool_calls": 2,
@@ -37,7 +37,7 @@
         {
           "version": "slim",
           "line": 24,
-          "call_id": "call_6c4adb63cbc14f738e3b2a530c15d904"
+          "call_id": "call_4ea7e52fd1c74cc6acf8baba28dce862"
         }
       ],
       "activated": true,
@@ -65,10 +65,10 @@
       "pass": true
     },
     "2-slim": {
-      "session_id": "01a20bb5-8aaa-7610-81a1-6854bf104a2b",
-      "source_log": "rollout-2026-11-23T22-59-37-01a20bb5-8aaa-7610-81a1-6854bf104a2b.jsonl",
-      "source_sha256": "88aea379b2890c336807914fb3035f59223568cd4cb86658714590d7b9407b1f",
-      "excerpt_sha256": "98c7f3ffbd61dc6ca82abde0f2a70922a15afb9dc0c207d68dd2c17f2c75a5bb",
+      "session_id": "01a20bc3-256c-74d0-968b-07fa3149b918",
+      "source_log": "rollout-2026-11-23T23-14-29-01a20bc3-256c-74d0-968b-07fa3149b918.jsonl",
+      "source_sha256": "cc5b5dd5efac4fa2cf2abf6992f660e77cce65883261ec13aa9fff793537791b",
+      "excerpt_sha256": "380f6a24ff0a48590e4f601888046c84c1f9c07e0fc74f583e00e93d205420e0",
       "answer_sha256": "ac60e003f285728f2c85169ff5e5699ec22b8f9ed2fd58ec61198db4e7970a83",
       "model": "gpt-6.1-terra",
       "tool_calls": 2,
@@ -77,7 +77,7 @@
         {
           "version": "slim",
           "line": 24,
-          "call_id": "call_f827f521c48c46a78dddde730e69e33c"
+          "call_id": "call_6475bcbe37b541678f2b884d170d100b"
         }
       ],
       "activated": true,
@@ -105,19 +105,19 @@
       "pass": true
     },
     "3-slim": {
-      "session_id": "01a20bb5-f081-7fc2-86d7-305df9f0f83b",
-      "source_log": "rollout-2026-11-23T23-00-06-01a20bb5-f081-7fc2-86d7-305df9f0f83b.jsonl",
-      "source_sha256": "e1a17ee3861aefc5d99aa885b1ac466b2a80d40f696d58d754d67762855bf486",
-      "excerpt_sha256": "85c83a5297e5ff0276a986b04215488bd6d4c9d3f83d1ab8710b6c29cccdae40",
-      "answer_sha256": "10ca2d4f35e8397608b42d95412406dcbc312450a767399bb1be87696e0e066b",
+      "session_id": "01a20bc3-2577-77d3-8867-8b6733211ba9",
+      "source_log": "rollout-2026-11-23T23-14-29-01a20bc3-2577-77d3-8867-8b6733211ba9.jsonl",
+      "source_sha256": "ef1fe38d12dcb7c3422065afb7408d625032e752b1255312f4d1574b58e6a10a",
+      "excerpt_sha256": "a675f9647524f09a318b729249aeb3388629ab87a8f60de0355a51228ab4adb0",
+      "answer_sha256": "9777c9d0d077851bd65dc8e1f7d3901541f7e3c24113378dbae61111e2ce7f19",
       "model": "gpt-6.1-terra",
-      "tool_calls": 2,
+      "tool_calls": 3,
       "skill_read_attempts": 2,
       "verified_reads": [
         {
           "version": "slim",
-          "line": 24,
-          "call_id": "call_abaa2ab5bb774284a48ec30e5a5d1850"
+          "line": 30,
+          "call_id": "call_a650ca0dbcc74467b914906bd1afdbe1"
         }
       ],
       "activated": true,
@@ -125,19 +125,19 @@
       "pass": true
     },
     "4-original": {
-      "session_id": "01a20bb5-f2c0-7f22-a5a7-daa1dae530bb",
-      "source_log": "rollout-2026-11-23T23-00-07-01a20bb5-f2c0-7f22-a5a7-daa1dae530bb.jsonl",
-      "source_sha256": "9be01ce6f44d0d72fda6f5e4ed1b632a410e7552f7060bbebe4cc4690615b001",
-      "excerpt_sha256": "e0786de3db9da6befe3a2d56c8ce28fd11b72d0cede4ab737d4fd057fa46b3b5",
-      "answer_sha256": "e598c87337433932169afc3b47c636b83679ad80a3ec33adb4d329e2d93fd086",
+      "session_id": "01a20bc4-a78c-75f0-b54b-b4a2a9312f29",
+      "source_log": "rollout-2026-11-23T23-16-08-01a20bc4-a78c-75f0-b54b-b4a2a9312f29.jsonl",
+      "source_sha256": "43f00c9cf79cf6eb56164dfb9805f9c10d0c09f1924016918febc4f313cfffc2",
+      "excerpt_sha256": "341cfa490a62a1513f4eac3819e1d65d2b9fa04e8b4f8c5de8fbab86a987bee5",
+      "answer_sha256": "e9b69f8402eada99943c92ffae15984d49e25f75cfb40d55891b7ab23ed974bf",
       "model": "gpt-6.1-terra",
-      "tool_calls": 3,
+      "tool_calls": 2,
       "skill_read_attempts": 2,
       "verified_reads": [
         {
           "version": "original",
-          "line": 25,
-          "call_id": "call_6debb8fd13e346889f1c7ecd0a1b3ef4"
+          "line": 24,
+          "call_id": "call_1860039b8a474757b450d116f161c0a6"
         }
       ],
       "activated": true,
@@ -145,30 +145,84 @@
       "pass": true
     },
     "4-slim": {
-      "session_id": "01a20bb5-f60c-7ae1-a366-8496162f78aa",
-      "source_log": "rollout-2026-11-23T23-00-07-01a20bb5-f60c-7ae1-a366-8496162f78aa.jsonl",
-      "source_sha256": "1a4806dca92d1013faca3fe5e59be1a95ef34496650e24fbf84e2f00e9931494",
-      "excerpt_sha256": "9177189f714c1f8d4702438df9ba965a910bae4c7b145891000dfbffc06e7912",
-      "answer_sha256": "31f0b42a89267c970b402b9f8d4f504914e29701802e98db9ece6e614f0821e9",
+      "session_id": "01a20bc4-a76e-7e90-85d0-ed4daf47a10a",
+      "source_log": "rollout-2026-11-23T23-16-08-01a20bc4-a76e-7e90-85d0-ed4daf47a10a.jsonl",
+      "source_sha256": "dc6fc31f7b6e05c74ab47276f5c762ba2279aa9fc928a6bc329a0d00fa601e84",
+      "excerpt_sha256": "e8abc703f8a13f4d6be29a27f1b91b977b843681b1dbc83560efe42595451110",
+      "answer_sha256": "1e3c26f646aca061a8a573ef6ced69e2920e6bfb6cbe4f9b9607cab505035451",
       "model": "gpt-6.1-terra",
-      "tool_calls": 4,
+      "tool_calls": 3,
       "skill_read_attempts": 2,
       "verified_reads": [
         {
           "version": "slim",
-          "line": 30,
-          "call_id": "call_aa165cb85aa7462787abdfd5daea82d7"
+          "line": 24,
+          "call_id": "call_8203acd3c7af4d02852b56232d5702e3"
         }
       ],
       "activated": true,
       "expected_activation": true,
       "pass": true
     },
+    "5-original": {
+      "session_id": "01a20bc3-7ed0-7833-8221-20b7af27ee84",
+      "source_log": "rollout-2026-11-23T23-14-51-01a20bc3-7ed0-7833-8221-20b7af27ee84.jsonl",
+      "source_sha256": "fd38923118eeff60549bdb99e626f16b1481c804882926461b1f19397136fd11",
+      "excerpt_sha256": "afc8939fe7e550fa543bfd6db0fad1346787a621380c17735a4a402316907510",
+      "answer_sha256": "fc4419617cfa0a4f9a345582e815d120fb44e0a749ee643369afb0b07b2e33df",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 2,
+      "skill_read_attempts": 2,
+      "verified_reads": [
+        {
+          "version": "original",
+          "line": 24,
+          "call_id": "call_ee0c54bd4ea84fd79cbe211f17dd2d58"
+        }
+      ],
+      "activated": true,
+      "expected_activation": true,
+      "pass": true
+    },
+    "5-slim": {
+      "session_id": "01a20bc3-7ef4-7a82-b9c9-6f47392a7eac",
+      "source_log": "rollout-2026-11-23T23-14-51-01a20bc3-7ef4-7a82-b9c9-6f47392a7eac.jsonl",
+      "source_sha256": "78646ff7fef1fd41bba6b4d963958f4886a42dc3d3ae8c11c46918c2b18c8819",
+      "excerpt_sha256": "0172b16d42b676e526dfbd4159a60805f9fd94f916be496b61eea4cbf4d17c5a",
+      "answer_sha256": "b378f095a8cb10bd2f42505173b422f7d598c7c8088330ffa9c46c4cd9df05ff",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 2,
+      "skill_read_attempts": 2,
+      "verified_reads": [
+        {
+          "version": "slim",
+          "line": 24,
+          "call_id": "call_6cf24ed9cab549f59ff6622e6202c12c"
+        }
+      ],
+      "activated": true,
+      "expected_activation": true,
+      "pass": true
+    },
+    "5-baseline": {
+      "session_id": "01a20bc3-9cd7-7bd1-ae18-5d4b4e24923e",
+      "source_log": "rollout-2026-11-23T23-14-58-01a20bc3-9cd7-7bd1-ae18-5d4b4e24923e.jsonl",
+      "source_sha256": "3d922cc3d3b950d53ddd729175c0464685e63c95187b87c9b591c52157c36d7e",
+      "excerpt_sha256": "57850897b71449fe8c24f1ed1e13255e2436fb04ecba66060aebd78212ea4760",
+      "answer_sha256": "487df56e9272ee0b84d851d7a42858114f7c26733a7883bb43668cb1222f047d",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 0,
+      "skill_read_attempts": 0,
+      "verified_reads": [],
+      "activated": false,
+      "expected_activation": false,
+      "pass": true
+    },
     "t1": {
-      "session_id": "01a20bb5-ed9b-7171-9685-cce9b6d87ba5",
-      "source_log": "rollout-2026-11-23T23-00-01-01a20bb5-ed9b-7171-9685-cce9b6d87ba5.jsonl",
-      "source_sha256": "b2c60ffc52efeeec070f5c610459db1004f477c213b81dab701e2f810c1a5075",
-      "excerpt_sha256": "2c645184ea0de24c304917eda61ba99fb900391cdcb5b5059ec066b708d0815a",
+      "session_id": "01a20bc3-a74d-7c23-9d64-3a77af7b6e40",
+      "source_log": "rollout-2026-11-23T23-15-01-01a20bc3-a74d-7c23-9d64-3a77af7b6e40.jsonl",
+      "source_sha256": "36c22eaae538fb547daad114be634509efd2450629b49411809f0518376f11b8",
+      "excerpt_sha256": "dd486eae91f5f4dd81a9f5ec4a284c45ad0ca021341dd2a2d091dd45fa972c75",
       "answer_sha256": "378d175766043534eef78a17fba39864cf8d9c99cbf0b4437ff625ff942612d7",
       "model": "gpt-6.1-terra",
       "tool_calls": 2,
@@ -177,7 +231,7 @@
         {
           "version": "slim",
           "line": 24,
-          "call_id": "call_84f0ae5afaec4d1cb6f95ada55647040"
+          "call_id": "call_09ab017aa83b4bedaa2a6b4ea07484e6"
         }
       ],
       "activated": true,
@@ -185,11 +239,11 @@
       "pass": true
     },
     "t2": {
-      "session_id": "01a20bb5-edf8-7103-9da4-452919b58eb4",
-      "source_log": "rollout-2026-11-23T23-00-02-01a20bb5-edf8-7103-9da4-452919b58eb4.jsonl",
-      "source_sha256": "04b2a5798b264a6a65eb2756d6119e2413a7831e020085f2eea272ca5cbe1e66",
-      "excerpt_sha256": "1e1d9b0f9816be0595f0716b1539ede5dfdf72854c82a12619ae77b2d7ae28b9",
-      "answer_sha256": "416af9a7d414f791e691716f4d9226b6d637505915dfc4bf7d8cc1954cd74981",
+      "session_id": "01a20bc3-b530-79e0-bdb1-2402631da507",
+      "source_log": "rollout-2026-11-23T23-15-05-01a20bc3-b530-79e0-bdb1-2402631da507.jsonl",
+      "source_sha256": "4fdc3c1209d143bcf1b57d963a4b13f4df26deca6238979a137397e58422830c",
+      "excerpt_sha256": "ac9989c575948a6bfc25dd40bba084056f1a155f309f760a3233ae57243cb359",
+      "answer_sha256": "9631f2a4134ee4a3199b23b86a3037d1e448ef75af48b57f1bdc82300b4004b2",
       "model": "gpt-6.1-terra",
       "tool_calls": 3,
       "skill_read_attempts": 0,
@@ -199,17 +253,37 @@
       "pass": true
     },
     "t3": {
-      "session_id": "01a20bb5-ed03-70e3-bd44-3bf1f74dd387",
-      "source_log": "rollout-2026-11-23T23-00-01-01a20bb5-ed03-70e3-bd44-3bf1f74dd387.jsonl",
-      "source_sha256": "9b603bf15a6cb8f1f4c2f64800355d3f5662ce5fbeef96941572a20e1798a03d",
-      "excerpt_sha256": "131b368c80624e6ae6789caddfb99b766427ac9f9b5e0d581d4010ab4b9eb0de",
-      "answer_sha256": "3395e8d1b7a7c7cff85ff21dd35c08df2b7d24bcd95db9702ae9906df0518732",
+      "session_id": "01a20bc3-d25a-7ac1-aa51-cd9c16c3d794",
+      "source_log": "rollout-2026-11-23T23-15-12-01a20bc3-d25a-7ac1-aa51-cd9c16c3d794.jsonl",
+      "source_sha256": "8f6b714e0cfc5f6bba7cac11b3c6120a4b1834f846f048e5b1f59d4089321bf7",
+      "excerpt_sha256": "9a8491d1f449cd953f078afc879314eebcd86b2dfac9c65fc802fe17e2e36a94",
+      "answer_sha256": "28eeaa38b74dae35a8d879a2f084c5b52501188a053f6ddd6235b2d4d3e14765",
       "model": "gpt-6.1-terra",
       "tool_calls": 0,
       "skill_read_attempts": 0,
       "verified_reads": [],
       "activated": false,
       "expected_activation": false,
+      "pass": true
+    },
+    "t4": {
+      "session_id": "01a20bc5-43c4-7a73-b416-080d79761a97",
+      "source_log": "rollout-2026-11-23T23-16-47-01a20bc5-43c4-7a73-b416-080d79761a97.jsonl",
+      "source_sha256": "3ad5b2aecaddd9c880306e8460e671170bca8b71033bd61afcaa8057ffb33c87",
+      "excerpt_sha256": "246eceaa596f22c388bf3717168f7711cbd09c996014063f80abd76e98429f1f",
+      "answer_sha256": "6a1db1da30e187ad4ec0ebac493627777b77bca5eee39b9342edd2f321d0c98c",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 2,
+      "skill_read_attempts": 2,
+      "verified_reads": [
+        {
+          "version": "slim",
+          "line": 26,
+          "call_id": "call_fd5a3bf337c44fe297c72d6af2fff855"
+        }
+      ],
+      "activated": true,
+      "expected_activation": true,
       "pass": true
     }
   }

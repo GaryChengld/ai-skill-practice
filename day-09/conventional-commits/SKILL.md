@@ -1,6 +1,6 @@
 ---
 name: conventional-commits
-description: Draft Conventional Commits messages when asked what a commit should say, using a git diff, staged changes, or summary. Excludes PR descriptions, changelogs, and release notes.
+description: Write Conventional Commits messages from a git diff, staged changes, or a change summary. Use when asked for a commit message or how to word a commit. Not for PR descriptions, changelogs, or release notes.
 ---
 
 # Conventional Commits Writer

@@ -1,3 +1,3 @@
-There’s no diff to ground a commit message in yet; I also found no unstaged changes in the current workspace.
+There isn’t enough information to suggest an accurate commit message. The staged diff is empty, so I can’t tell what the commit would contain.
 
-Once you have a diff or a short description of the intended change, share it and I can suggest a Conventional Commit message.
+When you have a diff or a short description of the intended change, share it and I can suggest a Conventional Commit message.
