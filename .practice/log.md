@@ -325,3 +325,4 @@
 
 **检查与评审**
 - 2026-11-23 检查：未完成（main 上没有 day-09/ 文件夹，全部交付物缺失；远端只有 main 分支，自出题提交 8b97efa 后没有新提交）。
+- 2026-11-24 chat 评审（5455d40）：评分 4/5，10 条完成标准基本满足（count_tokens.py 本地复跑，表格与 BUDGET.md 完全一致；正文 1322→447，减 66%；day-01 未改；触发 T1 激活、T2/T3 零读取；agentskills validate 本次无法复跑且提交中没有记录输出，手工检查 frontmatter 合规）。主要建议：①行为测试有天花板效应：输入已把答案写进摘要（如 input-2 自带迁移说明），原版和瘦身版都 12/12，无法检测删减带来的退化，“最危险的删减”分析证据不足，应加 1-2 个只给原始 diff、不预先说明 breaking/迁移的输入，最好再加无 skill 基线；②新 description 的 “when asked what a commit should say” 与 T1 提示词几乎同句，触发测试偏向自证，"Excludes" 不如 "Not for" 明确，建议改写并加一个措辞不同的正向提示词（如 “write a commit msg for this”）；③在 RESULTS.md 或 NOTES.md 记录 agentskills validate 的输出；count_tokens.py 依赖 PyYAML，可改用标准库解析两字段以便移植。
