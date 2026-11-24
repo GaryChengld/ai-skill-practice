@@ -296,6 +296,7 @@
 
 - 出题日期：2026-11-22
 - 阶段：第二阶段 · 渐进式披露（第 4 题：上下文预算）
+- 状态：已完成，最终评分 5/5
 - 针对弱点：day-08 的触发测试只有正向（本题加入不点名 skill 的正向 + 近似反例 + 反例触发测试）；day-08 schema 中列表项为自由字符串（列为加分项）；检查清单必须先于输出写好，避免事后对答案
 - 背景核实：agentskills.io 规范：元数据约 100 token（启动时为所有 skill 加载）、正文建议 < 5000 token、SKILL.md 500 行以内、资源按需加载；Anthropic best practices “Concise is key”
 - 完整题目：`.practice/problems/day-09.md`
@@ -327,3 +328,40 @@
 - 2026-11-23 检查：未完成（main 上没有 day-09/ 文件夹，全部交付物缺失；远端只有 main 分支，自出题提交 8b97efa 后没有新提交）。
 - 2026-11-24 chat 评审（5455d40）：评分 4/5，10 条完成标准基本满足（count_tokens.py 本地复跑，表格与 BUDGET.md 完全一致；正文 1322→447，减 66%；day-01 未改；触发 T1 激活、T2/T3 零读取；agentskills validate 本次无法复跑且提交中没有记录输出，手工检查 frontmatter 合规）。主要建议：①行为测试有天花板效应：输入已把答案写进摘要（如 input-2 自带迁移说明），原版和瘦身版都 12/12，无法检测删减带来的退化，“最危险的删减”分析证据不足，应加 1-2 个只给原始 diff、不预先说明 breaking/迁移的输入，最好再加无 skill 基线；②新 description 的 “when asked what a commit should say” 与 T1 提示词几乎同句，触发测试偏向自证，"Excludes" 不如 "Not for" 明确，建议改写并加一个措辞不同的正向提示词（如 “write a commit msg for this”）；③在 RESULTS.md 或 NOTES.md 记录 agentskills validate 的输出；count_tokens.py 依赖 PyYAML，可改用标准库解析两字段以便移植。
 - 2026-11-24 chat 复查（3371b24）：上次 3 条建议全部改好（新增只给原始 diff 的 input-5 和无 skill 基线：原版/瘦身版 2/2、基线 0/2；description 改为建议版本并新增措辞不同的 T4，自动触发成功；NOTES.md 记录 skills-ref validate 通过，count_tokens.py 改为纯标准库，本地 python3 -I 复跑表格与 BUDGET.md 一致）。新发现：output-5-slim 用了 `chore(config)!`（原版为 `feat(config)!`），公开 API 变更不应归为 chore，清单未检查 type，可加 5c 并在 type 规则里补一句；RESULTS.md 正好 40 行，已到上限。最终评分 5/5。
+- 2026-11-24 检查：复查（3371b24）之后 day-09/ 没有新修改（之后只有 44f29c9 改了 .practice/log.md），确认已完成，最终评分 5/5。复查提出的 output-5-slim 用 `chore(config)!` 的 type 问题未处理（列为 day-10 加分项）。
+
+---
+
+## day-10：Unpack the Kitchen Sink — refactor an everything-in-one-file migration review skill
+
+- 出题日期：2026-11-24
+- 阶段：第二阶段 · 渐进式披露（第 5 题：阶段小结）
+- 针对弱点：day-09 行为测试有天花板效应（本题输入只给原始 SQL 和一行数据库/规模注释，不写风险；加无 skill 基线）；day-09 T1 提示词与 description 同句（本题 T1 必须换措辞）；validate 输出要记录；检查清单先于输出提交；day-09 type 问题列为加分项
+- 背景核实：agentskills.io 规范（元数据约 100 token、正文 < 5000 token / 500 行、资源按需加载；文件引用用相对路径、一层深度）；PostgreSQL CREATE INDEX CONCURRENTLY 不能在事务块中、ADD COLUMN 常量默认值 PG11+ 不重写表、SET NOT NULL 可借已验证的 CHECK 约束跳过扫描（PG12+）；MySQL 8.0 INSTANT ADD COLUMN（8.0.12，任意位置 8.0.29）
+- 完整题目：`.practice/problems/day-10.md`（含需原样保存的 BEFORE 版 SKILL.md）
+
+**交付物**
+- `day-10/BEFORE/migration-safety-review/SKILL.md`（原样保存的起点，不修改）
+- `day-10/migration-safety-review/SKILL.md`
+- `day-10/migration-safety-review/references/postgres.md`、`references/mysql.md`
+- `day-10/migration-safety-review/assets/review-template.md`、`assets/risk-matrix.csv`
+- `day-10/migration-safety-review/tests/PLAN.md`
+- `day-10/migration-safety-review/tests/input-1.sql` ~ `input-4.sql`
+- `day-10/migration-safety-review/tests/output-N-before.md`、`output-N-after.md`、`output-N-baseline.md`（共 12 个）
+- `tests/` 下的读取 / 触发日志证据和提取脚本
+- `day-10/migration-safety-review/tests/RESULTS.md`
+- （可选）`day-10/NOTES.md`
+
+**完成标准**
+1. BEFORE 版与题目给出的文本一致；重构版 `name` 与目录同名，description 为单行纯字符串，写明做什么、何时用、至少两条排除边界，且 token 少于 BEFORE；`agentskills validate`（或 `skills-ref validate`）通过并把输出记在 RESULTS.md 或 NOTES.md。
+2. 重构版正文 token 比 BEFORE 少至少 50%（以 count_tokens.py 为准），且正文 ≤ 40 行；正文中没有某一个数据库专有的规则（如 `CONCURRENTLY`、`ALGORITHM=`）。
+3. 单一来源：输出结构只在 review-template.md；风险等级规则只在 risk-matrix.csv（覆盖原文的全部情况，含“未知大小按大表”或在正文写明这一条）；共有规则只出现一次；每个 references/assets 文件在正文中都有相对路径、使用条件和用法动词，且只引用一层深度。
+4. PLAN.md 的去向表覆盖 BEFORE 的每一个二级标题段落，并且提交时间早于任何 output 文件（git log 可见）。
+5. 4 个输入只含 SQL 和一行数据库/规模注释，不含风险提示；CHECKLIST（写在 PLAN.md 中）每个输入 2-4 条可判断的检查项，至少一条检查 risk 等级，input-4 至少一条检查“没有虚构的 High/Medium 发现”。
+6. 12 次运行都在全新会话中、普通提示词；输出原样保存；重构版的通过条数不少于 BEFORE 版。
+7. 读取证据来自 harness 日志：PostgreSQL 输入没有读 mysql.md，MySQL 输入没有读 postgres.md。
+8. 3 个触发测试提示词不提 skill 名称、路径或“测试”；T1 激活、T2 和 T3 不激活，证据由脚本提取。
+9. RESULTS.md ≤ 40 行，包含 token 对比表和至少一段“区分度”分析。
+10. skill 内容、references/assets、tests/ 下文档使用英文（NOTES.md 可以用中文）。
+
+**检查与评审**
