@@ -1,0 +1,14 @@
+{
+  "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day09-trigger-jxjtzzhf",
+  "enabled": [
+    {
+      "name": "conventional-commits",
+      "description": "Draft Conventional Commits messages when asked what a commit should say, using a git diff, staged changes, or summary. Excludes PR descriptions, changelogs, and release notes.",
+      "path": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day09-trigger-jxjtzzhf\\.agents\\skills\\conventional-commits\\SKILL.md",
+      "scope": "repo",
+      "enabled": true,
+      "sha256": "e40fea27e5db27463a52e3ac8578a3036d2b2dbb7e6b08d34b49f2e2f5afedd1"
+    }
+  ],
+  "disabled_count": 14
+}

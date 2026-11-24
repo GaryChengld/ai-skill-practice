@@ -1,0 +1,1 @@
+There’s no staged or unstaged diff to base a commit message on. Once you have changes, share the diff or a short summary and I can suggest a Conventional Commit message.
