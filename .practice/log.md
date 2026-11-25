@@ -336,6 +336,7 @@
 
 - 出题日期：2026-11-24
 - 阶段：第二阶段 · 渐进式披露（第 5 题：阶段小结）
+- 状态：已完成，最终评分 5/5
 - 针对弱点：day-09 行为测试有天花板效应（本题输入只给原始 SQL 和一行数据库/规模注释，不写风险；加无 skill 基线）；day-09 T1 提示词与 description 同句（本题 T1 必须换措辞）；validate 输出要记录；检查清单先于输出提交；day-09 type 问题列为加分项
 - 背景核实：agentskills.io 规范（元数据约 100 token、正文 < 5000 token / 500 行、资源按需加载；文件引用用相对路径、一层深度）；PostgreSQL CREATE INDEX CONCURRENTLY 不能在事务块中、ADD COLUMN 常量默认值 PG11+ 不重写表、SET NOT NULL 可借已验证的 CHECK 约束跳过扫描（PG12+）；MySQL 8.0 INSTANT ADD COLUMN（8.0.12，任意位置 8.0.29）
 - 完整题目：`.practice/problems/day-10.md`（含需原样保存的 BEFORE 版 SKILL.md）
@@ -367,3 +368,39 @@
 **检查与评审**
 - 2026-11-25 chat 评审（da26c44）：评分 5/5，10 条完成标准全部满足（BEFORE 与题目逐字一致；count_tokens.py 本地复跑：元数据 128→63、正文 1511→449，减 70%；正文无数据库专有规则；PLAN.md 在 c62bfd5 先于输出提交；manifest 显示 PG 输入只读 postgres.md、MySQL 只读 mysql.md；T1 激活、T2/T3 零读取；skills-ref validate 通过）。主要建议：①output-3-after 在 Findings 和 Rollout 之间多了一段模板外的文档链接，manifest 的 template 检查仍判通过，模板校验应检查标题之间没有多余段落；②第 5 步要求“filtered or row-range read”一个 8 行、67 token 的 CSV，收益很小却导致了重跑，并隐含依赖 shell 工具，建议改为整表读取后只用选中的行；正文 6 步都是长段落，第 2、4 步各混了 3-4 件事，建议拆短；③before 和 after 没有被任何检查项区分，baseline 只在“给出总体评级”这一格式项失分，下次加一个能测出内容差异的输入（如未知表大小、或 rename 列）。
 - 2026-11-25 chat 复查（2155914 / 1247425）：上次 3 条建议全部改好（collect-harness.py 的 matches_template 拒绝标题之间的多余段落，新增 test_template.py 3 个单测本地通过，旧版 output-3-after 被判不通过、5 个新 AFTER 输出全部通过；第 5 步改为整表读取，第 2、4 步拆短，正文 449→364 token；新增 input-5（未知表大小 + rename 列）并先在 72801c8 冻结 FOLLOWUP.md 评分标准，skill 两版 3/3、基线 0/3，内容上测出了区分）。新发现：output-5-after 把 rename `status` 评为 Low（理由是应用使用情况未确认），与“未知表大小按大表处理”的保守原则不一致，基线反而评 High；FOLLOWUP 也没有检查 rename 的风险等级。建议把“rename/drop 列在作者确认无人使用前按 application_breakage 处理”写进正文第 3 步，并加一条检查项。最终评分 5/5。
+- 2026-11-25 检查：复查（2155914 / 1247425）之后 day-10/ 没有新修改（之后只有 38fc584 改了 .practice/log.md），确认已完成，最终评分 5/5。复查提出的 rename 风险等级问题未处理（列为 day-11 加分项）。
+
+---
+
+## day-11：Run It, Don't Reason It — a first scripts/ for a next-version skill
+
+- 出题日期：2026-11-25
+- 阶段：第三阶段 · 配套脚本（第 1 题：第一个 scripts/）
+- 针对弱点：day-10 复查发现模型在“保守规则”上判断不一致（本题把确定性计算交给脚本，用日志证明是执行而非阅读源码）；延续先冻结 EXPECTED.md、无 skill 基线、输入不含答案；day-10 rename 风险等级问题列为加分项
+- 背景核实：agentskills.io Using scripts 指南（非交互、--help、可行动的错误信息写 stderr、结构化输出、标准库或 PEP 723 依赖）；Conventional Commits 1.0.0（`!` 与 `BREAKING CHANGE` / `BREAKING-CHANGE` footer）；SemVer 2.0.0（0.y.z、预发布）
+- 完整题目：`.practice/problems/day-11.md`（含脚本必须实现的规则表）
+
+**交付物**
+- `day-11/semver-next/SKILL.md`
+- `day-11/semver-next/scripts/next_version.py`
+- `day-11/semver-next/scripts/test_next_version.py`
+- `day-11/semver-next/tests/EXPECTED.md`
+- `day-11/semver-next/tests/input-1.txt` ~ `input-4.txt`
+- `day-11/semver-next/tests/output-N-skill.md`、`output-N-baseline.md`（共 8 个）
+- `tests/` 下的 harness 日志证据和提取脚本
+- `day-11/semver-next/tests/RESULTS.md`
+- （可选）`day-11/NOTES.md`
+
+**完成标准**
+1. `name` 为 `semver-next`，与目录同名；description 为单行纯字符串，写明做什么、何时用、至少两条排除边界；validate 通过，输出记在 RESULTS.md 或 NOTES.md。
+2. `next_version.py` 只用标准库（或 PEP 723 + 正文写明运行方式）；无交互；`--help` 写明参数、输入格式、输出字段和退出码。
+3. 脚本实现规则表每一行；stdout 只输出 JSON，错误只写 stderr；退出码 0 / 2 / 3 与表一致；错误信息说明原因和下一步。
+4. `python3 -m unittest` 可直接运行并全部通过，至少 6 个用例，覆盖每种结果，breaking 的 `!` 和 footer 各至少一个。
+5. 正文 ≤ 50 行，含 git 命令、相对路径的确切脚本命令、JSON 字段解读、每个退出码的处理、“不要自己重算”、“运行而不必阅读源码”、最终回复内容（含 unparsed 提醒）。
+6. EXPECTED.md 提交时间早于任何 output；每个输入 2-3 条可判断检查项，input-4 至少一条检查“没有编造版本号”。
+7. 4 个输入不含期望结果或提示；8 次运行全新会话、普通提示词；输出原样保存。
+8. 日志证据由脚本提取：4 次 skill 运行都执行了 next_version.py 且没有读取其源码；基线没有加载 skill。
+9. RESULTS.md ≤ 30 行，含单测结果、validate 输出（或指向 NOTES.md）、逐条检查结果和“区分度”分析。
+10. skill 内容、脚本（注释、--help、错误信息）和 tests/ 文档使用英文（NOTES.md 可以用中文）。
+
+**检查与评审**
