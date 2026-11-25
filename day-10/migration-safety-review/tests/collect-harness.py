@@ -1,4 +1,4 @@
-"""Extract answers and file-read evidence from 15 fresh Codex CLI sessions.
+"""Extract answers and file-read evidence from 18 fresh Codex CLI sessions.
 
 Pass session IDs in input order (before, after, baseline per input), then T1–T3.
 Supply --sessions-dir if the rollouts live outside ~/.codex/sessions.
@@ -17,7 +17,7 @@ SKILL = TESTS.parent
 BEFORE = SKILL.parent / "BEFORE/migration-safety-review/SKILL.md"
 HARNESS = TESTS / "harness"
 VERSIONS = ("before", "after", "baseline")
-CASES = [f"{n}-{version}" for n in range(1, 5) for version in VERSIONS] + ["t1", "t2", "t3"]
+CASES = [f"{n}-{version}" for n in range(1, 6) for version in VERSIONS] + ["t1", "t2", "t3"]
 MATRIX = "assets/risk-matrix.csv"
 TEMPLATE = "assets/review-template.md"
 POSTGRES = "references/postgres.md"
@@ -29,6 +29,7 @@ EXPECTED_ROWS = {
     "2": {"any,execution_blocker,High", "large,sustained_write_blocking,High"},
     "3": {"large,rewrite,High", "large,online_or_metadata_only,Low"},
     "4": {"small,online_or_metadata_only,Low"},
+    "5": {"large,rewrite,High", "large,online_or_metadata_only,Low"},
 }
 CALLS = {"function_call", "custom_tool_call"}
 RESULTS = {"function_call_output", "custom_tool_call_output"}
@@ -72,18 +73,45 @@ def only(events, predicate, description):
     return matches[0]
 
 
+def table_cells(line):
+    if not line.startswith("|") or not line.endswith("|"):
+        return []
+    return [cell.strip() for cell in re.split(r"(?<!\\)\|", line[1:-1])]
+
+
+def matches_list(lines, marker):
+    indent = 0
+    for line in lines:
+        if not line:
+            continue
+        item = re.match(marker, line)
+        if item:
+            indent = item.end()
+        elif not indent or not line.startswith(" " * indent):
+            return False
+    return indent > 0
+
+
 def matches_template(answer, fixture, template):
     expected = template.replace("<file name>", fixture).splitlines()
-    actual = answer.splitlines()
-    try:
-        indexes = [actual.index(line) for line in expected if line.startswith("#")]
-    except ValueError:
+    headings = [line for line in expected if line.startswith("#")]
+    actual = [line.rstrip() for line in answer.strip("\r\n").splitlines()]
+    indexes = [index for index, line in enumerate(actual) if line.startswith("#")]
+    if not indexes or indexes[0] != 0 or [actual[index] for index in indexes] != headings:
         return False
-    columns = next(line for line in expected if line.startswith("| #"))
-    return (indexes == sorted(indexes)
-            and any(line.startswith("**Database:** ") for line in actual)
-            and any(re.fullmatch(r"\*\*Overall risk:\*\* (Low|Medium|High)", line) for line in actual)
-            and any(line.replace(" ", "") == columns.replace(" ", "") for line in actual))
+    title, findings, rollout, questions = indexes
+    metadata = [line for line in actual[title + 1:findings] if line]
+    if len(metadata) != 2 or not re.fullmatch(r"\*\*Database:\*\* (PostgreSQL|MySQL)\b.*", metadata[0]):
+        return False
+    if not re.fullmatch(r"\*\*Overall risk:\*\* (Low|Medium|High)", metadata[1]):
+        return False
+    columns = table_cells(next(line for line in expected if line.startswith("| #")))
+    table = [table_cells(line) for line in "\n".join(actual[findings + 1:rollout]).strip("\n").splitlines()]
+    return (len(table) >= 3 and table[0] == columns
+            and all(len(row) == len(columns) and all(row) for row in table)
+            and all(re.fullmatch(r":?-{3,}:?", cell) for cell in table[1])
+            and matches_list(actual[rollout + 1:questions], r"\d+\. +(?=\S)")
+            and matches_list(actual[questions + 1:], r"- +(?=\S)"))
 
 
 def collect(case, source, registry, docs):
@@ -168,7 +196,7 @@ def collect(case, source, registry, docs):
         "activation": skills == wanted,
         "fixture": trigger or any(read["file"] == fixture for read in reads),
         "routing": (not resources if not wanted else True) if trigger else resources == selected,
-        "matrix": not selected or (lookup_rows == EXPECTED_ROWS[case[0]] and any(read["header"] for read in lookups)),
+        "matrix": not selected or (EXPECTED_ROWS[case[0]] <= lookup_rows and any(read["header"] for read in lookups)),
         "template": not selected or matches_template(answer, fixture, docs[TEMPLATE]),
     }
     if not wanted:

@@ -14,15 +14,15 @@
     "disabled_count": 14
   },
   "after": {
-    "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day10-review-_6wfhepa\\after-final",
+    "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day10-review-_6wfhepa\\after-followup",
     "enabled": [
       {
         "name": "migration-safety-review",
-        "path": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day10-review-_6wfhepa\\after-final\\.agents\\skills\\migration-safety-review\\SKILL.md",
+        "path": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day10-review-_6wfhepa\\after-followup\\.agents\\skills\\migration-safety-review\\SKILL.md",
         "description": "Review an existing PostgreSQL or MySQL migration for locks, rewrites, downtime, and safer rollout options. Use when asked to assess SQL or schema changes before deployment. Not for writing new migrations or tuning slow queries.",
         "scope": "repo",
         "enabled": true,
-        "sha256": "5c00c34b8b96dc74d24e6d043cfff5db15a5ea5c6eeb941b6d99ea264a9bec66"
+        "sha256": "975f3ebe1a87f638f4c0dde7e02c12481882820066ec6525954548ec3bbae699"
       }
     ],
     "disabled_count": 14

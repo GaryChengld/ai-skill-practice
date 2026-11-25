@@ -1,0 +1,7 @@
+I’d address two risks before merging:
+
+- **High — the new column rewrites the table.** [input-5.sql:2](C:/Users/Gary/AppData/Local/Temp/day10-review-_6wfhepa/baseline/input-5.sql:2) uses the volatile default `clock_timestamp()`. PostgreSQL 15 must rewrite the table and its indexes while holding an `ACCESS EXCLUSIVE` lock, blocking reads and writes for the duration. The impact depends on the size of `orders`, which this file doesn’t state. Add the column without a default, set the default separately for new rows, and backfill existing rows in batches if needed. Existing rows otherwise get migration-time timestamps, which may not represent when the orders were recorded. [PostgreSQL ALTER TABLE documentation](https://www.postgresql.org/docs/15/sql-altertable.html)
+
+- **High — the rename can break running clients.** [input-5.sql:3](C:/Users/Gary/AppData/Local/Temp/day10-review-_6wfhepa/baseline/input-5.sql:3) immediately removes the `status` name. Any application version, job, or query still referring to it will fail after the migration commits. Coordinate a cutover with all consumers, or use a staged compatibility migration if deployments overlap.
+
+I could only inspect the SQL files in this workspace; application consumers, the live schema, and the migration runner weren’t available to verify.

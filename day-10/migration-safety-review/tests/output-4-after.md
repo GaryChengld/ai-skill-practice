@@ -7,14 +7,14 @@
 
 | # | Statement | Risk | Why | Safer alternative |
 |---|---|---|---|---|
-| 1 | Add nullable `label text` to `offices` | Low | This is a metadata-only change with no table rewrite. It requires an `ACCESS EXCLUSIVE` lock, which can wait behind other transactions and remains held until the migration transaction commits. Existing rows receive `NULL`. | No change needed. Consider a bounded `lock_timeout` so the migration fails rather than waiting indefinitely for the lock. |
+| 1 | [Add nullable `label` column](C:/Users/Gary/AppData/Local/Temp/day10-review-_6wfhepa/after-followup/input-4.sql:2) | Low | On the stated ~500-row table, adding a nullable column without a default is metadata-only; existing rows read as `NULL`. It requires an `ACCESS EXCLUSIVE` lock, which blocks reads and writes while held and can wait behind existing transactions. The lock is held until the transaction ends. [PostgreSQL `ALTER TABLE` documentation](https://www.postgresql.org/docs/15/sql-altertable.html), [locking documentation](https://www.postgresql.org/docs/15/explicit-locking.html). | No SQL change needed. Use a bounded lock timeout if the table is busy, and commit promptly. |
 
 ### Recommended rollout
 
-1. Confirm the application accepts `NULL` for existing rows and that any positional inserts or consumers expecting a fixed column list remain compatible.
-2. Run the migration in a short transaction, optionally with a bounded `lock_timeout`, and commit promptly after the statement.
+1. Run the migration with a short `lock_timeout`, such as 5 seconds, and retry if lock acquisition times out.
+2. Ensure the migration runner commits promptly after the statement. Check that consumers tolerate `label` being `NULL`; backfill separately if values are needed.
 
 ### Questions for the author
 
-- Does the migration runner wrap this statement in a larger transaction?
-- Should existing offices have a label populated, or is `NULL` the intended initial value?
+- Does the migration runner wrap this statement in a longer transaction?
+- Is `NULL` acceptable for existing rows and for new rows that omit `label`?

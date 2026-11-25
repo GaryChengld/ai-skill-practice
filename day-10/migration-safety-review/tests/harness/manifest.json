@@ -1,7 +1,7 @@
 {
   "document_sha256": {
     "before": "32e958a7d13653e801998b31e411932c693e17b42edf53feb6043064a52a3df7",
-    "after": "5c00c34b8b96dc74d24e6d043cfff5db15a5ea5c6eeb941b6d99ea264a9bec66",
+    "after": "975f3ebe1a87f638f4c0dde7e02c12481882820066ec6525954548ec3bbae699",
     "references/postgres.md": "ed374afaa810a0cdadfaca40e01dece5add4b85b70a716ae2388f7df78835437",
     "references/mysql.md": "033199f5620f6cd352d9820b897a42097415722064e628ab75a34207948898bb",
     "assets/review-template.md": "f69d5a5d7be61951c7c008583049ba816086d51ce9d00373ac9cf50af2d86b35",
@@ -43,41 +43,48 @@
       "pass": true
     },
     "1-after": {
-      "session_id": "01a210a6-b3b4-7230-a39c-764957e2eaf9",
-      "source_log": "rollout-2026-11-24T22-01-30-01a210a6-b3b4-7230-a39c-764957e2eaf9.jsonl",
-      "source_sha256": "47458dd64468d4f6d03f4e16cee245e1886737e66d100393161a9b1a7b264acb",
-      "excerpt_sha256": "f58b7a7d631729ad6b90528293b896f6ad8aef93442d47085ad679b18f641c3c",
-      "answer_sha256": "5b96000c2de53bede1f8286a43c9ccd6e1beb6300e184dd762450a2b9e836a84",
+      "session_id": "01a210e4-6f89-7313-90ca-4502f2ca0cb5",
+      "source_log": "rollout-2026-11-24T23-08-56-01a210e4-6f89-7313-90ca-4502f2ca0cb5.jsonl",
+      "source_sha256": "6774db358b34bea285280b4753c4c04ad7f43c2ac0aee356fd77ce2b43866044",
+      "excerpt_sha256": "c6e7afecaa9b4b2e8bdda2a2bc041b0b37f2ba4554e03951d54151f42bdcbffc",
+      "answer_sha256": "11734bb4e2ee7431528ccc4cbc22f20b1ae9383ced70ab443119eb452d842963",
       "model": "gpt-6.1-terra",
-      "tool_calls": 7,
+      "tool_calls": 3,
       "reads": [
         {
           "file": "after",
-          "line": 26,
-          "call_id": "call_3c9a592e3bf848a5ad6528daa023b07b"
+          "line": 30,
+          "call_id": "call_722722069dca4c218d49f7223aab2198"
         },
         {
           "file": "input-1.sql",
-          "line": 26,
-          "call_id": "call_3c9a592e3bf848a5ad6528daa023b07b"
+          "line": 30,
+          "call_id": "call_722722069dca4c218d49f7223aab2198"
         },
         {
           "file": "references/postgres.md",
-          "line": 32,
-          "call_id": "call_d814b5b5765c440aad7b28c6a131dd81"
+          "line": 38,
+          "call_id": "call_b31bccdad8064c45816e551207e433de"
         },
         {
           "file": "assets/review-template.md",
-          "line": 56,
-          "call_id": "call_b75a108a036f45ffb9e7d1085880d20d"
+          "line": 38,
+          "call_id": "call_b31bccdad8064c45816e551207e433de"
         },
         {
           "file": "assets/risk-matrix.csv",
-          "line": 56,
-          "call_id": "call_b75a108a036f45ffb9e7d1085880d20d",
+          "line": 38,
+          "call_id": "call_b31bccdad8064c45816e551207e433de",
           "header": true,
           "rows": [
-            "large,rewrite,High"
+            "any,application_breakage,High",
+            "any,execution_blocker,High",
+            "large,online_or_metadata_only,Low",
+            "large,rewrite,High",
+            "large,sustained_write_blocking,High",
+            "small,online_or_metadata_only,Low",
+            "small,rewrite,Medium",
+            "small,sustained_write_blocking,Low"
           ]
         }
       ],
@@ -90,7 +97,14 @@
         "references/postgres.md"
       ],
       "matrix_rows": [
-        "large,rewrite,High"
+        "any,application_breakage,High",
+        "any,execution_blocker,High",
+        "large,online_or_metadata_only,Low",
+        "large,rewrite,High",
+        "large,sustained_write_blocking,High",
+        "small,online_or_metadata_only,Low",
+        "small,rewrite,Medium",
+        "small,sustained_write_blocking,Low"
       ],
       "checks": {
         "activation": true,
@@ -163,42 +177,48 @@
       "pass": true
     },
     "2-after": {
-      "session_id": "01a210aa-232b-76c2-ad80-0289efc068f8",
-      "source_log": "rollout-2026-11-24T22-05-15-01a210aa-232b-76c2-ad80-0289efc068f8.jsonl",
-      "source_sha256": "9d3978ac9a6ceeb41781cdb2a094f64578071377598ed8777816ae096f156bea",
-      "excerpt_sha256": "bcac8fe26118de03b75192b4b689a6424a7a78b47f94b9c47de46b5a10cda1df",
-      "answer_sha256": "d0473d47e350f31638d4f7ecebfa8a1fba51a9d96b8defea936f4d16eaef6294",
+      "session_id": "01a210e4-6f78-7712-98fb-f599e64b03d2",
+      "source_log": "rollout-2026-11-24T23-08-56-01a210e4-6f78-7712-98fb-f599e64b03d2.jsonl",
+      "source_sha256": "8494186b0bf0e0fe9c371a8a0b973b89dd21d1d2255753cbf341cbbe89bcaa58",
+      "excerpt_sha256": "d6c0704fc804510b2f28d38d611a581cd222980022beb855a264423f1c9f2330",
+      "answer_sha256": "d9a175510dd22da4faf52b567aa589118541c567cb8d77c47408762c1e7f98c6",
       "model": "gpt-6.1-terra",
       "tool_calls": 4,
       "reads": [
         {
           "file": "after",
-          "line": 28,
-          "call_id": "call_6a58a9ee5518428c8ead939fd1f6d668"
+          "line": 36,
+          "call_id": "call_caff8b3279244f6d8399093f8f9283d6"
         },
         {
           "file": "input-2.sql",
-          "line": 28,
-          "call_id": "call_6a58a9ee5518428c8ead939fd1f6d668"
+          "line": 36,
+          "call_id": "call_caff8b3279244f6d8399093f8f9283d6"
         },
         {
           "file": "references/postgres.md",
-          "line": 35,
-          "call_id": "call_5a9f9fc95b80480682227809f7fdd572"
+          "line": 44,
+          "call_id": "call_2bd7e7d2f2f74c88a18afaf5a8660639"
         },
         {
           "file": "assets/review-template.md",
-          "line": 35,
-          "call_id": "call_5a9f9fc95b80480682227809f7fdd572"
+          "line": 44,
+          "call_id": "call_2bd7e7d2f2f74c88a18afaf5a8660639"
         },
         {
           "file": "assets/risk-matrix.csv",
-          "line": 35,
-          "call_id": "call_5a9f9fc95b80480682227809f7fdd572",
+          "line": 44,
+          "call_id": "call_2bd7e7d2f2f74c88a18afaf5a8660639",
           "header": true,
           "rows": [
+            "any,application_breakage,High",
             "any,execution_blocker,High",
-            "large,sustained_write_blocking,High"
+            "large,online_or_metadata_only,Low",
+            "large,rewrite,High",
+            "large,sustained_write_blocking,High",
+            "small,online_or_metadata_only,Low",
+            "small,rewrite,Medium",
+            "small,sustained_write_blocking,Low"
           ]
         }
       ],
@@ -211,8 +231,14 @@
         "references/postgres.md"
       ],
       "matrix_rows": [
+        "any,application_breakage,High",
         "any,execution_blocker,High",
-        "large,sustained_write_blocking,High"
+        "large,online_or_metadata_only,Low",
+        "large,rewrite,High",
+        "large,sustained_write_blocking,High",
+        "small,online_or_metadata_only,Low",
+        "small,rewrite,Medium",
+        "small,sustained_write_blocking,Low"
       ],
       "checks": {
         "activation": true,
@@ -285,42 +311,48 @@
       "pass": true
     },
     "3-after": {
-      "session_id": "01a210a6-b40e-7f31-a7f1-837439744b53",
-      "source_log": "rollout-2026-11-24T22-01-30-01a210a6-b40e-7f31-a7f1-837439744b53.jsonl",
-      "source_sha256": "fcebc431c09f3ea8ab306fde30c9d4686eed01934cf18d753535b1b3d96be1ce",
-      "excerpt_sha256": "e081b640a4d2d6e37b62d7107866575c174dd4f0995758538f662fc4cf13c40a",
-      "answer_sha256": "c368311b4294d407a8c3b266e063020cec8ce055a5abcc5c20aa5f0939220450",
+      "session_id": "01a210e4-6f81-7ed1-a0ba-436216314b59",
+      "source_log": "rollout-2026-11-24T23-08-56-01a210e4-6f81-7ed1-a0ba-436216314b59.jsonl",
+      "source_sha256": "ebfa317d2552fbed6dea55d48b61bfe70e976dcc0073f4c6ee71e0ab1930d63b",
+      "excerpt_sha256": "a135157791bdc37ac06975455b6d4d70ad2e91024e868a7ae20d600a7513aab5",
+      "answer_sha256": "d09d6b22a46e3ad9462becb52c3bb06555aa60f8f41ac68d899ed34811b12fb6",
       "model": "gpt-6.1-terra",
-      "tool_calls": 6,
+      "tool_calls": 4,
       "reads": [
         {
           "file": "after",
           "line": 26,
-          "call_id": "call_da1269267fe2407390bf8d10011f19a9"
+          "call_id": "call_195dfb78286240efa738d03bbc1e3feb"
         },
         {
           "file": "input-3.sql",
           "line": 26,
-          "call_id": "call_da1269267fe2407390bf8d10011f19a9"
+          "call_id": "call_195dfb78286240efa738d03bbc1e3feb"
         },
         {
           "file": "references/mysql.md",
           "line": 33,
-          "call_id": "call_fe80c7ec211f4df2ad7421b4f6be87ab"
+          "call_id": "call_b32af7c87f9f4effb81cc00549770cce"
         },
         {
           "file": "assets/review-template.md",
-          "line": 52,
-          "call_id": "call_0128e3fa72dd4cd498a9cbe1d55692a4"
+          "line": 33,
+          "call_id": "call_b32af7c87f9f4effb81cc00549770cce"
         },
         {
           "file": "assets/risk-matrix.csv",
-          "line": 52,
-          "call_id": "call_0128e3fa72dd4cd498a9cbe1d55692a4",
+          "line": 33,
+          "call_id": "call_b32af7c87f9f4effb81cc00549770cce",
           "header": true,
           "rows": [
+            "any,application_breakage,High",
+            "any,execution_blocker,High",
             "large,online_or_metadata_only,Low",
-            "large,rewrite,High"
+            "large,rewrite,High",
+            "large,sustained_write_blocking,High",
+            "small,online_or_metadata_only,Low",
+            "small,rewrite,Medium",
+            "small,sustained_write_blocking,Low"
           ]
         }
       ],
@@ -333,8 +365,14 @@
         "references/mysql.md"
       ],
       "matrix_rows": [
+        "any,application_breakage,High",
+        "any,execution_blocker,High",
         "large,online_or_metadata_only,Low",
-        "large,rewrite,High"
+        "large,rewrite,High",
+        "large,sustained_write_blocking,High",
+        "small,online_or_metadata_only,Low",
+        "small,rewrite,Medium",
+        "small,sustained_write_blocking,Low"
       ],
       "checks": {
         "activation": true,
@@ -407,41 +445,48 @@
       "pass": true
     },
     "4-after": {
-      "session_id": "01a210a6-b3f4-79a0-965e-c6449cd0bf89",
-      "source_log": "rollout-2026-11-24T22-01-30-01a210a6-b3f4-79a0-965e-c6449cd0bf89.jsonl",
-      "source_sha256": "ad6cd394942b24e59f9423b7fafeb5a699c0c6272623f933f4e28e8a48a859b0",
-      "excerpt_sha256": "196ea593c84166122130b600ea1d4ac9b23aaa34e3161e55609b9396efbc5448",
-      "answer_sha256": "d1861938b325d02f2c656e7c316153ecaecf64b180b4371ebd2dcfbee7409a29",
+      "session_id": "01a210e4-6f68-7300-b38c-2eb80aab398e",
+      "source_log": "rollout-2026-11-24T23-08-56-01a210e4-6f68-7300-b38c-2eb80aab398e.jsonl",
+      "source_sha256": "70812e96cd1219c90797a882a1517cfd2a4333a800141a381feb7eae152d8ded",
+      "excerpt_sha256": "75c929c431c10ad364b09bb6da80ee2245db3e379b6b0918fb6cf908f8d3aa5f",
+      "answer_sha256": "aeb061f7b8fd8110f2eb8d026960701cd8dc391b86b2ae4a529886995e68d96f",
       "model": "gpt-6.1-terra",
-      "tool_calls": 4,
+      "tool_calls": 5,
       "reads": [
         {
           "file": "after",
-          "line": 24,
-          "call_id": "call_572082990b214acc8516690f93a2ac11"
+          "line": 30,
+          "call_id": "call_14ab20a722e64cbca321b3413bce9273"
         },
         {
           "file": "input-4.sql",
-          "line": 24,
-          "call_id": "call_572082990b214acc8516690f93a2ac11"
+          "line": 30,
+          "call_id": "call_14ab20a722e64cbca321b3413bce9273"
         },
         {
           "file": "references/postgres.md",
-          "line": 31,
-          "call_id": "call_a23b3ead06234abe902902deb47bd6ae"
+          "line": 37,
+          "call_id": "call_843f7e11152f4dc1b19a9632ae219b44"
         },
         {
           "file": "assets/review-template.md",
-          "line": 38,
-          "call_id": "call_de7a26e74c6e4ed2a1117c3a2901f29d"
+          "line": 37,
+          "call_id": "call_843f7e11152f4dc1b19a9632ae219b44"
         },
         {
           "file": "assets/risk-matrix.csv",
-          "line": 38,
-          "call_id": "call_de7a26e74c6e4ed2a1117c3a2901f29d",
+          "line": 37,
+          "call_id": "call_843f7e11152f4dc1b19a9632ae219b44",
           "header": true,
           "rows": [
-            "small,online_or_metadata_only,Low"
+            "any,application_breakage,High",
+            "any,execution_blocker,High",
+            "large,online_or_metadata_only,Low",
+            "large,rewrite,High",
+            "large,sustained_write_blocking,High",
+            "small,online_or_metadata_only,Low",
+            "small,rewrite,Medium",
+            "small,sustained_write_blocking,Low"
           ]
         }
       ],
@@ -454,7 +499,14 @@
         "references/postgres.md"
       ],
       "matrix_rows": [
-        "small,online_or_metadata_only,Low"
+        "any,application_breakage,High",
+        "any,execution_blocker,High",
+        "large,online_or_metadata_only,Low",
+        "large,rewrite,High",
+        "large,sustained_write_blocking,High",
+        "small,online_or_metadata_only,Low",
+        "small,rewrite,Medium",
+        "small,sustained_write_blocking,Low"
       ],
       "checks": {
         "activation": true,
@@ -492,37 +544,83 @@
       },
       "pass": true
     },
-    "t1": {
-      "session_id": "01a210a6-b3e9-7db2-abbb-53ff8098c7cd",
-      "source_log": "rollout-2026-11-24T22-01-30-01a210a6-b3e9-7db2-abbb-53ff8098c7cd.jsonl",
-      "source_sha256": "cabdc3b4a3b621ea1e461ffeeba47564872382c65291aff0e8fb1afc90295440",
-      "excerpt_sha256": "f2b9dc7fe0c82146bd2c30149223e6a9e6b1335905d912af7555b6442cc31f52",
-      "answer_sha256": "c80467ca5751d841c3c9540127cf54a7057488727887887b6bc6bfff8d9f98b4",
+    "5-before": {
+      "session_id": "01a210e5-23b6-75d2-9d83-b38f609977ee",
+      "source_log": "rollout-2026-11-24T23-09-42-01a210e5-23b6-75d2-9d83-b38f609977ee.jsonl",
+      "source_sha256": "c1d0f529a0914d3b51ff136a4a4b3c7731c9ec23d21de15b3584970794f5c6e5",
+      "excerpt_sha256": "7afa4ea446a4ca0d64cd3ecf0a3ec164e9528283dd31cb981edb4f71b9ce06cd",
+      "answer_sha256": "62d853e8b3dabc89099deae37bc0a8c368fb6cc1b7a8bdd0db393cf10ec7f554",
       "model": "gpt-6.1-terra",
-      "tool_calls": 6,
+      "tool_calls": 3,
+      "reads": [
+        {
+          "file": "before",
+          "line": 26,
+          "call_id": "call_feda95c2892a4e9291c760dc01cde917"
+        },
+        {
+          "file": "input-5.sql",
+          "line": 26,
+          "call_id": "call_feda95c2892a4e9291c760dc01cde917"
+        }
+      ],
+      "activation": [
+        "before"
+      ],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "5-after": {
+      "session_id": "01a210e5-2547-7c30-b15f-1317fa17fa58",
+      "source_log": "rollout-2026-11-24T23-09-42-01a210e5-2547-7c30-b15f-1317fa17fa58.jsonl",
+      "source_sha256": "948b211f298320e2ffa6eb8578476884c7e129daefcfc5ed7c750cead9469406",
+      "excerpt_sha256": "91e7405d616b4e40b614e89dd810f972d7166369d87cd65e1b4974d190ef33b0",
+      "answer_sha256": "36b7a433eede95510d56bdb43209694e56fbd824fd78bc188a0b62a9e14140b3",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 3,
       "reads": [
         {
           "file": "after",
-          "line": 24,
-          "call_id": "call_e0613a3a32684d4bbbf0bd45c12d0f48"
+          "line": 26,
+          "call_id": "call_0d4922f6d8584911833309d6b3a89e8c"
+        },
+        {
+          "file": "input-5.sql",
+          "line": 26,
+          "call_id": "call_0d4922f6d8584911833309d6b3a89e8c"
         },
         {
           "file": "references/postgres.md",
-          "line": 31,
-          "call_id": "call_08b9fefd7beb442a85c5291ca9ca8ebe"
+          "line": 34,
+          "call_id": "call_5e65af5f40994c40bd47352898399ae1"
         },
         {
           "file": "assets/review-template.md",
-          "line": 50,
-          "call_id": "call_d7fc146cf9704b709f1822bb68de8bc9"
+          "line": 34,
+          "call_id": "call_5e65af5f40994c40bd47352898399ae1"
         },
         {
           "file": "assets/risk-matrix.csv",
-          "line": 50,
-          "call_id": "call_d7fc146cf9704b709f1822bb68de8bc9",
+          "line": 34,
+          "call_id": "call_5e65af5f40994c40bd47352898399ae1",
           "header": true,
           "rows": [
-            "large,sustained_write_blocking,High"
+            "any,application_breakage,High",
+            "any,execution_blocker,High",
+            "large,online_or_metadata_only,Low",
+            "large,rewrite,High",
+            "large,sustained_write_blocking,High",
+            "small,online_or_metadata_only,Low",
+            "small,rewrite,Medium",
+            "small,sustained_write_blocking,Low"
           ]
         }
       ],
@@ -535,7 +633,109 @@
         "references/postgres.md"
       ],
       "matrix_rows": [
-        "large,sustained_write_blocking,High"
+        "any,application_breakage,High",
+        "any,execution_blocker,High",
+        "large,online_or_metadata_only,Low",
+        "large,rewrite,High",
+        "large,sustained_write_blocking,High",
+        "small,online_or_metadata_only,Low",
+        "small,rewrite,Medium",
+        "small,sustained_write_blocking,Low"
+      ],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "5-baseline": {
+      "session_id": "01a210e5-29a0-7443-87fb-dac8296f5c13",
+      "source_log": "rollout-2026-11-24T23-09-43-01a210e5-29a0-7443-87fb-dac8296f5c13.jsonl",
+      "source_sha256": "17c757a72e97bfb9a355bcd7a74fd4198f13fd1d5b0ed39c45cfb31422fdf921",
+      "excerpt_sha256": "10267855c174bca0880a63516fb9f8b99057a82a1cb897b899b5266fe8d34f40",
+      "answer_sha256": "2acd64b9c9ac4b8aaed0903e32420a58b19db3a687cc7650b8fca7ec386d109d",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 4,
+      "reads": [
+        {
+          "file": "input-5.sql",
+          "line": 29,
+          "call_id": "call_31c55c98cc2e4fe48c67b9d82361b085"
+        }
+      ],
+      "activation": [],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "t1": {
+      "session_id": "01a210e5-4356-7c23-91e1-5caf1c4b4791",
+      "source_log": "rollout-2026-11-24T23-09-50-01a210e5-4356-7c23-91e1-5caf1c4b4791.jsonl",
+      "source_sha256": "79e29d29a1b24bfb14839d54c84e6fe5b369ffb1accc7b7cce530ecf558804b1",
+      "excerpt_sha256": "07feb16d5527c1bc8e5cb361a641041ca757d1f9afe244c8a8b98ed09cf9d6d4",
+      "answer_sha256": "141f9b8fee8e1e59c05e0b3e84547aaa06ce9f73dbfec2bffe4d98e575ba363f",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 4,
+      "reads": [
+        {
+          "file": "after",
+          "line": 24,
+          "call_id": "call_2569b0d6e8f145a9ab11a13e78bc9fc6"
+        },
+        {
+          "file": "references/postgres.md",
+          "line": 29,
+          "call_id": "call_64d54eae724042a0b591cecdf653b3d4"
+        },
+        {
+          "file": "assets/review-template.md",
+          "line": 29,
+          "call_id": "call_64d54eae724042a0b591cecdf653b3d4"
+        },
+        {
+          "file": "assets/risk-matrix.csv",
+          "line": 29,
+          "call_id": "call_64d54eae724042a0b591cecdf653b3d4",
+          "header": true,
+          "rows": [
+            "any,application_breakage,High",
+            "any,execution_blocker,High",
+            "large,online_or_metadata_only,Low",
+            "large,rewrite,High",
+            "large,sustained_write_blocking,High",
+            "small,online_or_metadata_only,Low",
+            "small,rewrite,Medium",
+            "small,sustained_write_blocking,Low"
+          ]
+        }
+      ],
+      "activation": [
+        "after"
+      ],
+      "resources": [
+        "assets/review-template.md",
+        "assets/risk-matrix.csv",
+        "references/postgres.md"
+      ],
+      "matrix_rows": [
+        "any,application_breakage,High",
+        "any,execution_blocker,High",
+        "large,online_or_metadata_only,Low",
+        "large,rewrite,High",
+        "large,sustained_write_blocking,High",
+        "small,online_or_metadata_only,Low",
+        "small,rewrite,Medium",
+        "small,sustained_write_blocking,Low"
       ],
       "checks": {
         "activation": true,
@@ -547,11 +747,11 @@
       "pass": true
     },
     "t2": {
-      "session_id": "01a210a6-b456-7d02-956d-381c37eaaced",
-      "source_log": "rollout-2026-11-24T22-01-30-01a210a6-b456-7d02-956d-381c37eaaced.jsonl",
-      "source_sha256": "8268026caf06ba98dbbe39c9d0037a035808afaadc2330474af2289236cd1709",
-      "excerpt_sha256": "ce0d3574399415a22b38de1bfe8a586890ed6b954dc16c11030858201eb79809",
-      "answer_sha256": "fa79b52fc52825689aeded3768b4862ce18e26e3b5c14cb176401d1debc09e97",
+      "session_id": "01a210e5-c208-7192-b2d1-728bb00c2131",
+      "source_log": "rollout-2026-11-24T23-10-22-01a210e5-c208-7192-b2d1-728bb00c2131.jsonl",
+      "source_sha256": "d8a962bb2236b583a1edca63443f8d78b9124a410491fd883d19ab05659f1e49",
+      "excerpt_sha256": "a2b1079701fadb9b4e0659a82d35320c6616114329fe3eaed0bd5605d6dcb08e",
+      "answer_sha256": "53f7fc46725ff2f701a52c0960b07775c802f2d136e82966e85c80e41a83d011",
       "model": "gpt-6.1-terra",
       "tool_calls": 3,
       "reads": [],
@@ -568,11 +768,11 @@
       "pass": true
     },
     "t3": {
-      "session_id": "01a210a8-2bf9-7530-9c49-aeadf2cba1f6",
-      "source_log": "rollout-2026-11-24T22-03-10-01a210a8-2bf9-7530-9c49-aeadf2cba1f6.jsonl",
-      "source_sha256": "728aa838e6a13aa37d820ff30c77666472aca7a9a6dda440ddc2df4aa4ba7998",
-      "excerpt_sha256": "e398aad126e80d5bc09eb70ae12346575497407d1825702813b2e76a1888caac",
-      "answer_sha256": "ee7033ff210019b1ce8ffa76509256d2b47ec9a42d25c180ab20a763a6e5cc2e",
+      "session_id": "01a210e5-cdfa-7ab2-8943-c146183c9a3b",
+      "source_log": "rollout-2026-11-24T23-10-25-01a210e5-cdfa-7ab2-8943-c146183c9a3b.jsonl",
+      "source_sha256": "90b3f1ab3aa002b9fb69bc318580c1bb40a1a94f46df83db7c42163f1fe85d1b",
+      "excerpt_sha256": "5fbd2548dfe27b01d2be6ab95e84ffa5b807bcb4e3e9d3c424e0f824597108df",
+      "answer_sha256": "774bd47b72aa15432423444cff79c28c00ac7e555c10a5785edf4bee096e2711",
       "model": "gpt-6.1-terra",
       "tool_calls": 1,
       "reads": [],
