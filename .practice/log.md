@@ -365,3 +365,4 @@
 10. skill 内容、references/assets、tests/ 下文档使用英文（NOTES.md 可以用中文）。
 
 **检查与评审**
+- 2026-11-25 chat 评审（da26c44）：评分 5/5，10 条完成标准全部满足（BEFORE 与题目逐字一致；count_tokens.py 本地复跑：元数据 128→63、正文 1511→449，减 70%；正文无数据库专有规则；PLAN.md 在 c62bfd5 先于输出提交；manifest 显示 PG 输入只读 postgres.md、MySQL 只读 mysql.md；T1 激活、T2/T3 零读取；skills-ref validate 通过）。主要建议：①output-3-after 在 Findings 和 Rollout 之间多了一段模板外的文档链接，manifest 的 template 检查仍判通过，模板校验应检查标题之间没有多余段落；②第 5 步要求“filtered or row-range read”一个 8 行、67 token 的 CSV，收益很小却导致了重跑，并隐含依赖 shell 工具，建议改为整表读取后只用选中的行；正文 6 步都是长段落，第 2、4 步各混了 3-4 件事，建议拆短；③before 和 after 没有被任何检查项区分，baseline 只在“给出总体评级”这一格式项失分，下次加一个能测出内容差异的输入（如未知表大小、或 rename 列）。
