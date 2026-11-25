@@ -1,0 +1,6 @@
+# MySQL 8.0 InnoDB migration review
+
+- Check the exact minor version and table restrictions. Adding a column at the end can use `ALGORITHM=INSTANT` from 8.0.12, and adding at any position can use it from 8.0.29, subject to operation and table restrictions. Use `ALGORITHM=INSTANT` by itself for eligible changes. For eligible online operations that need an in-place build, specify `ALGORITHM=INPLACE, LOCK=NONE` to fail if the server cannot honor the requested concurrency.
+- Adding an ordinary secondary index can use an in-place build and permit concurrent DML. Account for the metadata lock when starting and finalizing the operation. Combining it with a copy-only change prevents the index from being deployed independently online.
+- A physical type change such as `INT` to `BIGINT` requires `ALGORITHM=COPY` and blocks writes. Confirm the actual source definition and dependencies. For large tables, evaluate an online schema-change tool such as gh-ost or pt-online-schema-change against the table's constraints and deployment setup.
+- DDL must acquire a metadata lock. Long-running transactions can delay it, and a pending exclusive metadata lock can queue later queries. Check for long-running transactions and plan a bounded wait and abort path.

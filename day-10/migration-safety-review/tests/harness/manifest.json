@@ -1,0 +1,592 @@
+{
+  "document_sha256": {
+    "before": "32e958a7d13653e801998b31e411932c693e17b42edf53feb6043064a52a3df7",
+    "after": "5c00c34b8b96dc74d24e6d043cfff5db15a5ea5c6eeb941b6d99ea264a9bec66",
+    "references/postgres.md": "ed374afaa810a0cdadfaca40e01dece5add4b85b70a716ae2388f7df78835437",
+    "references/mysql.md": "033199f5620f6cd352d9820b897a42097415722064e628ab75a34207948898bb",
+    "assets/review-template.md": "f69d5a5d7be61951c7c008583049ba816086d51ce9d00373ac9cf50af2d86b35",
+    "assets/risk-matrix.csv": "5620d424303b98e2503a7874548437d04799fc7e53817759c73cafcfc9224b43"
+  },
+  "runs": {
+    "1-before": {
+      "session_id": "01a2109f-75f2-7203-a6e5-e18cac2db146",
+      "source_log": "rollout-2026-11-24T21-53-35-01a2109f-75f2-7203-a6e5-e18cac2db146.jsonl",
+      "source_sha256": "97b6037972ae3512060e22f30dc77ba79747f70d4ce27e7a5d6a2d134a21f96f",
+      "excerpt_sha256": "beb26489a29a6e4ff2588c1e3d26bbb7d91a3b4cd06b678ade00f8a28d3c8114",
+      "answer_sha256": "ae8bafd38f3d902b18a65cc399a8cb6b7282809f33269eede6a2675f745705c5",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 3,
+      "reads": [
+        {
+          "file": "before",
+          "line": 28,
+          "call_id": "call_cdeaacec18884f9a91500fe88eef959e"
+        },
+        {
+          "file": "input-1.sql",
+          "line": 28,
+          "call_id": "call_cdeaacec18884f9a91500fe88eef959e"
+        }
+      ],
+      "activation": [
+        "before"
+      ],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "1-after": {
+      "session_id": "01a210a6-b3b4-7230-a39c-764957e2eaf9",
+      "source_log": "rollout-2026-11-24T22-01-30-01a210a6-b3b4-7230-a39c-764957e2eaf9.jsonl",
+      "source_sha256": "47458dd64468d4f6d03f4e16cee245e1886737e66d100393161a9b1a7b264acb",
+      "excerpt_sha256": "f58b7a7d631729ad6b90528293b896f6ad8aef93442d47085ad679b18f641c3c",
+      "answer_sha256": "5b96000c2de53bede1f8286a43c9ccd6e1beb6300e184dd762450a2b9e836a84",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 7,
+      "reads": [
+        {
+          "file": "after",
+          "line": 26,
+          "call_id": "call_3c9a592e3bf848a5ad6528daa023b07b"
+        },
+        {
+          "file": "input-1.sql",
+          "line": 26,
+          "call_id": "call_3c9a592e3bf848a5ad6528daa023b07b"
+        },
+        {
+          "file": "references/postgres.md",
+          "line": 32,
+          "call_id": "call_d814b5b5765c440aad7b28c6a131dd81"
+        },
+        {
+          "file": "assets/review-template.md",
+          "line": 56,
+          "call_id": "call_b75a108a036f45ffb9e7d1085880d20d"
+        },
+        {
+          "file": "assets/risk-matrix.csv",
+          "line": 56,
+          "call_id": "call_b75a108a036f45ffb9e7d1085880d20d",
+          "header": true,
+          "rows": [
+            "large,rewrite,High"
+          ]
+        }
+      ],
+      "activation": [
+        "after"
+      ],
+      "resources": [
+        "assets/review-template.md",
+        "assets/risk-matrix.csv",
+        "references/postgres.md"
+      ],
+      "matrix_rows": [
+        "large,rewrite,High"
+      ],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "1-baseline": {
+      "session_id": "01a2109f-7614-78c3-aea2-9808fd53d097",
+      "source_log": "rollout-2026-11-24T21-53-35-01a2109f-7614-78c3-aea2-9808fd53d097.jsonl",
+      "source_sha256": "08ed52f0a5da34fd6565c986052d66ae9f6bffa4be0f61fe09eb3d500b0d201d",
+      "excerpt_sha256": "dc2ecb0b8c78d0fe055704481386e536b2de8288c8f8c8372bdec24bd53aa71b",
+      "answer_sha256": "07d48cc646195897c31bff477b14361763f523927514890fc66f2fe1776be97c",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 4,
+      "reads": [
+        {
+          "file": "input-1.sql",
+          "line": 29,
+          "call_id": "call_375561ea5967459bbdb1ed12082ed4dd"
+        }
+      ],
+      "activation": [],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "2-before": {
+      "session_id": "01a2109f-7609-7d92-8cbe-551d1b26b87e",
+      "source_log": "rollout-2026-11-24T21-53-35-01a2109f-7609-7d92-8cbe-551d1b26b87e.jsonl",
+      "source_sha256": "f8fdd453d563520d66d32fccb190fc8a5c72d532efdf9d3d99a54ec834110da3",
+      "excerpt_sha256": "20a170e470ebe94f11d7da007f246c2e97cf74f1c424a8e80a997038ca1e7e57",
+      "answer_sha256": "0c81f7c32f2361a88cd70664ea0bb64087a866e9f9d65dc0f04f44f46e35ec92",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 3,
+      "reads": [
+        {
+          "file": "before",
+          "line": 26,
+          "call_id": "call_04a5177274304430b86b31531c17430b"
+        },
+        {
+          "file": "input-2.sql",
+          "line": 26,
+          "call_id": "call_04a5177274304430b86b31531c17430b"
+        }
+      ],
+      "activation": [
+        "before"
+      ],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "2-after": {
+      "session_id": "01a210aa-232b-76c2-ad80-0289efc068f8",
+      "source_log": "rollout-2026-11-24T22-05-15-01a210aa-232b-76c2-ad80-0289efc068f8.jsonl",
+      "source_sha256": "9d3978ac9a6ceeb41781cdb2a094f64578071377598ed8777816ae096f156bea",
+      "excerpt_sha256": "bcac8fe26118de03b75192b4b689a6424a7a78b47f94b9c47de46b5a10cda1df",
+      "answer_sha256": "d0473d47e350f31638d4f7ecebfa8a1fba51a9d96b8defea936f4d16eaef6294",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 4,
+      "reads": [
+        {
+          "file": "after",
+          "line": 28,
+          "call_id": "call_6a58a9ee5518428c8ead939fd1f6d668"
+        },
+        {
+          "file": "input-2.sql",
+          "line": 28,
+          "call_id": "call_6a58a9ee5518428c8ead939fd1f6d668"
+        },
+        {
+          "file": "references/postgres.md",
+          "line": 35,
+          "call_id": "call_5a9f9fc95b80480682227809f7fdd572"
+        },
+        {
+          "file": "assets/review-template.md",
+          "line": 35,
+          "call_id": "call_5a9f9fc95b80480682227809f7fdd572"
+        },
+        {
+          "file": "assets/risk-matrix.csv",
+          "line": 35,
+          "call_id": "call_5a9f9fc95b80480682227809f7fdd572",
+          "header": true,
+          "rows": [
+            "any,execution_blocker,High",
+            "large,sustained_write_blocking,High"
+          ]
+        }
+      ],
+      "activation": [
+        "after"
+      ],
+      "resources": [
+        "assets/review-template.md",
+        "assets/risk-matrix.csv",
+        "references/postgres.md"
+      ],
+      "matrix_rows": [
+        "any,execution_blocker,High",
+        "large,sustained_write_blocking,High"
+      ],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "2-baseline": {
+      "session_id": "01a2109f-762b-70e2-a39d-e747382e4bde",
+      "source_log": "rollout-2026-11-24T21-53-35-01a2109f-762b-70e2-a39d-e747382e4bde.jsonl",
+      "source_sha256": "fad4b40dfe39abf1d2f3cfe881ae0c5873a298b212c8f7d311ca9f29b372df9d",
+      "excerpt_sha256": "c683d2c5531204ce93ec21a7ba06c03631d4b1240fd31c1bc05579a5f56e6822",
+      "answer_sha256": "e6e4f08a473beeb2626ebc5468c58a66bce9c664bb76de809101c3add455e763",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 4,
+      "reads": [
+        {
+          "file": "input-2.sql",
+          "line": 35,
+          "call_id": "call_ddcef83755a549fd96729592b792c3cd"
+        }
+      ],
+      "activation": [],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "3-before": {
+      "session_id": "01a210a0-21cc-7d80-a0f8-491a92c3d8ee",
+      "source_log": "rollout-2026-11-24T21-54-19-01a210a0-21cc-7d80-a0f8-491a92c3d8ee.jsonl",
+      "source_sha256": "2a0dfdeb188cfb2341881af1c38e8e9e1fc380385fed632d96765dd7e73c2567",
+      "excerpt_sha256": "096b3bf2bab7a0b24d2322503cf1137532fbb50313085e692fac487c9f820a19",
+      "answer_sha256": "8c81755486a79a93585c71e14d6b46fc210413169cdff3799a12c117b28c0f70",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 4,
+      "reads": [
+        {
+          "file": "before",
+          "line": 30,
+          "call_id": "call_98b69a1aabe74ee8814b5c336200c391"
+        },
+        {
+          "file": "input-3.sql",
+          "line": 30,
+          "call_id": "call_98b69a1aabe74ee8814b5c336200c391"
+        }
+      ],
+      "activation": [
+        "before"
+      ],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "3-after": {
+      "session_id": "01a210a6-b40e-7f31-a7f1-837439744b53",
+      "source_log": "rollout-2026-11-24T22-01-30-01a210a6-b40e-7f31-a7f1-837439744b53.jsonl",
+      "source_sha256": "fcebc431c09f3ea8ab306fde30c9d4686eed01934cf18d753535b1b3d96be1ce",
+      "excerpt_sha256": "e081b640a4d2d6e37b62d7107866575c174dd4f0995758538f662fc4cf13c40a",
+      "answer_sha256": "c368311b4294d407a8c3b266e063020cec8ce055a5abcc5c20aa5f0939220450",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 6,
+      "reads": [
+        {
+          "file": "after",
+          "line": 26,
+          "call_id": "call_da1269267fe2407390bf8d10011f19a9"
+        },
+        {
+          "file": "input-3.sql",
+          "line": 26,
+          "call_id": "call_da1269267fe2407390bf8d10011f19a9"
+        },
+        {
+          "file": "references/mysql.md",
+          "line": 33,
+          "call_id": "call_fe80c7ec211f4df2ad7421b4f6be87ab"
+        },
+        {
+          "file": "assets/review-template.md",
+          "line": 52,
+          "call_id": "call_0128e3fa72dd4cd498a9cbe1d55692a4"
+        },
+        {
+          "file": "assets/risk-matrix.csv",
+          "line": 52,
+          "call_id": "call_0128e3fa72dd4cd498a9cbe1d55692a4",
+          "header": true,
+          "rows": [
+            "large,online_or_metadata_only,Low",
+            "large,rewrite,High"
+          ]
+        }
+      ],
+      "activation": [
+        "after"
+      ],
+      "resources": [
+        "assets/review-template.md",
+        "assets/risk-matrix.csv",
+        "references/mysql.md"
+      ],
+      "matrix_rows": [
+        "large,online_or_metadata_only,Low",
+        "large,rewrite,High"
+      ],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "3-baseline": {
+      "session_id": "01a210a0-33fb-7aa3-aed5-ea6163982577",
+      "source_log": "rollout-2026-11-24T21-54-24-01a210a0-33fb-7aa3-aed5-ea6163982577.jsonl",
+      "source_sha256": "11d01ecacbb85da80c427e7f523f50fcd28ba55fc3f591b880be77b565889bc6",
+      "excerpt_sha256": "32a860663018a5af938ffa52578f2fbc099c36b66f0a30e390a108786a988521",
+      "answer_sha256": "7489ae2fbb741feaa7ce6e056e9933defbc852f9adbe4eac5914b90e5d9be59c",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 4,
+      "reads": [
+        {
+          "file": "input-3.sql",
+          "line": 24,
+          "call_id": "call_97b991e616d54be4b7c2ec018958fe83"
+        }
+      ],
+      "activation": [],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "4-before": {
+      "session_id": "01a210a0-38f0-7362-9177-5eda58529e0e",
+      "source_log": "rollout-2026-11-24T21-54-25-01a210a0-38f0-7362-9177-5eda58529e0e.jsonl",
+      "source_sha256": "886c73e17d288eb002d8ffcf244ec2f04bbf95ddc1e5a35e6ff3bf4521ecb036",
+      "excerpt_sha256": "9f55547f83946a8eeaa8ddeca3cfc977e06104624e4e073b56acc6e281871662",
+      "answer_sha256": "e5b0a38d1a2bb1cfd0eaedf460e303afdf74656ca19bc0695e11e07b572ce7d2",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 3,
+      "reads": [
+        {
+          "file": "before",
+          "line": 32,
+          "call_id": "call_44ecd932e6cc4df5a6d9a1324ee7049e"
+        },
+        {
+          "file": "input-4.sql",
+          "line": 32,
+          "call_id": "call_44ecd932e6cc4df5a6d9a1324ee7049e"
+        }
+      ],
+      "activation": [
+        "before"
+      ],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "4-after": {
+      "session_id": "01a210a6-b3f4-79a0-965e-c6449cd0bf89",
+      "source_log": "rollout-2026-11-24T22-01-30-01a210a6-b3f4-79a0-965e-c6449cd0bf89.jsonl",
+      "source_sha256": "ad6cd394942b24e59f9423b7fafeb5a699c0c6272623f933f4e28e8a48a859b0",
+      "excerpt_sha256": "196ea593c84166122130b600ea1d4ac9b23aaa34e3161e55609b9396efbc5448",
+      "answer_sha256": "d1861938b325d02f2c656e7c316153ecaecf64b180b4371ebd2dcfbee7409a29",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 4,
+      "reads": [
+        {
+          "file": "after",
+          "line": 24,
+          "call_id": "call_572082990b214acc8516690f93a2ac11"
+        },
+        {
+          "file": "input-4.sql",
+          "line": 24,
+          "call_id": "call_572082990b214acc8516690f93a2ac11"
+        },
+        {
+          "file": "references/postgres.md",
+          "line": 31,
+          "call_id": "call_a23b3ead06234abe902902deb47bd6ae"
+        },
+        {
+          "file": "assets/review-template.md",
+          "line": 38,
+          "call_id": "call_de7a26e74c6e4ed2a1117c3a2901f29d"
+        },
+        {
+          "file": "assets/risk-matrix.csv",
+          "line": 38,
+          "call_id": "call_de7a26e74c6e4ed2a1117c3a2901f29d",
+          "header": true,
+          "rows": [
+            "small,online_or_metadata_only,Low"
+          ]
+        }
+      ],
+      "activation": [
+        "after"
+      ],
+      "resources": [
+        "assets/review-template.md",
+        "assets/risk-matrix.csv",
+        "references/postgres.md"
+      ],
+      "matrix_rows": [
+        "small,online_or_metadata_only,Low"
+      ],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "4-baseline": {
+      "session_id": "01a210a0-52da-7b71-97a2-2b120479490f",
+      "source_log": "rollout-2026-11-24T21-54-32-01a210a0-52da-7b71-97a2-2b120479490f.jsonl",
+      "source_sha256": "8120c037b59393c6799cb004850ceb4df9355108b0561db569baebf9c2fdb7a6",
+      "excerpt_sha256": "68764609cc126cf10f9818db2a976eced17c50c8c0b4aa351246cb17b29ce115",
+      "answer_sha256": "47d434699a71f48ebc990e7e8b703f3f4e7c88b0db7249d9e8237abc5d575c64",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 5,
+      "reads": [
+        {
+          "file": "input-4.sql",
+          "line": 42,
+          "call_id": "call_1d7c3244a4a84eeda0f72bd1e7412334"
+        }
+      ],
+      "activation": [],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "t1": {
+      "session_id": "01a210a6-b3e9-7db2-abbb-53ff8098c7cd",
+      "source_log": "rollout-2026-11-24T22-01-30-01a210a6-b3e9-7db2-abbb-53ff8098c7cd.jsonl",
+      "source_sha256": "cabdc3b4a3b621ea1e461ffeeba47564872382c65291aff0e8fb1afc90295440",
+      "excerpt_sha256": "f2b9dc7fe0c82146bd2c30149223e6a9e6b1335905d912af7555b6442cc31f52",
+      "answer_sha256": "c80467ca5751d841c3c9540127cf54a7057488727887887b6bc6bfff8d9f98b4",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 6,
+      "reads": [
+        {
+          "file": "after",
+          "line": 24,
+          "call_id": "call_e0613a3a32684d4bbbf0bd45c12d0f48"
+        },
+        {
+          "file": "references/postgres.md",
+          "line": 31,
+          "call_id": "call_08b9fefd7beb442a85c5291ca9ca8ebe"
+        },
+        {
+          "file": "assets/review-template.md",
+          "line": 50,
+          "call_id": "call_d7fc146cf9704b709f1822bb68de8bc9"
+        },
+        {
+          "file": "assets/risk-matrix.csv",
+          "line": 50,
+          "call_id": "call_d7fc146cf9704b709f1822bb68de8bc9",
+          "header": true,
+          "rows": [
+            "large,sustained_write_blocking,High"
+          ]
+        }
+      ],
+      "activation": [
+        "after"
+      ],
+      "resources": [
+        "assets/review-template.md",
+        "assets/risk-matrix.csv",
+        "references/postgres.md"
+      ],
+      "matrix_rows": [
+        "large,sustained_write_blocking,High"
+      ],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "t2": {
+      "session_id": "01a210a6-b456-7d02-956d-381c37eaaced",
+      "source_log": "rollout-2026-11-24T22-01-30-01a210a6-b456-7d02-956d-381c37eaaced.jsonl",
+      "source_sha256": "8268026caf06ba98dbbe39c9d0037a035808afaadc2330474af2289236cd1709",
+      "excerpt_sha256": "ce0d3574399415a22b38de1bfe8a586890ed6b954dc16c11030858201eb79809",
+      "answer_sha256": "fa79b52fc52825689aeded3768b4862ce18e26e3b5c14cb176401d1debc09e97",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 3,
+      "reads": [],
+      "activation": [],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    },
+    "t3": {
+      "session_id": "01a210a8-2bf9-7530-9c49-aeadf2cba1f6",
+      "source_log": "rollout-2026-11-24T22-03-10-01a210a8-2bf9-7530-9c49-aeadf2cba1f6.jsonl",
+      "source_sha256": "728aa838e6a13aa37d820ff30c77666472aca7a9a6dda440ddc2df4aa4ba7998",
+      "excerpt_sha256": "e398aad126e80d5bc09eb70ae12346575497407d1825702813b2e76a1888caac",
+      "answer_sha256": "ee7033ff210019b1ce8ffa76509256d2b47ec9a42d25c180ab20a763a6e5cc2e",
+      "model": "gpt-6.1-terra",
+      "tool_calls": 1,
+      "reads": [],
+      "activation": [],
+      "resources": [],
+      "matrix_rows": [],
+      "checks": {
+        "activation": true,
+        "fixture": true,
+        "routing": true,
+        "matrix": true,
+        "template": true
+      },
+      "pass": true
+    }
+  }
+}

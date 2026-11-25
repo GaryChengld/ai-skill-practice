@@ -1,0 +1,9 @@
+table_size,operation_effect,risk
+any,application_breakage,High
+any,execution_blocker,High
+small,rewrite,Medium
+large,rewrite,High
+small,sustained_write_blocking,Low
+large,sustained_write_blocking,High
+small,online_or_metadata_only,Low
+large,online_or_metadata_only,Low

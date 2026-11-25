@@ -1,0 +1,9 @@
+# PostgreSQL migration review
+
+- A plain index build blocks writes for the build. On a large table, prefer `CREATE INDEX CONCURRENTLY`. Run it outside an explicit transaction or migration-runner transaction wrapper. If it fails, inspect for an INVALID index and drop it before retrying.
+- PostgreSQL 11+ can add a column with a nonvolatile default without rewriting the table. A volatile default such as `random()` or `clock_timestamp()` rewrites existing rows. Add the column without the volatile default, set the default for future inserts, and backfill existing rows in batches if needed. Confirm the intended timestamp or value semantics before choosing how to backfill.
+- Changing a column type usually rewrites the table under `ACCESS EXCLUSIVE`. Common exceptions are increasing a `varchar` length limit and converting `varchar(n)` to `text` without changing collation. Check the specific conversion and dependencies.
+- `SET NOT NULL` normally scans the table while holding `ACCESS EXCLUSIVE`. Add `CHECK (col IS NOT NULL) NOT VALID`, validate it separately, then set `NOT NULL`. On PostgreSQL 12+, a valid check that proves the condition lets the last step skip the scan. Drop the redundant check afterward.
+- Adding a foreign key validates existing rows by default and takes `SHARE ROW EXCLUSIVE` locks on both tables, blocking writes while held. Add it `NOT VALID`, commit, then run `VALIDATE CONSTRAINT` separately under weaker locks. Check for orphan rows before validation.
+- On a busy table, set a bounded `lock_timeout` for DDL, for example `SET lock_timeout = '5s';` in the migration session. This limits lock acquisition waits. An acquired lock can still be held for the duration of statement execution or the transaction.
+- Adding a nullable column without a default is metadata-only. It still needs a brief `ACCESS EXCLUSIVE` lock. No existing-row backfill is required unless the application needs values.

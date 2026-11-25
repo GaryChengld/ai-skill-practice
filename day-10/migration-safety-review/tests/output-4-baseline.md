@@ -1,0 +1,3 @@
+No findings in [input-4.sql](C:/Users/Gary/AppData/Local/Temp/day10-review-_6wfhepa/baseline/input-4.sql:2). Adding a nullable `text` column without a default is a metadata-only change in PostgreSQL 15; existing rows will have `NULL` labels.
+
+The statement does require an exclusive table lock, though the change itself should be brief once the lock is acquired. I reviewed the SQL statically; I did not run it against a database or verify application expectations for the new column.

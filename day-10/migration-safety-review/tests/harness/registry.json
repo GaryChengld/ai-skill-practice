@@ -1,0 +1,35 @@
+{
+  "before": {
+    "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day10-review-_6wfhepa\\before",
+    "enabled": [
+      {
+        "name": "migration-safety-review",
+        "path": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day10-review-_6wfhepa\\before\\.agents\\skills\\migration-safety-review\\SKILL.md",
+        "description": "This skill is a comprehensive and helpful assistant for database migrations. It can be used to review SQL migration files, schema changes, DDL statements, ALTER TABLE commands, index creation, and other database changes for PostgreSQL and MySQL, and it will help you understand whether they are safe to run in production, identify risks such as table locks, table rewrites, and downtime, and suggest safer alternatives. Use it whenever the user is working with databases or migrations.",
+        "scope": "repo",
+        "enabled": true,
+        "sha256": "32e958a7d13653e801998b31e411932c693e17b42edf53feb6043064a52a3df7"
+      }
+    ],
+    "disabled_count": 14
+  },
+  "after": {
+    "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day10-review-_6wfhepa\\after-final",
+    "enabled": [
+      {
+        "name": "migration-safety-review",
+        "path": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day10-review-_6wfhepa\\after-final\\.agents\\skills\\migration-safety-review\\SKILL.md",
+        "description": "Review an existing PostgreSQL or MySQL migration for locks, rewrites, downtime, and safer rollout options. Use when asked to assess SQL or schema changes before deployment. Not for writing new migrations or tuning slow queries.",
+        "scope": "repo",
+        "enabled": true,
+        "sha256": "5c00c34b8b96dc74d24e6d043cfff5db15a5ea5c6eeb941b6d99ea264a9bec66"
+      }
+    ],
+    "disabled_count": 14
+  },
+  "baseline": {
+    "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day10-review-_6wfhepa\\baseline",
+    "enabled": [],
+    "disabled_count": 14
+  }
+}
