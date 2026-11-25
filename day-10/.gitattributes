@@ -1,0 +1,2 @@
+* text eol=lf
+migration-safety-review/tests/output-*.md -text
