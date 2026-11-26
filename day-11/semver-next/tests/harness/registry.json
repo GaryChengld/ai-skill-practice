@@ -1,15 +1,15 @@
 {
   "skill": {
-    "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day11-release-s681ei2n\\skill-followup",
+    "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day11-release-s681ei2n\\skill-trailers",
     "enabled": [
       {
         "name": "semver-next",
-        "path": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day11-release-s681ei2n\\skill-followup\\.agents\\skills\\semver-next\\SKILL.md",
+        "path": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day11-release-s681ei2n\\skill-trailers\\.agents\\skills\\semver-next\\SKILL.md",
         "scope": "repo",
         "enabled": true,
         "description": "Calculate the next semantic version from commits since the last release tag. Use when asked what version or release tag comes next, or whether changes call for a major, minor, or patch bump. Not for writing commit messages, drafting release notes, or explaining SemVer concepts.",
         "sha256": "989f9be23a9b31d8aed3716da5df58e333a6c43cdd6952a6bd1a13fd03fae78b",
-        "script_sha256": "0e36c4190c7d73f716cdba2250131958d5608f3efa1e593c2b1cc86785661ab4"
+        "script_sha256": "07f565aa1843ac6f7d65370312be91af6cfe4eb9f04483c50ade9872dbb6efde"
       }
     ],
     "disabled_count": 14

@@ -26,5 +26,27 @@
       "no_source_read": true
     },
     "pass": true
+  },
+  "4-skill-shell-status": {
+    "session_id": "01a215d5-b8a7-7242-8090-8fddc5c5f25c",
+    "model": "gpt-6.1-terra",
+    "rollout_log": "rollout-2026-11-25T22-10-58-01a215d5-b8a7-7242-8090-8fddc5c5f25c.jsonl",
+    "source_sha256": {
+      "cli": "57767393f343309a658fdf00416e8cfd4f726c3588a988cb052d03f08525f289",
+      "rollout": "f4d4e1216ec1215ad25a96feb925fc328cf18a63689eb891fff0e952dfc43217"
+    },
+    "excerpt_sha256": "376d75ddfefeaf29b8ca5b2f401a2fedae33d1f1c553515979084bfb94c29054",
+    "answer_sha256": "0a015239cc0409da213cb251a4c5c8cfac4147da139abb3a3e32f6f0095362fb",
+    "skill_read_lines": [
+      24
+    ],
+    "calculator_runs": [],
+    "source_reads": [],
+    "checks": {
+      "activation_as_expected": true,
+      "execution": false,
+      "no_source_read": true
+    },
+    "pass": false
   }
 }

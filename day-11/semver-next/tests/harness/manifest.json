@@ -1,22 +1,22 @@
 {
   "runs": {
     "1-skill": {
-      "session_id": "01a215c2-8c97-7d13-b101-ce304d9561dc",
+      "session_id": "01a215d5-b8a5-7282-8d10-c5d82eccd292",
       "model": "gpt-6.1-terra",
-      "rollout_log": "rollout-2026-11-25T21-50-01-01a215c2-8c97-7d13-b101-ce304d9561dc.jsonl",
+      "rollout_log": "rollout-2026-11-25T22-10-58-01a215d5-b8a5-7282-8d10-c5d82eccd292.jsonl",
       "source_sha256": {
-        "cli": "2954f8342ed1711ee84a85d81d8a360ab4b2f5883c729c88f4bf2eaaa05d94ab",
-        "rollout": "1f7402ce9ddd6d4a9c4960acf236e0c9866bd039425668d43f28d761b394a7a2"
+        "cli": "e8133f0599a464dd177aaf64746a637bcf3bad1a98f1118a5dfca2da8361d0a9",
+        "rollout": "ff0e32befde97964cc85382c34ac5f02ab85a59a0d7ea3f1ec98b52190b6a159"
       },
-      "excerpt_sha256": "65bfa0d65f4cd4b4b2bc15ee156feb40c2d4c17bd35211bc53e56840364b7210",
-      "answer_sha256": "1f2073df6915cce70ba213359520df8eb15ce9660c50cc15cde8940b11ace114",
+      "excerpt_sha256": "d95d925e28690a4f929a33897a5554fdc3cb47d07a746ce5f5dd21a4e3e7698a",
+      "answer_sha256": "676dc513f4419fe108b4880d84e412e28003ef8389e70ed7fedee5d2bb1341cd",
       "skill_read_lines": [
-        24
+        26
       ],
       "calculator_runs": [
         {
-          "line": 9,
-          "command_id": "item_3",
+          "line": 13,
+          "command_id": "item_5",
           "exit_code": 0
         }
       ],
@@ -49,22 +49,22 @@
       "pass": true
     },
     "2-skill": {
-      "session_id": "01a215c2-8c8d-7fa1-ad21-e366636f61c7",
+      "session_id": "01a215d5-b86f-7e52-b6d5-514479749633",
       "model": "gpt-6.1-terra",
-      "rollout_log": "rollout-2026-11-25T21-50-01-01a215c2-8c8d-7fa1-ad21-e366636f61c7.jsonl",
+      "rollout_log": "rollout-2026-11-25T22-10-58-01a215d5-b86f-7e52-b6d5-514479749633.jsonl",
       "source_sha256": {
-        "cli": "c4428506a1ea597673f3e35178ba41bfd3e18425eefab7838920a3ab7fada362",
-        "rollout": "a62e830b8984748ae280a55add7a0c0ec1cda416b9b35376e6b579f9d7d72074"
+        "cli": "8e30751cbbb3324739e3906beff8150bc061d9050a73fa2fc6b7233ab7f915ae",
+        "rollout": "68bb7308c89b4229145b52d3ea62d139d894b0f0f4df935fc2b4f0a053e0185b"
       },
-      "excerpt_sha256": "f601a39de8273fe5a668b5bba527930081261b795ee7eea526703d50e0f14250",
-      "answer_sha256": "88aadaeb8fbcfbb3da3ca785b417b02e837bb038bbcfb168e16abaa2ff635a4e",
+      "excerpt_sha256": "f91edbb3f1097b9dc6b9e13056b4b6e44e16858045e89e7ff47c4833f9cbff5f",
+      "answer_sha256": "218c6edfdfe6bc630f024d070bf717114b15eba1c73ca9b3ae125b2a91daaee7",
       "skill_read_lines": [
-        26
+        24
       ],
       "calculator_runs": [
         {
-          "line": 13,
-          "command_id": "item_5",
+          "line": 9,
+          "command_id": "item_3",
           "exit_code": 0
         }
       ],
@@ -97,17 +97,17 @@
       "pass": true
     },
     "3-skill": {
-      "session_id": "01a215c2-8c8d-71d1-80d9-782a69f2158d",
+      "session_id": "01a215d5-b88f-7102-8222-43d0fc46f33f",
       "model": "gpt-6.1-terra",
-      "rollout_log": "rollout-2026-11-25T21-50-01-01a215c2-8c8d-71d1-80d9-782a69f2158d.jsonl",
+      "rollout_log": "rollout-2026-11-25T22-10-58-01a215d5-b88f-7102-8222-43d0fc46f33f.jsonl",
       "source_sha256": {
-        "cli": "5b4dad751d958a4af7082657522e92f6130fe3c46b9b869d0a55f16e68075e3c",
-        "rollout": "43ff6801b0a1365e2cc7776d1087ff1d9354deead3088fddb665570967532190"
+        "cli": "367557b3ec2a34e8d551419ffb55718ce1861de8206a75ec6a986f5090d0cb48",
+        "rollout": "3bbf8d537dfecd9eab5a7e97b760c384b1ea3e31af2414497cfc563ed6728d31"
       },
-      "excerpt_sha256": "ce9c0a6487dd47e9b766a2875a238d1f2d8b4db3f96e265e4819de35609a8ee7",
-      "answer_sha256": "f2fa443ddcf1847fd5cb35f39a533db6759af7acfab035b415876ff7f976dceb",
+      "excerpt_sha256": "2bec143de4af99c3bbac586e61d062935e6ac2b3e59e10ddb8ce3bd064539fab",
+      "answer_sha256": "8ac0af38c55e758ec78fe5970944c5484960bf9cd0b21dc859b2cd98fe278e4a",
       "skill_read_lines": [
-        30
+        24
       ],
       "calculator_runs": [
         {
@@ -145,15 +145,15 @@
       "pass": true
     },
     "4-skill": {
-      "session_id": "01a215c2-8c97-7462-bc86-6487f0e08c89",
+      "session_id": "01a215d8-dd7d-7ae3-b7ff-24685dc0bfdd",
       "model": "gpt-6.1-terra",
-      "rollout_log": "rollout-2026-11-25T21-50-01-01a215c2-8c97-7462-bc86-6487f0e08c89.jsonl",
+      "rollout_log": "rollout-2026-11-25T22-14-24-01a215d8-dd7d-7ae3-b7ff-24685dc0bfdd.jsonl",
       "source_sha256": {
-        "cli": "db29e66329b8cdf39022e9f88305ce9a9d661f1419b37f6c5ea43e0b5ab72c13",
-        "rollout": "9280a04da7aa37a1928d80a1040d2b8a411f374b92351fe893968f4847cebe39"
+        "cli": "a5012f035f872c324962be8728febb35257cdf05312ca690dbab406a3c166430",
+        "rollout": "c7d3b7575a78d54eeb25948f02da9a68be6b672e3a4c7e07066366b1a229efdc"
       },
-      "excerpt_sha256": "4e484ab90098478fd29ef4701b72a270554f7d58c8838758dce815c24719d235",
-      "answer_sha256": "0cad2cca5ac5117a6c26aa686ffdea00f6bb01a46f2da9b318dac026b7187bdc",
+      "excerpt_sha256": "997aa3522f925353bb642b5cca487b6ad04c6ef4e34b371e0e7ce24949e2b174",
+      "answer_sha256": "371d459dedfa07474082a2efda18d2204b50baeef793bcf39b491a1bb75def13",
       "skill_read_lines": [
         24
       ],
@@ -193,22 +193,22 @@
       "pass": true
     },
     "5-skill": {
-      "session_id": "01a215c3-085e-73e0-bb15-b8467cd7c6c8",
+      "session_id": "01a215d6-76cf-7940-90f6-ecaf26e7237f",
       "model": "gpt-6.1-terra",
-      "rollout_log": "rollout-2026-11-25T21-50-32-01a215c3-085e-73e0-bb15-b8467cd7c6c8.jsonl",
+      "rollout_log": "rollout-2026-11-25T22-11-46-01a215d6-76cf-7940-90f6-ecaf26e7237f.jsonl",
       "source_sha256": {
-        "cli": "ba16079af1c1a433228c6c1858c7d95e05e5f4838c534ebbfbe5d1043ddd900a",
-        "rollout": "aec207ee1dfbe2a81b07309fbf4461ae1f9bb56fd7c8c25b55deda21b0b228b6"
+        "cli": "59f9e16e098d0c7cdfaaba6ee5ba52daf69388e1e4f35862541a5a352fa254b9",
+        "rollout": "3bee4ef3820cc5f61c755eb7e6a4c50904f818d9d107e92bb230f2403bc795f9"
       },
-      "excerpt_sha256": "c3f38bcd3e7e8cbc759cef2cfc9fc0b2254717d4891fee7828030c5dc5bf39f7",
-      "answer_sha256": "06f38dcf0298a6a36bbf459a508a914b41a8e7c4895bd96efd67b15d0243295a",
+      "excerpt_sha256": "cf153e573dbd8d8887fa5257b035cb44f660c0859c25675fab212efb4eae3356",
+      "answer_sha256": "abfb6a45bec8013aef58be174cc8b6140cdf00fe28476e15a8298235531c50cd",
       "skill_read_lines": [
-        24
+        26
       ],
       "calculator_runs": [
         {
-          "line": 9,
-          "command_id": "item_3",
+          "line": 13,
+          "command_id": "item_5",
           "exit_code": 0
         }
       ],

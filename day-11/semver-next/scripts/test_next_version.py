@@ -64,9 +64,17 @@ class NextVersionTest(unittest.TestCase):
         data = self.calculate("1.4.2", b"fix: document key usage\nBREAKING CHANGE: example marker\n--END--\n")
         self.assertEqual((data["next"], data["reasons"][0]["rule"]), ("1.4.3", "fix"))
 
-    def test_breaking_marker_in_earlier_paragraph_is_not_a_footer(self):
-        data = self.calculate("1.4.2", b"docs: explain trailers\n\nBREAKING CHANGE: example marker\n\n"
-                                       b"Refs: DOCS-10\n--END--\n")
+    def test_breaking_footer_before_a_separate_trailer_paragraph(self):
+        for later_trailer in (b"Refs: 1", b"Signed-off-by: Pat Reviewer <pat@example.com>"):
+            with self.subTest(later_trailer=later_trailer):
+                message = b"feat: x\n\nBREAKING CHANGE: y\n\n" + later_trailer + b"\n--END--\n"
+                data = self.calculate("1.4.2", message)
+                self.assertEqual((data["next"], data["bump"], data["reasons"][0]["rule"]),
+                                 ("2.0.0", "major", "breaking_footer"))
+
+    def test_breaking_marker_in_prose_paragraph_is_not_a_footer(self):
+        data = self.calculate("1.4.2", b"docs: explain trailers\n\nBREAKING CHANGE: example marker\n"
+                                       b"Ordinary prose follows this line.\n\nRefs: DOCS-10\n--END--\n")
         self.assertEqual((data["next"], data["bump"]), ("1.4.2", "none"))
 
     def test_fix_and_perf_are_both_decisive_for_patch(self):
@@ -134,7 +142,7 @@ class NextVersionTest(unittest.TestCase):
         result = subprocess.run([sys.executable, str(SCRIPT), "--help"], capture_output=True, check=True)
         self.assertEqual(result.stderr, b"")
         for phrase in (b"--current", b"--commits", b"--END--", b"git log --no-merges", b"major_zero_shift",
-                       b"final paragraph", b"reasons", b"unparsed", b"Exit codes"):
+                       b"any trailer paragraph", b"reasons", b"unparsed", b"Exit codes"):
             self.assertIn(phrase, result.stdout)
 
 

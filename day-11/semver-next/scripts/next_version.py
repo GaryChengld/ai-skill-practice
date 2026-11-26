@@ -1,6 +1,7 @@
 """Calculate the next release version from a stable version and commit messages."""
 
 import argparse
+from itertools import groupby
 import json
 from pathlib import Path
 import re
@@ -15,6 +16,7 @@ VERSION = re.compile(
 )
 HEADER = re.compile(r"(?P<type>[a-zA-Z][a-zA-Z0-9-]*)(?:\([^()\s]+\))?(?P<breaking>!)?: +\S.*")
 BREAKING = re.compile(r"BREAKING(?: |-)CHANGE:")
+TRAILER = re.compile(r"(?:BREAKING CHANGE|[A-Za-z0-9-]+)(?::[ \t]+\S|[ \t]+#\S)")
 BUMP_NAMES = ("none", "patch", "minor", "major")
 DELIMITER = "--END--"
 
@@ -54,12 +56,18 @@ def commit_messages(text):
 
 
 def has_breaking_footer(body):
-    paragraph = []
-    for line in reversed(body):
-        if line.strip():
-            paragraph.append(line)
-        elif paragraph:
-            return any(BREAKING.match(line) for line in paragraph)
+    separated_from_header = False
+    for blank, lines in groupby(body, key=lambda line: not line.strip()):
+        if blank:
+            separated_from_header = True
+            continue
+        if not separated_from_header:
+            continue
+        first, *rest = lines
+        if (TRAILER.match(first)
+                and all(TRAILER.match(line) or line.startswith((" ", "\t")) for line in rest)
+                and (BREAKING.match(first) or any(BREAKING.match(line) for line in rest))):
+            return True
     return False
 
 
@@ -112,8 +120,8 @@ def main(argv=None):
 Reserve --END-- for the delimiter. To generate the input from a repository:
   git log --no-merges --format="%B%n--END--" LAST_TAG..HEAD
 
-Breaking footer labels count at the start of a line in the final paragraph,
-which must be separated from preceding text by a blank line.
+Breaking footer labels count at the start of a line in any trailer paragraph
+after the header, separated from other text by blank lines.
 
 Successful calculation writes one JSON object to stdout:
   current, next     Input and resulting version. A leading v is kept.
