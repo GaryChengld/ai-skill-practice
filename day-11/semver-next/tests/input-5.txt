@@ -1,0 +1,4 @@
+feat(filters): include archived items in saved searches
+
+Add a filter that lets users include archived records in a saved search.
+--END--
