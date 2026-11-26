@@ -376,6 +376,7 @@
 
 - 出题日期：2026-11-25
 - 阶段：第三阶段 · 配套脚本（第 1 题：第一个 scripts/）
+- 状态：已完成，最终评分 5/5
 - 针对弱点：day-10 复查发现模型在“保守规则”上判断不一致（本题把确定性计算交给脚本，用日志证明是执行而非阅读源码）；延续先冻结 EXPECTED.md、无 skill 基线、输入不含答案；day-10 rename 风险等级问题列为加分项
 - 背景核实：agentskills.io Using scripts 指南（非交互、--help、可行动的错误信息写 stderr、结构化输出、标准库或 PEP 723 依赖）；Conventional Commits 1.0.0（`!` 与 `BREAKING CHANGE` / `BREAKING-CHANGE` footer）；SemVer 2.0.0（0.y.z、预发布）
 - 完整题目：`.practice/problems/day-11.md`（含脚本必须实现的规则表）
@@ -406,3 +407,41 @@
 **检查与评审**
 - 2026-11-26 chat 评审（efbd172 / b437259）：评分 5/5，10 条完成标准全部满足（本地 `python3 -I -m unittest` 18 个用例通过；4 个输入复跑脚本结果与 EXPECTED.md 一致，退出码 0/0/0/3；另测 none、0.x feat→patch、缺 `--END--`、非法版本、`BREAKING-CHANGE` 均符合规则表；EXPECTED.md 在 efbd172 先于输出提交；manifest 显示 4 次 skill 运行都执行了 next_version.py、零源码读取，基线未启用 skill；skill 10/10、基线 4/10；在 Codex CLI 的 .agents/skills 下运行，跨平台）。主要建议：①0.y.z 规则只解释了 breaking→minor，feat→patch 没有说明也没有行为测试；建议 JSON 加 `major_zero_shift` 之类字段，第 4 步改为通用说明，加一个 0.x 只有 feat 的输入；②第 2 步“从 skill 根目录运行 / 或用绝对路径 / 或 python”三选一写得绕，实际 4 次都是从工作目录用 `.agents/skills/semver-next/scripts/...` 运行，建议改为一条明确规则；③git 命令加 `--no-merges`，否则 merge 提交会堆进 unparsed；footer 检测会匹配紧跟标题或正文段落里的 `BREAKING CHANGE:`，要么限定在最后一个段落，要么在 --help 里写明是宽松匹配；manifest 里基线的 `activation: true` 实际表示“未激活符合预期”，建议改名。
 - 2026-11-26 chat 复查（fdfb899 / 38fdc3c / 6e81ed5）：上次 3 条建议全部改好（JSON 新增 `major_zero_shift`，第 4 步改为通用的 major-zero 说明；新增 input-5（0.9.3 只有 feat），FOLLOWUP.md 在 fdfb899 先于输出冻结，skill 2/2 答 0.9.4、基线 0/2 答 0.10.0；第 2 步改为“从用户工作目录按 skill 内路径运行”；git 命令加 `--no-merges`；footer 检测限定最后一段并写进 --help；manifest 改为 `activation_as_expected`；本地 21 个单测通过，5 次 skill 运行都执行了脚本且零源码读取）。新发现：footer 只看最后一段会漏判，`BREAKING CHANGE:` 段落后面再隔一个空行跟 `Signed-off-by:` / `Refs:`（例如 `git commit -s` 追加 trailer）时返回 minor，漏掉 breaking 比误报更危险；建议检查标题后所有“全是 trailer 形式的行”的段落，或在不确定时偏向 breaking，并加一个单测。最终评分 5/5。
+- 2026-11-26 检查：复查之后有新修改（7add794）：`has_breaking_footer` 改为检查标题之后所有 trailer 段落，新增 `Refs:` / `Signed-off-by:` 跟在 breaking 段落后的回归用例，`--help` 同步更新，并刷新了 5 次 skill 运行的日志证据；本地 `python3 -I -m unittest` 22 个用例通过。上次的建议已改好；剩余小问题：breaking 段落里不缩进的续行仍会被当成正文而漏判（列为 day-12 加分项）。确认已完成，最终评分 5/5。
+
+---
+
+## day-12：Fail Loud, Fail Useful — a robust frontmatter linter script
+
+- 出题日期：2026-11-26
+- 阶段：第三阶段 · 配套脚本（第 2 题：脚本的健壮性）
+- 针对弱点：day-11 的 footer 漏判是评审发现的（本题要求先写边界情况清单并冻结夹具，再写脚本）；延续先冻结检查清单、无 skill 基线、日志证明“运行而非阅读”；新增依赖缺失的优雅失败和差分测试；day-11 续行问题列为加分项
+- 背景核实：agentskills.io 规范（name 1-64、小写字母数字和连字符、不能首尾/连续连字符、与目录同名；description 1-1024；compatibility 1-500；metadata 字符串映射；allowed-tools 空格分隔字符串、实验性）；Using scripts 指南（PEP 723 + `uv run`、固定版本、可行动错误信息、不同失败用不同退出码并写进 --help、reject ambiguous input）
+- 完整题目：`.practice/problems/day-12.md`（含接口约定表）
+
+**交付物**
+- `day-12/skill-frontmatter-lint/SKILL.md`
+- `day-12/skill-frontmatter-lint/scripts/lint_frontmatter.py`
+- `day-12/skill-frontmatter-lint/scripts/test_lint_frontmatter.py`
+- `day-12/skill-frontmatter-lint/tests/EDGE-CASES.md`
+- `day-12/skill-frontmatter-lint/tests/fixtures/`（≥ 12 个夹具目录）
+- `day-12/skill-frontmatter-lint/tests/diff_reference.py`
+- `day-12/skill-frontmatter-lint/tests/CHECKLIST.md`
+- `day-12/skill-frontmatter-lint/tests/output-1-skill.md` ~ `output-3-skill.md`、`output-1-baseline.md`
+- `tests/` 下的 harness 日志证据和提取脚本
+- `day-12/skill-frontmatter-lint/tests/RESULTS.md`
+- （可选）`day-12/NOTES.md`
+
+**完成标准**
+1. `name` 为 `skill-frontmatter-lint`，与目录同名；description 单行纯字符串，写明做什么、何时用、至少两条排除边界；有 `compatibility` 字段；validate 通过，输出记在 RESULTS.md 或 NOTES.md。
+2. EDGE-CASES.md ≥ 12 行，含题目步骤 1 的全部情况，每行有期望退出码和 `code`；它和 fixtures 的提交早于 `lint_frontmatter.py` 的第一次提交。
+3. CRLF、BOM、非 UTF-8 夹具的字节确实如此（用 `xxd` 检查）。
+4. 脚本有 PEP 723 块并固定 PyYAML 版本；无交互；`--help` 写明参数、输出字段、退出码 0/1/2/3/4 及优先级、运行方式。
+5. stdout 只输出 JSON（退出码 2、4 时为空）；每条 finding 有 `code`、`field`、`message`、`fix`，能确定时有 `line`；`parse_error` 含行号。
+6. 单测可直接运行并全部通过（运行方式写进 RESULTS.md）；每个夹具至少一个用例；有 `python3 -I -S` 的依赖缺失用例（退出码 4、stdout 空、stderr 含 `uv run`）。
+7. 正文 ≤ 50 行，含确切命令、每个退出码的处理（含 4 的回退和“不要自己判断”）、转述 `fix`、只在用户要求时修改文件、“运行而不必阅读源码”。
+8. 差分表覆盖全部夹具，每处分歧有一句判断；旧 skill 汇总覆盖 day-01 ~ day-11 的所有 skill，旧文件未被修改。
+9. CHECKLIST.md 早于任何 output 提交；4 次运行全新会话、普通提示词，输出原样保存；日志证据由脚本提取：3 次 skill 运行都执行了脚本且没读源码，基线没有加载 skill。
+10. RESULTS.md ≤ 35 行，含上述各项和“哪个边界情况最难”的分析；skill 内容、脚本和 tests/ 文档使用英文（NOTES.md 可以用中文）。
+
+**检查与评审**
