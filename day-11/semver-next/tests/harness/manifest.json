@@ -1,17 +1,17 @@
 {
   "runs": {
     "1-skill": {
-      "session_id": "01a215a0-7e5e-7482-b29f-200d4f55e7c6",
+      "session_id": "01a215c2-8c97-7d13-b101-ce304d9561dc",
       "model": "gpt-6.1-terra",
-      "rollout_log": "rollout-2026-11-25T21-12-50-01a215a0-7e5e-7482-b29f-200d4f55e7c6.jsonl",
+      "rollout_log": "rollout-2026-11-25T21-50-01-01a215c2-8c97-7d13-b101-ce304d9561dc.jsonl",
       "source_sha256": {
-        "cli": "deede581b3d59e47d1b49d07a18ac2b64262996d563b3af737a88818fb92a2f3",
-        "rollout": "1efdce137a80c8bb4b187c2678088a32e8f69e9d8bd47a002b9fdf4bbd2feb6c"
+        "cli": "2954f8342ed1711ee84a85d81d8a360ab4b2f5883c729c88f4bf2eaaa05d94ab",
+        "rollout": "1f7402ce9ddd6d4a9c4960acf236e0c9866bd039425668d43f28d761b394a7a2"
       },
-      "excerpt_sha256": "fa4f29ea8364991ba21fe6bc84c525c12dff3323daaf06d5f062810189d43d80",
-      "answer_sha256": "31c173c33c1fc6af9b78ecc3ff289cb9a95b0bb297d279f9369dda2e88dbdd77",
+      "excerpt_sha256": "65bfa0d65f4cd4b4b2bc15ee156feb40c2d4c17bd35211bc53e56840364b7210",
+      "answer_sha256": "1f2073df6915cce70ba213359520df8eb15ce9660c50cc15cde8940b11ace114",
       "skill_read_lines": [
-        30
+        24
       ],
       "calculator_runs": [
         {
@@ -22,7 +22,7 @@
       ],
       "source_reads": [],
       "checks": {
-        "activation": true,
+        "activation_as_expected": true,
         "execution": true,
         "no_source_read": true
       },
@@ -42,22 +42,22 @@
       "calculator_runs": [],
       "source_reads": [],
       "checks": {
-        "activation": true,
+        "activation_as_expected": true,
         "execution": true,
         "no_source_read": true
       },
       "pass": true
     },
     "2-skill": {
-      "session_id": "01a215a0-7e6c-7b30-a411-99e8894676a5",
+      "session_id": "01a215c2-8c8d-7fa1-ad21-e366636f61c7",
       "model": "gpt-6.1-terra",
-      "rollout_log": "rollout-2026-11-25T21-12-50-01a215a0-7e6c-7b30-a411-99e8894676a5.jsonl",
+      "rollout_log": "rollout-2026-11-25T21-50-01-01a215c2-8c8d-7fa1-ad21-e366636f61c7.jsonl",
       "source_sha256": {
-        "cli": "c55008d2a63353ef91a0d8e49c6297dcec35bed8d37837db7b235956d1d1aca4",
-        "rollout": "58779af0ca1b8bc7bfa1a385dd1788256ab325dd7c993c78aba24945d776343f"
+        "cli": "c4428506a1ea597673f3e35178ba41bfd3e18425eefab7838920a3ab7fada362",
+        "rollout": "a62e830b8984748ae280a55add7a0c0ec1cda416b9b35376e6b579f9d7d72074"
       },
-      "excerpt_sha256": "49ec784a0e9f68a378c5226473d7554e22181550dcaea9313fe355882999a621",
-      "answer_sha256": "7330ae2953ba0da1c2a67af3cc8edb2f1cd2335aca18882cbf0573d93f55e3c5",
+      "excerpt_sha256": "f601a39de8273fe5a668b5bba527930081261b795ee7eea526703d50e0f14250",
+      "answer_sha256": "88aadaeb8fbcfbb3da3ca785b417b02e837bb038bbcfb168e16abaa2ff635a4e",
       "skill_read_lines": [
         26
       ],
@@ -70,7 +70,7 @@
       ],
       "source_reads": [],
       "checks": {
-        "activation": true,
+        "activation_as_expected": true,
         "execution": true,
         "no_source_read": true
       },
@@ -90,35 +90,35 @@
       "calculator_runs": [],
       "source_reads": [],
       "checks": {
-        "activation": true,
+        "activation_as_expected": true,
         "execution": true,
         "no_source_read": true
       },
       "pass": true
     },
     "3-skill": {
-      "session_id": "01a215a0-7de2-7933-af23-d1053c961849",
+      "session_id": "01a215c2-8c8d-71d1-80d9-782a69f2158d",
       "model": "gpt-6.1-terra",
-      "rollout_log": "rollout-2026-11-25T21-12-49-01a215a0-7de2-7933-af23-d1053c961849.jsonl",
+      "rollout_log": "rollout-2026-11-25T21-50-01-01a215c2-8c8d-71d1-80d9-782a69f2158d.jsonl",
       "source_sha256": {
-        "cli": "8d251a02f01934da2a3e388360d562c85f6687b73d9819aa00f4075446fdcc7b",
-        "rollout": "99dbe97af7e95cd4574a032a4c1130c0dc11b21b3befb8e2ea6b36ce5bb13eb3"
+        "cli": "5b4dad751d958a4af7082657522e92f6130fe3c46b9b869d0a55f16e68075e3c",
+        "rollout": "43ff6801b0a1365e2cc7776d1087ff1d9354deead3088fddb665570967532190"
       },
-      "excerpt_sha256": "77c8f43c577997e8d528a8af7c5718c327cd1a125701e2983c88c7ba54313bcf",
-      "answer_sha256": "f98cfcafb6244207fd1b4a3c35d49b296bfe9358d42a9f83351671425a2b03be",
+      "excerpt_sha256": "ce9c0a6487dd47e9b766a2875a238d1f2d8b4db3f96e265e4819de35609a8ee7",
+      "answer_sha256": "f2fa443ddcf1847fd5cb35f39a533db6759af7acfab035b415876ff7f976dceb",
       "skill_read_lines": [
-        25
+        30
       ],
       "calculator_runs": [
         {
-          "line": 11,
-          "command_id": "item_4",
+          "line": 9,
+          "command_id": "item_3",
           "exit_code": 0
         }
       ],
       "source_reads": [],
       "checks": {
-        "activation": true,
+        "activation_as_expected": true,
         "execution": true,
         "no_source_read": true
       },
@@ -138,22 +138,22 @@
       "calculator_runs": [],
       "source_reads": [],
       "checks": {
-        "activation": true,
+        "activation_as_expected": true,
         "execution": true,
         "no_source_read": true
       },
       "pass": true
     },
     "4-skill": {
-      "session_id": "01a215a0-7e5a-7290-bf22-06e348bd20dc",
+      "session_id": "01a215c2-8c97-7462-bc86-6487f0e08c89",
       "model": "gpt-6.1-terra",
-      "rollout_log": "rollout-2026-11-25T21-12-49-01a215a0-7e5a-7290-bf22-06e348bd20dc.jsonl",
+      "rollout_log": "rollout-2026-11-25T21-50-01-01a215c2-8c97-7462-bc86-6487f0e08c89.jsonl",
       "source_sha256": {
-        "cli": "668a6ad0410b99a40131f0f36e9ebedf72adc75002d9100ad9f7426ecff03826",
-        "rollout": "8c4a347675209f0abd2548b733aece1f879138867fd9ce87975f21f156db5e40"
+        "cli": "db29e66329b8cdf39022e9f88305ce9a9d661f1419b37f6c5ea43e0b5ab72c13",
+        "rollout": "9280a04da7aa37a1928d80a1040d2b8a411f374b92351fe893968f4847cebe39"
       },
-      "excerpt_sha256": "50ed17d2a2890f6f099f2d2ac8a8cec52571dbcc2e035362a4f7fbcb5107611f",
-      "answer_sha256": "692be0a38f150bfbddf97e9e5575d427169d11f450cd3b9328e3b642958d0dae",
+      "excerpt_sha256": "4e484ab90098478fd29ef4701b72a270554f7d58c8838758dce815c24719d235",
+      "answer_sha256": "0cad2cca5ac5117a6c26aa686ffdea00f6bb01a46f2da9b318dac026b7187bdc",
       "skill_read_lines": [
         24
       ],
@@ -166,7 +166,7 @@
       ],
       "source_reads": [],
       "checks": {
-        "activation": true,
+        "activation_as_expected": true,
         "execution": true,
         "no_source_read": true
       },
@@ -186,7 +186,55 @@
       "calculator_runs": [],
       "source_reads": [],
       "checks": {
-        "activation": true,
+        "activation_as_expected": true,
+        "execution": true,
+        "no_source_read": true
+      },
+      "pass": true
+    },
+    "5-skill": {
+      "session_id": "01a215c3-085e-73e0-bb15-b8467cd7c6c8",
+      "model": "gpt-6.1-terra",
+      "rollout_log": "rollout-2026-11-25T21-50-32-01a215c3-085e-73e0-bb15-b8467cd7c6c8.jsonl",
+      "source_sha256": {
+        "cli": "ba16079af1c1a433228c6c1858c7d95e05e5f4838c534ebbfbe5d1043ddd900a",
+        "rollout": "aec207ee1dfbe2a81b07309fbf4461ae1f9bb56fd7c8c25b55deda21b0b228b6"
+      },
+      "excerpt_sha256": "c3f38bcd3e7e8cbc759cef2cfc9fc0b2254717d4891fee7828030c5dc5bf39f7",
+      "answer_sha256": "06f38dcf0298a6a36bbf459a508a914b41a8e7c4895bd96efd67b15d0243295a",
+      "skill_read_lines": [
+        24
+      ],
+      "calculator_runs": [
+        {
+          "line": 9,
+          "command_id": "item_3",
+          "exit_code": 0
+        }
+      ],
+      "source_reads": [],
+      "checks": {
+        "activation_as_expected": true,
+        "execution": true,
+        "no_source_read": true
+      },
+      "pass": true
+    },
+    "5-baseline": {
+      "session_id": "01a215c3-10cc-70a2-a185-24a6745ed177",
+      "model": "gpt-6.1-terra",
+      "rollout_log": "rollout-2026-11-25T21-50-35-01a215c3-10cc-70a2-a185-24a6745ed177.jsonl",
+      "source_sha256": {
+        "cli": "143c4f46fa548e4e479a59144eef36aab5916c00dca6f1abfb6347944cc67681",
+        "rollout": "80e4643360200b3f39e7b1356ce52e6d77be65c7cca82d1885beef6e1d37d9f2"
+      },
+      "excerpt_sha256": "888d76c2a9b06fd9322b09bfb414fd0050705d6b04fd4f1fd40314c1a59d7dc7",
+      "answer_sha256": "5316c08a2145d45d9f939ed075ce28516d1a5d10c886913fcde456e870c1a570",
+      "skill_read_lines": [],
+      "calculator_runs": [],
+      "source_reads": [],
+      "checks": {
+        "activation_as_expected": true,
         "execution": true,
         "no_source_read": true
       },

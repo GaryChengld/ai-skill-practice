@@ -53,19 +53,30 @@ def commit_messages(text):
         raise ValueError(f"The final commit has no {DELIMITER!r} line. Add it or regenerate the file with git log.")
 
 
+def has_breaking_footer(body):
+    paragraph = []
+    for line in reversed(body):
+        if line.strip():
+            paragraph.append(line)
+        elif paragraph:
+            return any(BREAKING.match(line) for line in paragraph)
+    return False
+
+
 def classify(header, body):
     match = HEADER.fullmatch(header)
     if match is None:
         return 0, None
     if match["breaking"]:
         return 3, "breaking_header"
-    if any(BREAKING.match(line) for line in body):
+    if has_breaking_footer(body):
         return 3, "breaking_footer"
     kind = match["type"].lower()
     return {"feat": 2, "fix": 1, "perf": 1}.get(kind, 0), kind
 
 
 def next_release(current, prefix, parts, commits):
+    zero_major = parts[0] == 0
     highest = 0
     reasons = []
     unparsed = []
@@ -75,7 +86,7 @@ def next_release(current, prefix, parts, commits):
             unparsed.append(header)
         if not level:
             continue
-        if parts[0] == 0:
+        if zero_major:
             level = 2 if level == 3 else 1
         if level > highest:
             highest = level
@@ -90,7 +101,7 @@ def next_release(current, prefix, parts, commits):
         parts[changed + 1:] = [0] * (2 - changed)
         version = prefix + ".".join(map(str, parts))
     return {"current": current, "next": version, "bump": BUMP_NAMES[highest],
-            "reasons": reasons, "unparsed": unparsed}
+            "major_zero_shift": zero_major and highest > 0, "reasons": reasons, "unparsed": unparsed}
 
 
 def main(argv=None):
@@ -99,13 +110,17 @@ def main(argv=None):
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""Input: UTF-8 commit messages, each ending with a separate --END-- line.
 Reserve --END-- for the delimiter. To generate the input from a repository:
-  git log --format="%B%n--END--" LAST_TAG..HEAD
+  git log --no-merges --format="%B%n--END--" LAST_TAG..HEAD
+
+Breaking footer labels count at the start of a line in the final paragraph,
+which must be separated from preceding text by a blank line.
 
 Successful calculation writes one JSON object to stdout:
-  current, next  Input and resulting version. A leading v is kept.
-  bump           Effective bump: major, minor, patch, or none.
-  reasons        Decisive commits as {header, rule} objects.
-  unparsed       Unrecognized first lines excluded from the calculation.
+  current, next     Input and resulting version. A leading v is kept.
+  bump              Effective bump: major, minor, patch, or none.
+  major_zero_shift  True if the major-zero policy applies to the bump.
+  reasons           Decisive commits as {header, rule} objects.
+  unparsed          Unrecognized first lines excluded from the calculation.
 
 Exit codes: 0 result (including none), 2 input error, 3 unsupported prerelease.
 Errors go to stderr. --help prints this help and exits 0.""",

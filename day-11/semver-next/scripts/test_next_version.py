@@ -38,6 +38,7 @@ class NextVersionTest(unittest.TestCase):
             path.write_bytes(b"\xef\xbb\xbffix: keep locale\r\n--END--\r\nfeat: add CSV\r\n--END--\r\n")
             result = self.calculate("v1.4.2", path=path)
         self.assertEqual(result, {"current": "v1.4.2", "next": "v1.5.0", "bump": "minor",
+                                  "major_zero_shift": False,
                                   "reasons": [{"header": "feat: add CSV", "rule": "feat"}], "unparsed": []})
 
     def test_breaking_header_beats_feat(self):
@@ -54,6 +55,20 @@ class NextVersionTest(unittest.TestCase):
         data = self.calculate("3.2.1", b"docs: update migration\n\nBREAKING-CHANGE: remove old name\n--END--\n")
         self.assertEqual((data["next"], data["reasons"][0]["rule"]), ("4.0.0", "breaking_footer"))
 
+    def test_breaking_footer_after_another_trailer(self):
+        data = self.calculate("1.4.2", b"fix: rotate keys\n\nUpdate the handshake.\n\nRefs: AUTH-10\n"
+                                       b"BREAKING CHANGE: old keys fail\n  Reload the keyring.\n\n--END--\n")
+        self.assertEqual((data["next"], data["reasons"][0]["rule"]), ("2.0.0", "breaking_footer"))
+
+    def test_breaking_marker_adjacent_to_header_is_not_a_footer(self):
+        data = self.calculate("1.4.2", b"fix: document key usage\nBREAKING CHANGE: example marker\n--END--\n")
+        self.assertEqual((data["next"], data["reasons"][0]["rule"]), ("1.4.3", "fix"))
+
+    def test_breaking_marker_in_earlier_paragraph_is_not_a_footer(self):
+        data = self.calculate("1.4.2", b"docs: explain trailers\n\nBREAKING CHANGE: example marker\n\n"
+                                       b"Refs: DOCS-10\n--END--\n")
+        self.assertEqual((data["next"], data["bump"]), ("1.4.2", "none"))
+
     def test_fix_and_perf_are_both_decisive_for_patch(self):
         data = self.calculate("1.4.2", b"FIX: handle null\n--END--\nperf: cache result\n--END--\n")
         self.assertEqual((data["next"], data["bump"]), ("1.4.3", "patch"))
@@ -63,6 +78,7 @@ class NextVersionTest(unittest.TestCase):
     def test_zero_major_breaking_change_bumps_minor(self):
         data = self.calculate("0.9.3", b"fix: detect empty input\n--END--\nfeat!: remove flag\n--END--\n")
         self.assertEqual((data["next"], data["bump"]), ("0.10.0", "minor"))
+        self.assertTrue(data["major_zero_shift"])
         self.assertEqual(data["reasons"], [{"header": "feat!: remove flag", "rule": "breaking_header"}])
 
     def test_zero_major_features_and_fixes_bump_patch(self):
@@ -70,6 +86,7 @@ class NextVersionTest(unittest.TestCase):
             with self.subTest(header=header):
                 data = self.calculate("0.9.3", header + b"\n--END--\n")
                 self.assertEqual((data["next"], data["bump"]), ("0.9.4", "patch"))
+                self.assertTrue(data["major_zero_shift"])
 
     def test_none_keeps_version_and_build_metadata(self):
         data = self.calculate("v1.2.3+build.019", b"docs: revise guide\n--END--\ncustom: note status\n--END--\n"
@@ -80,6 +97,7 @@ class NextVersionTest(unittest.TestCase):
     def test_empty_input_returns_none(self):
         data = self.calculate("0.3.1")
         self.assertEqual((data["next"], data["bump"], data["reasons"]), ("0.3.1", "none", []))
+        self.assertFalse(data["major_zero_shift"])
 
     def test_bump_omits_old_build_metadata(self):
         data = self.calculate("v1.2.3+build.019", b"fix: retry once\n--END--\n")
@@ -115,7 +133,8 @@ class NextVersionTest(unittest.TestCase):
     def test_help_describes_the_interface(self):
         result = subprocess.run([sys.executable, str(SCRIPT), "--help"], capture_output=True, check=True)
         self.assertEqual(result.stderr, b"")
-        for phrase in (b"--current", b"--commits", b"--END--", b"git log", b"reasons", b"unparsed", b"Exit codes"):
+        for phrase in (b"--current", b"--commits", b"--END--", b"git log --no-merges", b"major_zero_shift",
+                       b"final paragraph", b"reasons", b"unparsed", b"Exit codes"):
             self.assertIn(phrase, result.stdout)
 
 

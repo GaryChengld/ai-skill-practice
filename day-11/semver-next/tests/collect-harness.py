@@ -1,4 +1,4 @@
-"""Collect eight fresh Codex CLI runs from their --json streams and rollouts.
+"""Collect ten fresh Codex CLI runs from their --json streams and rollouts.
 
 Pass a directory with CLI logs named 1-skill.jsonl, 1-baseline.jsonl, and so on.
 Use --sessions-dir if the rollout logs live outside ~/.codex/sessions.
@@ -20,7 +20,7 @@ SCRIPT = TESTS.parent / "scripts/next_version.py"
 HARNESS = TESTS / "harness"
 PYTHON = re.compile(r"\b(?:python(?:3(?:\.\d+)?)?|py)(?:\.exe)?[\"']?\s", re.I)
 FILE_READER = re.compile(r"\b(?:get-content|cat|type|rg|select-string|sed|head|tail|open|read_text|read_bytes|readfile)\b[^;|\n]*\bnext_version\.py\b", re.I)
-EXIT_STATUS = re.compile(r"^Exit status: (\d+)\s*$", re.M)
+EXIT_STATUS = re.compile(r"^exit[ _](?:status|code)[:=][ \t]*(\d+)[ \t\r]*$", re.I | re.M)
 SOURCE_MARKERS = ("class PrereleaseVersion(ValueError):", "def parse_version(text):",
                   "def commit_messages(text):", "def next_release(current, prefix, parts, commits):")
 CALLS = {"function_call", "custom_tool_call"}
@@ -167,7 +167,7 @@ def collect(case, source, sessions_dir, registry, versions, seen):
                 inspected.append({"origin": "rollout", "line": line})
                 excerpt.append(evidence("rollout", line, row))
 
-    checks = {"activation": bool(reads) if variant == "skill" else not reads and not touched_skill,
+    checks = {"activation_as_expected": bool(reads) if variant == "skill" else not reads and not touched_skill,
               "execution": bool(runs) if variant == "skill" else not runs,
               "no_source_read": not inspected}
     excerpt.append(evidence("rollout", final_line, final))
@@ -183,7 +183,7 @@ def collect(case, source, sessions_dir, registry, versions, seen):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("cli_dir", type=Path, help="directory with the eight Codex CLI --json logs")
+    parser.add_argument("cli_dir", type=Path, help="directory with the ten Codex CLI --json logs")
     parser.add_argument("--sessions-dir", type=Path, default=Path.home() / ".codex/sessions")
     args = parser.parse_args()
     registry = json.loads((HARNESS / "registry.json").read_bytes())
@@ -195,7 +195,7 @@ def main():
     versions = json.loads((TESTS / "versions.json").read_bytes())
     seen = set()
     runs = {}
-    for number in range(1, 5):
+    for number in range(1, 6):
         for variant in ("skill", "baseline"):
             case = f"{number}-{variant}"
             run = collect(case, args.cli_dir / f"{case}.jsonl", args.sessions_dir, registry, versions, seen)

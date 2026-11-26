@@ -1,0 +1,1 @@
+The next release tag should be **0.10.0**. The commit adds a backward-compatible feature, so it calls for a minor version bump from 0.9.3.
