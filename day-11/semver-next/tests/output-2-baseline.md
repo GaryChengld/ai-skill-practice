@@ -1,0 +1,1 @@
+The next release tag should be **2.0.0**. The export authorization fix includes a breaking change: clients must use a bearer token instead of the legacy `X-Export-Token` header. Under semantic versioning, that requires a major version bump from `1.4.2`.

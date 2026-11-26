@@ -1,0 +1,30 @@
+{
+  "3-skill": {
+    "session_id": "01a2159d-9c3e-79a0-8013-be2c5c304bce",
+    "model": "gpt-6.1-terra",
+    "rollout_log": "rollout-2026-11-25T21-09-40-01a2159d-9c3e-79a0-8013-be2c5c304bce.jsonl",
+    "source_sha256": {
+      "cli": "61a23f8d7899781cf91b95b6d4be83e9263490c539355db6ca06e279c6123434",
+      "rollout": "194defcc254b1e10cb5840ab5909401cc9c76f1793e343c5da735ec7e996197e"
+    },
+    "excerpt_sha256": "fd06bd4953b3fa2587f9b29c6050ab02d782754628bf889f9fb0c028bebcb875",
+    "answer_sha256": "ad0fddebfb012a69ad61654c13357adda9453534a3938cca295392440bdb193e",
+    "skill_read_lines": [
+      24
+    ],
+    "calculator_runs": [
+      {
+        "line": 9,
+        "command_id": "item_3",
+        "exit_code": 0
+      }
+    ],
+    "source_reads": [],
+    "checks": {
+      "activation": true,
+      "execution": true,
+      "no_source_read": true
+    },
+    "pass": true
+  }
+}

@@ -1,0 +1,1 @@
+The next release tag should be **1.0.0**. The `feat(config)!` commit introduces a breaking change by replacing `timeout_ms` with `request_timeout`, so semantic versioning calls for a major version bump.

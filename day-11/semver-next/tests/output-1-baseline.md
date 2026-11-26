@@ -1,0 +1,1 @@
+The next release tag should be **`v1.5.0`**. The CSV export is a new feature, which calls for a minor version bump under semantic versioning.
