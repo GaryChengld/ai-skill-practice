@@ -1,0 +1,8 @@
+fix(cache): avoid keeping negative lookups indefinitely
+--END--
+feat(config)!: replace timeout_ms with request_timeout
+
+The replacement setting accepts duration strings.
+--END--
+fix(cli): report the selected config file
+--END--

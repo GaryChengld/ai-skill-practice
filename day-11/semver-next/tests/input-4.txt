@@ -1,0 +1,4 @@
+feat(search): add filtering by owner
+--END--
+fix(search): preserve the query while navigating results
+--END--

@@ -1,0 +1,2 @@
+* text eol=lf
+semver-next/tests/output-*.md -text

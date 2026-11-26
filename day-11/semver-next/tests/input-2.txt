@@ -1,0 +1,15 @@
+fix(parser): keep escaped separators intact
+--END--
+docs(api): update the authentication example
+--END--
+fix(api): validate authorization on export requests
+
+Route exports through the same token checks as other API requests.
+
+Reviewed-by: Release Engineering
+BREAKING CHANGE: Exports no longer accept the legacy X-Export-Token header.
+  Send a bearer token in the Authorization header instead.
+Refs: EXPORT-208
+--END--
+fix(logging): include the request ID in error entries
+--END--
