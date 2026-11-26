@@ -404,3 +404,4 @@
 10. skill 内容、脚本（注释、--help、错误信息）和 tests/ 文档使用英文（NOTES.md 可以用中文）。
 
 **检查与评审**
+- 2026-11-26 chat 评审（efbd172 / b437259）：评分 5/5，10 条完成标准全部满足（本地 `python3 -I -m unittest` 18 个用例通过；4 个输入复跑脚本结果与 EXPECTED.md 一致，退出码 0/0/0/3；另测 none、0.x feat→patch、缺 `--END--`、非法版本、`BREAKING-CHANGE` 均符合规则表；EXPECTED.md 在 efbd172 先于输出提交；manifest 显示 4 次 skill 运行都执行了 next_version.py、零源码读取，基线未启用 skill；skill 10/10、基线 4/10；在 Codex CLI 的 .agents/skills 下运行，跨平台）。主要建议：①0.y.z 规则只解释了 breaking→minor，feat→patch 没有说明也没有行为测试；建议 JSON 加 `major_zero_shift` 之类字段，第 4 步改为通用说明，加一个 0.x 只有 feat 的输入；②第 2 步“从 skill 根目录运行 / 或用绝对路径 / 或 python”三选一写得绕，实际 4 次都是从工作目录用 `.agents/skills/semver-next/scripts/...` 运行，建议改为一条明确规则；③git 命令加 `--no-merges`，否则 merge 提交会堆进 unparsed；footer 检测会匹配紧跟标题或正文段落里的 `BREAKING CHANGE:`，要么限定在最后一个段落，要么在 --help 里写明是宽松匹配；manifest 里基线的 `activation: true` 实际表示“未激活符合预期”，建议改名。
