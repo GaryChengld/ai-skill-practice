@@ -448,3 +448,42 @@
 **检查与评审**
 - 2026-11-26 chat 评审（5b47a11 / f72ce10 / 04e3a29）：评分 5/5，10 条完成标准全部满足（27 个夹具，EDGE-CASES.md 在 5b47a11 先于脚本冻结；od 确认 15 号为 BOM + CRLF、16 号含 0xFF；本地 9 个单测含 27 个子测试通过，`python3 -I -S` 退出码 4、不存在路径退出码 2 且 stdout 为空；正文 22 行；差分表覆盖 27 个夹具，8 处分歧都有判断；旧 skill 12 个均 0 问题且未修改；3 次 skill 运行都执行了脚本、零源码读取）。主要建议：①行为测试没有区分度：基线在 19 号夹具上也全对，而 RESULTS 自己说最难的是 YAML 类型强制转换，应把 13/17/23（或 15、16）这类“肉眼看不出”的夹具放进行为测试；②`fix` 太泛：基线给出了 `bad-name`，skill 只说 “Lowercase it”，脚本可以利用 node.value 给出具体改法（如 `name: bad-name`、`version: "1.0"`），description-missing 的 line 1 指向开头 `---` 不准确，可改为 null 或结束分隔符行；③PyYAML 固定在 6.0.2，但 6.0.3 才提供 Python 3.14 wheel，本地单测实际跑的是 6.0.3，而 `requires-python = ">=3.10"` 不设上限，建议固定 6.0.3（同步 compatibility）或在 RESULTS 记录 uv 实际解析到的版本；旧 skill 汇总三条 bullet 内容相同，可合并为一句。
 - 2026-11-26 chat 复查（adb1f64 / ec0b3db / c83cb60）：上次 3 条建议全部改好（FOLLOWUP.md 先于运行冻结，新增 13/17/23 号类型强制转换和一个中性命名的非 UTF-8 行为用例，skill 11/11、基线 10/11，基线在 23 号只当成“可移植性问题”、没说 key 必须是字符串；`fix` 改为可直接复制的整行替换，如 `Change line 2 to: name: bad-name` + 改目录、`version: "1.0"`、`"yes": confirmed`，`name: yes` 会提示保留目录名；description-missing 的 line 改为 null；PyYAML 固定为 6.0.3 并同步 compatibility，RESULTS 记录 uv 解析到 Python 3.12.12 + PyYAML 6.0.3；旧 skill 汇总合并为一句；正文第 1 步采用建议写法）。本地 11 个单测通过。新发现：allowed-tools 的 fix 仍是通用示例 'Read Bash'，可以用序列里的实际项生成 `allowed-tools: "Read Bash"`；区分度仍然偏小，基线和 skill 的差别主要在“是否当成 error”，可在检查项里明确检查严重级别。最终评分 5/5。
+- 2026-11-27 检查：复查之后没有新修改（最新提交 a81a173 只更新了 log），上次的两条小建议（allowed-tools 的 fix 用实际项、检查项检查严重级别）未改，列入 day-13 加分项。确认已完成，最终评分 5/5。
+
+---
+
+## day-13：Validate Before You Hand Off — a JSON Schema validation loop for an eval-set skill
+
+- 出题日期：2026-11-27
+- 阶段：第三阶段 · 配套脚本（第 3 题：脚本 + 参考文件组合，校验输出格式）
+- 针对弱点：day-12 行为测试区分度小（本题基线也拿到同一份 schema，比的是有没有校验循环，并由你的脚本校验基线产出）；延续夹具先于脚本冻结、可直接照做的 `fix`、CHECKLIST 先于 output、日志证明“运行而非阅读”；day-12 的 allowed-tools fix 列为加分项
+- 背景核实：agentskills.io Best practices（Validation loops、Plan-validate-execute、Templates for output format 放 assets/ 按需加载、写清何时读 references）；jsonschema 4.26.0（PyPI，Python ≥ 3.10；`format` 默认不校验，需 `FORMAT_CHECKER`）；Draft 2020-12 `if`/`then`、`contains`/`minContains`
+- 完整题目：`.practice/problems/day-13.md`（含格式约定表）
+
+**交付物**
+- `day-13/eval-set-builder/SKILL.md`
+- `day-13/eval-set-builder/assets/eval-set.schema.json`
+- `day-13/eval-set-builder/references/field-guide.md`
+- `day-13/eval-set-builder/scripts/validate_evals.py`
+- `day-13/eval-set-builder/scripts/test_validate_evals.py`
+- `day-13/eval-set-builder/tests/fixtures/`（≥ 9 个 JSON + `README.md`）
+- `day-13/eval-set-builder/tests/broken-evals.json`
+- `day-13/eval-set-builder/tests/CHECKLIST.md`
+- `day-13/eval-set-builder/tests/output-skill-1..3.md`、`output-baseline-1..2.md` 及对应 JSON
+- `tests/` 下的 harness 日志证据和提取脚本
+- `day-13/eval-set-builder/tests/RESULTS.md`
+- （可选）`day-13/NOTES.md`
+
+**完成标准**
+1. `name` 为 `eval-set-builder`，与目录同名；description 单行纯字符串，写明做什么、何时用、至少两条排除边界；有 `compatibility`；validate 通过，输出记在 RESULTS.md。
+2. schema 为 Draft 2020-12 且通过 `check_schema`；格式约定表每条规则都在 schema 里实现（条件规则用 `if`/`then` 或等价写法，数量用 `contains` + `minContains`）。
+3. 夹具和 `tests/fixtures/README.md` 的提交早于 `validate_evals.py` 的第一次提交，覆盖步骤 2 的全部 9 种情况。
+4. 脚本有 PEP 723 块并固定 `jsonschema==4.26.0`；无交互；默认 schema 路径不依赖当前工作目录；`--help` 写明参数、输出字段、退出码 0-4、运行方式。
+5. stdout 只输出 JSON（退出码 2、4 时为空）；每条 finding 有 `path`、`rule`、`message`、`fix`；`format: date` 确实被校验；重复 id、重复 prompt、prompt 含 skill 名三项语义检查都实现且有用例。
+6. 单测可直接运行并全部通过（运行方式写进 RESULTS.md）；每个夹具至少一个用例；有 `python3 -I -S` 依赖缺失用例。
+7. 正文 ≤ 60 行，含确切命令、何时读 field-guide.md、写文件 → 校验 → 只改报错位置 → 重跑的循环、最多 3 轮后的停止规则、不改 schema、不读 schema 和脚本源码、warning 的处理。
+8. CHECKLIST.md 早于任何 output 提交；5 次运行全新会话、普通提示词，输出原样保存；检查项含“最终文件通过校验”“没有编造问题”和 skill-2 “至少 2 次校验”。
+9. 日志证据由脚本提取：skill-1、skill-2 执行了校验脚本且没读源码，skill-2 至少 2 次；skill-3 未激活（或激活后拒绝）；基线未加载 skill，基线产出已用你的脚本校验。
+10. RESULTS.md ≤ 35 行，含上述各项和区分度分析；skill 内容、脚本、schema 和 tests/ 文档使用英文（NOTES.md 可以用中文）。
+
+**检查与评审**
