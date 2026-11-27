@@ -445,3 +445,4 @@
 10. RESULTS.md ≤ 35 行，含上述各项和“哪个边界情况最难”的分析；skill 内容、脚本和 tests/ 文档使用英文（NOTES.md 可以用中文）。
 
 **检查与评审**
+- 2026-11-26 chat 评审（5b47a11 / f72ce10 / 04e3a29）：评分 5/5，10 条完成标准全部满足（27 个夹具，EDGE-CASES.md 在 5b47a11 先于脚本冻结；od 确认 15 号为 BOM + CRLF、16 号含 0xFF；本地 9 个单测含 27 个子测试通过，`python3 -I -S` 退出码 4、不存在路径退出码 2 且 stdout 为空；正文 22 行；差分表覆盖 27 个夹具，8 处分歧都有判断；旧 skill 12 个均 0 问题且未修改；3 次 skill 运行都执行了脚本、零源码读取）。主要建议：①行为测试没有区分度：基线在 19 号夹具上也全对，而 RESULTS 自己说最难的是 YAML 类型强制转换，应把 13/17/23（或 15、16）这类“肉眼看不出”的夹具放进行为测试；②`fix` 太泛：基线给出了 `bad-name`，skill 只说 “Lowercase it”，脚本可以利用 node.value 给出具体改法（如 `name: bad-name`、`version: "1.0"`），description-missing 的 line 1 指向开头 `---` 不准确，可改为 null 或结束分隔符行；③PyYAML 固定在 6.0.2，但 6.0.3 才提供 Python 3.14 wheel，本地单测实际跑的是 6.0.3，而 `requires-python = ">=3.10"` 不设上限，建议固定 6.0.3（同步 compatibility）或在 RESULTS 记录 uv 实际解析到的版本；旧 skill 汇总三条 bullet 内容相同，可合并为一句。
