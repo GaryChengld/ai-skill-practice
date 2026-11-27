@@ -417,6 +417,7 @@
 - 阶段：第三阶段 · 配套脚本（第 2 题：脚本的健壮性）
 - 针对弱点：day-11 的 footer 漏判是评审发现的（本题要求先写边界情况清单并冻结夹具，再写脚本）；延续先冻结检查清单、无 skill 基线、日志证明“运行而非阅读”；新增依赖缺失的优雅失败和差分测试；day-11 续行问题列为加分项
 - 背景核实：agentskills.io 规范（name 1-64、小写字母数字和连字符、不能首尾/连续连字符、与目录同名；description 1-1024；compatibility 1-500；metadata 字符串映射；allowed-tools 空格分隔字符串、实验性）；Using scripts 指南（PEP 723 + `uv run`、固定版本、可行动错误信息、不同失败用不同退出码并写进 --help、reject ambiguous input）
+- 状态：已完成，最终评分 5/5（chat 复查）
 - 完整题目：`.practice/problems/day-12.md`（含接口约定表）
 
 **交付物**
@@ -446,3 +447,4 @@
 
 **检查与评审**
 - 2026-11-26 chat 评审（5b47a11 / f72ce10 / 04e3a29）：评分 5/5，10 条完成标准全部满足（27 个夹具，EDGE-CASES.md 在 5b47a11 先于脚本冻结；od 确认 15 号为 BOM + CRLF、16 号含 0xFF；本地 9 个单测含 27 个子测试通过，`python3 -I -S` 退出码 4、不存在路径退出码 2 且 stdout 为空；正文 22 行；差分表覆盖 27 个夹具，8 处分歧都有判断；旧 skill 12 个均 0 问题且未修改；3 次 skill 运行都执行了脚本、零源码读取）。主要建议：①行为测试没有区分度：基线在 19 号夹具上也全对，而 RESULTS 自己说最难的是 YAML 类型强制转换，应把 13/17/23（或 15、16）这类“肉眼看不出”的夹具放进行为测试；②`fix` 太泛：基线给出了 `bad-name`，skill 只说 “Lowercase it”，脚本可以利用 node.value 给出具体改法（如 `name: bad-name`、`version: "1.0"`），description-missing 的 line 1 指向开头 `---` 不准确，可改为 null 或结束分隔符行；③PyYAML 固定在 6.0.2，但 6.0.3 才提供 Python 3.14 wheel，本地单测实际跑的是 6.0.3，而 `requires-python = ">=3.10"` 不设上限，建议固定 6.0.3（同步 compatibility）或在 RESULTS 记录 uv 实际解析到的版本；旧 skill 汇总三条 bullet 内容相同，可合并为一句。
+- 2026-11-26 chat 复查（adb1f64 / ec0b3db / c83cb60）：上次 3 条建议全部改好（FOLLOWUP.md 先于运行冻结，新增 13/17/23 号类型强制转换和一个中性命名的非 UTF-8 行为用例，skill 11/11、基线 10/11，基线在 23 号只当成“可移植性问题”、没说 key 必须是字符串；`fix` 改为可直接复制的整行替换，如 `Change line 2 to: name: bad-name` + 改目录、`version: "1.0"`、`"yes": confirmed`，`name: yes` 会提示保留目录名；description-missing 的 line 改为 null；PyYAML 固定为 6.0.3 并同步 compatibility，RESULTS 记录 uv 解析到 Python 3.12.12 + PyYAML 6.0.3；旧 skill 汇总合并为一句；正文第 1 步采用建议写法）。本地 11 个单测通过。新发现：allowed-tools 的 fix 仍是通用示例 'Read Bash'，可以用序列里的实际项生成 `allowed-tools: "Read Bash"`；区分度仍然偏小，基线和 skill 的差别主要在“是否当成 error”，可在检查项里明确检查严重级别。最终评分 5/5。
