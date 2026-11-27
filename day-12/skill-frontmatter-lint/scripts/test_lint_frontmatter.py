@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 import unittest
 
 
@@ -43,7 +44,10 @@ class FrontmatterTest(unittest.TestCase):
                                                       "warnings": len(row["warnings"]),
                                                       "parse_failures": int(result.returncode == 3)})
                 for entry in findings:
-                    self.assertGreater(entry["line"], 0)
+                    if entry["code"] == "description-missing":
+                        self.assertIsNone(entry["line"])
+                    else:
+                        self.assertGreater(entry["line"], 0)
                     self.assertTrue(all(entry[key] for key in ("field", "message", "fix")))
 
     def test_byte_sensitive_fixtures(self):
@@ -67,6 +71,29 @@ class FrontmatterTest(unittest.TestCase):
         self.assertIn("entire description value", parse_error["fix"])
         errors = json.loads(run_cli(fixture("14-tools-list")).stdout)["results"][0]["errors"]
         self.assertIn("Found a list", errors[0]["message"])
+
+    def test_concrete_line_fixes(self):
+        for case, code, line in (("19-multiple-errors", "name-uppercase", "name: bad-name"),
+                                 ("13-metadata-value", "metadata-value-type", '  version: "1.0"'),
+                                 ("17-name-boolean", "name-type", 'name: "yes"'),
+                                 ("23-metadata-key", "metadata-key-type", '  "yes": confirmed')):
+            with self.subTest(case=case):
+                result = json.loads(run_cli(fixture(case)).stdout)["results"][0]
+                error = next(finding for finding in result["errors"] if finding["code"] == code)
+                self.assertEqual(error["fix"].splitlines()[0], f"Change line {error['line']} to: {line}")
+                if code == "name-uppercase":
+                    self.assertIn("Rename the parent directory to bad-name.", error["fix"])
+                if code == "name-type":
+                    self.assertIn("Keep the directory name yes.", error["fix"])
+
+    def test_flow_mapping_fix_preserves_the_mapping(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "SKILL.md"
+            path.write_text(f"---\nname: {path.parent.name}\ndescription: Example.\n"
+                            "metadata: {version: 1.0, author: Example}\n---\n", encoding="utf-8")
+            result = json.loads(run_cli(path).stdout)["results"][0]
+        finding = next(entry for entry in result["errors"] if entry["code"] == "metadata-value-type")
+        self.assertEqual(finding["fix"], 'Set metadata.version to the quoted string "1.0".')
 
     def test_batch_parse_failure_overrides_lint_error(self):
         result = run_cli(fixture("03-uppercase").parent, fixture("11-yaml-colon"), fixture("18-unknown-field").parent)

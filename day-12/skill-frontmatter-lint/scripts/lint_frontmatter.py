@@ -1,6 +1,6 @@
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["PyYAML==6.0.2"]
+# dependencies = ["PyYAML==6.0.3"]
 # ///
 """Lint the YAML frontmatter of one or more Agent Skills."""
 
@@ -32,6 +32,36 @@ class ParseFailure(Exception):
 
 def line_of(node):
     return node.start_mark.line + 2
+
+
+def scalar_line_fix(node, replacement, *, key=False):
+    """Offer an exact line edit only for a plain scalar in a simple block entry."""
+    start, end = node.start_mark, node.end_mark
+    if start.line != end.line or start.buffer is None:
+        return None
+    source = start.buffer.splitlines()[start.line]
+    prefix, suffix = source[:start.column], source[end.column:]
+    if source[start.column:end.column] != node.value:
+        return None
+    if key:
+        if prefix.strip() or not suffix.startswith(":"):
+            return None
+    elif (not re.fullmatch(r"[ \t]*(?:[\w-]+|'[^']+'|\"[^\"]+\"):[ \t]+", prefix)
+          or (suffix.strip() and not suffix.lstrip().startswith("#"))):
+        return None
+    return f"Change line {line_of(node)} to: {prefix}{replacement}{suffix.rstrip()}"
+
+
+def quoted_scalar_fix(node, field, yaml):
+    if not isinstance(node, yaml.ScalarNode):
+        return f"Replace {field} with a YAML string."
+    quoted = json.dumps(node.value, ensure_ascii=False)
+    return scalar_line_fix(node, quoted) or f"Set {field} to the quoted string {quoted}."
+
+
+def yaml_kind(node):
+    return {"seq": "a list", "map": "a mapping", "bool": "a boolean", "int": "an integer",
+            "float": "a number", "null": "null"}.get(node.tag.rsplit(":", 1)[-1], "a non-string value")
 
 
 def yaml_failure(error, lines):
@@ -100,14 +130,15 @@ def mapping_items(node, yaml, parent=""):
         yield key, value
 
 
-def check_string(field, node, yaml, errors):
+def check_string(field, node, yaml, errors, *, directory=None):
     if is_string(node, yaml):
         return True
-    kind = {"seq": "a list", "map": "a mapping", "bool": "a boolean", "int": "an integer",
-            "float": "a number", "null": "null"}.get(node.tag.rsplit(":", 1)[-1], "a non-string value")
-    errors.append(finding(f"{field}-type", field, line_of(node), f"{field} must be a YAML string. Found {kind}.",
-                          ("Use a quoted space-separated string such as 'Read Bash'." if field == "allowed-tools"
-                           else "Quote the value to make it a string.")))
+    fix = ("Use a quoted space-separated string such as 'Read Bash'." if field == "allowed-tools"
+           else quoted_scalar_fix(node, field, yaml))
+    if field == "name" and isinstance(node, yaml.ScalarNode) and node.value == directory:
+        fix += f"\nKeep the directory name {directory}."
+    errors.append(finding(f"{field}-type", field, line_of(node),
+                          f"{field} must be a YAML string. Found {yaml_kind(node)}.", fix))
     return False
 
 
@@ -127,9 +158,16 @@ def check_name(node, directory, errors):
     value = node.value
     if not value.strip():
         return
+    lowercase = value.lower()
+    has_uppercase = re.search(r"[A-Z]", value)
+    uppercase_fix = "Lowercase the name and rename the parent directory to match."
+    if has_uppercase and re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", lowercase) and len(lowercase) <= 64:
+        reserved = {"yes", "no", "true", "false", "on", "off", "null"}
+        replacement = json.dumps(lowercase) if lowercase in reserved else lowercase
+        edit = scalar_line_fix(node, replacement) or f"Set name to {replacement}."
+        uppercase_fix = f"{edit}\nRename the parent directory to {lowercase}."
     restrictions = (
-        (re.search(r"[A-Z]", value), "uppercase", "Name must use lowercase letters.",
-         "Lowercase the name and rename the parent directory to match."),
+        (has_uppercase, "uppercase", "Name must use lowercase letters.", uppercase_fix),
         (re.search(r"[^A-Za-z0-9-]", value), "characters", "Name may contain only a-z, 0-9, and hyphens.",
          "Replace disallowed characters and rename the parent directory to match."),
         (value.startswith("-"), "leading-hyphen", "Name cannot start with a hyphen.",
@@ -153,12 +191,17 @@ def check_metadata(node, yaml, errors):
         return
     for key, value in mapping_items(node, yaml, "metadata."):
         if not is_string(key, yaml):
-            errors.append(finding("metadata-key-type", "metadata", line_of(key), "Metadata keys must be strings.",
-                                  "Quote keys that YAML treats as booleans or numbers."))
+            fix = "Use a quoted string for the metadata key."
+            if isinstance(key, yaml.ScalarNode):
+                quoted = json.dumps(key.value, ensure_ascii=False)
+                fix = scalar_line_fix(key, quoted, key=True) or f"Quote the metadata key as {quoted}, keeping its value."
+            errors.append(finding("metadata-key-type", "metadata", line_of(key),
+                                  f"Metadata keys must be strings. Found {yaml_kind(key)}.", fix))
         if not is_string(value, yaml):
             field = f"metadata.{key.value}" if is_string(key, yaml) else "metadata"
-            errors.append(finding("metadata-value-type", field, line_of(value), "Metadata values must be strings.",
-                                  "Quote scalar values such as '1.0' or replace nested values with text."))
+            errors.append(finding("metadata-value-type", field, line_of(value),
+                                  f"Metadata values must be strings. Found {yaml_kind(value)}.",
+                                  quoted_scalar_fix(value, field, yaml)))
 
 
 def lint(path, yaml):
@@ -182,9 +225,9 @@ def lint(path, yaml):
             node = fields.get(field)
             if node is None:
                 if field in {"name", "description"}:
-                    errors.append(finding(f"{field}-missing", field, 1, f"Required field {field} is missing.",
+                    errors.append(finding(f"{field}-missing", field, None, f"Required field {field} is missing.",
                                           f"Add a nonempty {field}: string between the delimiters."))
-            elif check_string(field, node, yaml, errors):
+            elif check_string(field, node, yaml, errors, directory=path.parent.name):
                 check_length(field, node, limit, errors)
                 if field == "name":
                     check_name(node, path.parent.name, errors)

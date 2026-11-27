@@ -1,7 +1,7 @@
-"""Extract four fresh Codex CLI sessions from their JSON streams and rollouts.
+"""Extract Codex CLI sessions from their JSON streams and rollouts.
 
-Pass a directory containing 1-skill.jsonl through 3-skill.jsonl and
-1-baseline.jsonl. Keep the scratch workspaces for fixture integrity checks.
+Pass a directory with one CASE.jsonl per entry in CASES.
+Keep the scratch workspaces for fixture integrity checks.
 """
 
 import argparse
@@ -18,8 +18,12 @@ TESTS = Path(__file__).resolve().parent
 SKILL = TESTS.parent / "SKILL.md"
 LINTER = TESTS.parent / "scripts/lint_frontmatter.py"
 HARNESS = TESTS / "harness"
-CASES = {"1-skill": "19-multiple-errors", "1-baseline": "19-multiple-errors",
-         "2-skill": "11-yaml-colon", "3-skill": "02-full-fields"}
+CASES = {"1-skill": "fixtures/19-multiple-errors", "1-baseline": "fixtures/19-multiple-errors",
+         "2-skill": "fixtures/11-yaml-colon", "3-skill": "fixtures/02-full-fields",
+         "4-skill": "fixtures/13-metadata-value", "4-baseline": "fixtures/13-metadata-value",
+         "5-skill": "fixtures/17-name-boolean", "5-baseline": "fixtures/17-name-boolean",
+         "6-skill": "fixtures/23-metadata-key", "6-baseline": "fixtures/23-metadata-key",
+         "7-skill": "behavior-fixtures/07-encoding", "7-baseline": "behavior-fixtures/07-encoding"}
 RUNNER = re.compile(r"\b(?:uv(?:\.exe)?[\"']?\s+run|(?:python(?:3(?:\.\d+)?)?|py)(?:\.exe)?[\"']?)\s", re.I)
 FILE_READER = re.compile(r"\b(?:get-content|cat|type|rg|sed|head|tail|open|read_text|read_bytes|readfile)\b"
                          r"[^;|\n]*\blint_frontmatter\.py\b", re.I)
@@ -113,7 +117,7 @@ def collect(case, source, registry, sessions_dir):
         raise ValueError(f"{case}: missing final answer")
     variant = case.split("-")[1]
     cwd = Path(registry[variant]["cwd"])
-    original = next((TESTS / "fixtures" / CASES[case]).glob("*/SKILL.md"))
+    original = next((TESTS / CASES[case]).glob("*/SKILL.md"))
     target = cwd / "fixtures" / original.parent.name / "SKILL.md"
     requested = f"Can you check whether this skill's frontmatter is set up correctly? It's in fixtures/{original.parent.name}. Please report what you find."
     if Path(context["cwd"]) != cwd or prompt["payload"]["content"][0]["text"] != requested:
@@ -179,7 +183,7 @@ def collect(case, source, registry, sessions_dir):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("cli_dir", type=Path, help="directory containing the four CLI JSON logs")
+    parser.add_argument("cli_dir", type=Path, help="directory containing the CLI JSON logs")
     parser.add_argument("--sessions-dir", type=Path, default=Path.home() / ".codex/sessions")
     args = parser.parse_args()
     registry = json.loads((HARNESS / "registry.json").read_bytes())

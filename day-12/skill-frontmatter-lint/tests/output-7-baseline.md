@@ -1,0 +1,3 @@
+The frontmatter in [SKILL.md](C:/Users/Gary/AppData/Local/Temp/day12-lint-qboaue9d/baseline/fixtures/report-tools/SKILL.md:3) has an **encoding error**: the description contains byte `FF` between “monthly” and “reports.” That byte is invalid UTF-8, so a strict reader cannot decode the file or parse its frontmatter.
+
+The delimiters and required `name` and `description` fields otherwise appear correctly structured, and `report-tools` matches the directory name. Replace the invalid byte with the intended text and save the file as UTF-8. No files were changed.

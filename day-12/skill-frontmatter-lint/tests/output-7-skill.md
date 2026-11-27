@@ -1,0 +1,3 @@
+The frontmatter check could not complete because [SKILL.md](C:/Users/Gary/AppData/Local/Temp/day12-lint-qboaue9d/skill-followup/fixtures/report-tools/SKILL.md:3) contains an invalid UTF-8 byte sequence.
+
+The linter reported a **parse failure** in the `frontmatter` field at line 3. Save the whole file as UTF-8, then rerun the check. It could not assess the remaining frontmatter until the encoding is fixed.

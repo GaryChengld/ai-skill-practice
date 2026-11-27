@@ -1,15 +1,15 @@
 {
   "skill": {
-    "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day12-lint-qboaue9d\\skill-final",
+    "cwd": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day12-lint-qboaue9d\\skill-followup",
     "enabled": [
       {
         "name": "skill-frontmatter-lint",
-        "path": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day12-lint-qboaue9d\\skill-final\\.agents\\skills\\skill-frontmatter-lint\\SKILL.md",
+        "path": "C:\\Users\\Gary\\AppData\\Local\\Temp\\day12-lint-qboaue9d\\skill-followup\\.agents\\skills\\skill-frontmatter-lint\\SKILL.md",
         "scope": "repo",
         "enabled": true,
         "description": "Check SKILL.md frontmatter for Agent Skills format and field errors. Use when a skill is not recognized, its setup looks wrong, or its metadata needs validation before publishing. Not for tuning description triggers, reviewing instruction quality, or checking MCP configuration.",
-        "sha256": "3520a1e49d81c85c2e649b3c1660161354948911c1620f571519d834bfb0ba5f",
-        "script_sha256": "aa1c42ef38657cf290531ded2561f9dc6b2df98b00bea555195020ce6d78db80"
+        "sha256": "bf9f535dfb83cb22dc9c0d83241c038a220f39ebba37809d73ffbe8b49e2fbab",
+        "script_sha256": "f74c8c855c927758c0a67df89b551af26b00f02f029c5d9ee6dce2003610ff53"
       }
     ],
     "disabled_count": 14
