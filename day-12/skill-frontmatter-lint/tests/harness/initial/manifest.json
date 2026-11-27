@@ -1,0 +1,62 @@
+{
+  "1-skill": {
+    "session_id": "01a21af7-5878-7821-812d-43b71490bc85",
+    "model": "gpt-6.1-terra",
+    "rollout_log": "rollout-2026-11-26T22-05-47-01a21af7-5878-7821-812d-43b71490bc85.jsonl",
+    "source_sha256": {
+      "cli": "cc8a0708e05de8079ddf4325b935c0ab378daec457482aa72cd877165f2461da",
+      "rollout": "0f30465c26761af799dab14c8f21ee8bba291e79f5188099f85df7f17612d86d"
+    },
+    "excerpt_sha256": "e3bcede93b74458717dda950ec2876cc3f48f99f0d4d26f7677a82a0bf9c389b",
+    "answer_sha256": "0aa68d9500ebf6d4c9078e9ec0c89a1bc095c331424f6839c4844e5ecdcc138d",
+    "fixture_sha256": "5e028377bb4445e25f12f67c3d19446fe7b828e067cfc3dbcb1ecacef05b5bf8",
+    "skill_read_lines": [
+      30
+    ],
+    "linter_runs": [
+      {
+        "line": 9,
+        "command_id": "item_3",
+        "exit_code": 1
+      }
+    ],
+    "source_reads": [],
+    "checks": {
+      "activation_as_expected": true,
+      "execution_as_expected": true,
+      "no_source_read": true,
+      "fixture_unchanged": true
+    },
+    "pass": true
+  },
+  "2-skill": {
+    "session_id": "01a21af7-5841-7071-be3f-bb19760fbab6",
+    "model": "gpt-6.1-terra",
+    "rollout_log": "rollout-2026-11-26T22-05-47-01a21af7-5841-7071-be3f-bb19760fbab6.jsonl",
+    "source_sha256": {
+      "cli": "6c7f17da3847ea2387195003df2e980e9969c0b101007272f21acc4e0ca6067b",
+      "rollout": "6fc02db36d2062445c0f62fb97d1ec7638931197ba7f50b64217707066e35015"
+    },
+    "excerpt_sha256": "223592daa25bbd5348f3a74bd0e46ab0a0b355b0e9e2b681d1f3ee87739df0b0",
+    "answer_sha256": "2bc15bbe4ad94a1510f3fb004e82bb5918f678e869504c93f984787bbc90dd80",
+    "fixture_sha256": "882ccf2936d278bcf36d3c8b3237637f59cdd5ca2a9a69b4929de8f7fdada04b",
+    "skill_read_lines": [
+      24
+    ],
+    "linter_runs": [
+      {
+        "line": 9,
+        "command_id": "item_3",
+        "exit_code": 3
+      }
+    ],
+    "source_reads": [],
+    "checks": {
+      "activation_as_expected": true,
+      "execution_as_expected": true,
+      "no_source_read": true,
+      "fixture_unchanged": true
+    },
+    "pass": true
+  }
+}

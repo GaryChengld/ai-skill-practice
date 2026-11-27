@@ -1,0 +1,116 @@
+{
+  "runs": {
+    "1-skill": {
+      "session_id": "01a21afb-a7d2-7433-b9c3-7d1798acd274",
+      "model": "gpt-6.1-terra",
+      "rollout_log": "rollout-2026-11-26T22-10-29-01a21afb-a7d2-7433-b9c3-7d1798acd274.jsonl",
+      "source_sha256": {
+        "cli": "6cc3c2ed4203f3556b0a9372ac4c379948ee03a9a1ac4a5f2a14279c00637da0",
+        "rollout": "5dc1d8007424ae41a2a3d1104f4a35e4d06d8a255c902cef41d70e176dd3dcda"
+      },
+      "excerpt_sha256": "a719c92f4e3bb9d0c8f67ffe04ded0f4e7aaf2d3402ef1988f665225cab525b2",
+      "answer_sha256": "fb1b84c5ea22a30acdc9aa7180daa7d887d481c9f23d4c0299c74df2540382a9",
+      "fixture_sha256": "5e028377bb4445e25f12f67c3d19446fe7b828e067cfc3dbcb1ecacef05b5bf8",
+      "skill_read_lines": [
+        30
+      ],
+      "linter_runs": [
+        {
+          "line": 9,
+          "command_id": "item_3",
+          "exit_code": 1
+        }
+      ],
+      "source_reads": [],
+      "checks": {
+        "activation_as_expected": true,
+        "execution_as_expected": true,
+        "no_source_read": true,
+        "fixture_unchanged": true
+      },
+      "pass": true
+    },
+    "1-baseline": {
+      "session_id": "01a21af7-581b-73d2-b08e-bde7c2f6d54b",
+      "model": "gpt-6.1-terra",
+      "rollout_log": "rollout-2026-11-26T22-05-47-01a21af7-581b-73d2-b08e-bde7c2f6d54b.jsonl",
+      "source_sha256": {
+        "cli": "6ac8e19d97de7868cd013b91cdf073d02773a7afac8464d687399fcd2b9dc3f2",
+        "rollout": "8b35741f4530fa86c5ac1d3ac0ae7f83b4a25dff291a28173be648d5e39f37e6"
+      },
+      "excerpt_sha256": "4070a794116fa27d9bf6114b417495b83e08a8df87702cd2b9ceaf0bcb03770b",
+      "answer_sha256": "1636167324f810f99bf2f434021af91c9a3627c4ad5afc8c94a9b2a667c9dba7",
+      "fixture_sha256": "5e028377bb4445e25f12f67c3d19446fe7b828e067cfc3dbcb1ecacef05b5bf8",
+      "skill_read_lines": [],
+      "linter_runs": [],
+      "source_reads": [],
+      "checks": {
+        "activation_as_expected": true,
+        "execution_as_expected": true,
+        "no_source_read": true,
+        "fixture_unchanged": true
+      },
+      "pass": true
+    },
+    "2-skill": {
+      "session_id": "01a21afb-a7cc-7963-87aa-8284e4b4b406",
+      "model": "gpt-6.1-terra",
+      "rollout_log": "rollout-2026-11-26T22-10-29-01a21afb-a7cc-7963-87aa-8284e4b4b406.jsonl",
+      "source_sha256": {
+        "cli": "fb16b384e7bcecfdf30a76a4e812a93769e0bc7e82cee6cae479d04a2627ecf6",
+        "rollout": "46d92b82c66cca9158e9f6692d4d1963fb0ad748edbf9fa14239a7066ea1d27f"
+      },
+      "excerpt_sha256": "14068bc751db4ed5409f630ced668eaa0b76eebb1d1164d6cec3d1509eb8bcc6",
+      "answer_sha256": "7798cd00179d7511edd468fb1de81e2ec206afced1dd557e90fb8529e697b1d0",
+      "fixture_sha256": "882ccf2936d278bcf36d3c8b3237637f59cdd5ca2a9a69b4929de8f7fdada04b",
+      "skill_read_lines": [
+        24
+      ],
+      "linter_runs": [
+        {
+          "line": 9,
+          "command_id": "item_3",
+          "exit_code": 3
+        }
+      ],
+      "source_reads": [],
+      "checks": {
+        "activation_as_expected": true,
+        "execution_as_expected": true,
+        "no_source_read": true,
+        "fixture_unchanged": true
+      },
+      "pass": true
+    },
+    "3-skill": {
+      "session_id": "01a21afb-a7db-7b71-9493-cab17454f5cd",
+      "model": "gpt-6.1-terra",
+      "rollout_log": "rollout-2026-11-26T22-10-29-01a21afb-a7db-7b71-9493-cab17454f5cd.jsonl",
+      "source_sha256": {
+        "cli": "def29243964fb7f738c3caf761d55229b46dceb4f55a8297ff6660eda613f778",
+        "rollout": "8b4a6a25fed10e2f8577bae820ea34d4f2d44868a663f692672739cb7d7e6837"
+      },
+      "excerpt_sha256": "fe14bd86580236c420513cf074ae349fa7cacc0971bbb9b0fe35d5d7ed4150be",
+      "answer_sha256": "15f00794affeddbf51004c4941bb0e5ba1f8bf7e880ff845b2ebbdef669313c1",
+      "fixture_sha256": "1f758f22067cdd3a88a3cb65a30ee840ce40e2c798c44e5aa5f2edb2085bbbd8",
+      "skill_read_lines": [
+        30
+      ],
+      "linter_runs": [
+        {
+          "line": 9,
+          "command_id": "item_3",
+          "exit_code": 0
+        }
+      ],
+      "source_reads": [],
+      "checks": {
+        "activation_as_expected": true,
+        "execution_as_expected": true,
+        "no_source_read": true,
+        "fixture_unchanged": true
+      },
+      "pass": true
+    }
+  }
+}

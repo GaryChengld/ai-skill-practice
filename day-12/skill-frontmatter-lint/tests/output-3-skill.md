@@ -1,0 +1,1 @@
+The frontmatter in [fixtures/full-fields/SKILL.md](C:/Users/Gary/AppData/Local/Temp/day12-lint-qboaue9d/skill-final/fixtures/full-fields/SKILL.md) passed the lint check with **no errors or warnings**.

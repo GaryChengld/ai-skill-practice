@@ -1,0 +1,3 @@
+The frontmatter has a **YAML parse failure** in the `description` field on line 3 of [SKILL.md](C:/Users/Gary/AppData/Local/Temp/day12-lint-qboaue9d/skill-final/fixtures/yaml-colon/SKILL.md:3). It contains an unquoted colon followed by a space.
+
+Quote the entire description value or rephrase it to remove the colon and space, then recheck the file. The linter could not validate the remaining frontmatter until parsing succeeds.
