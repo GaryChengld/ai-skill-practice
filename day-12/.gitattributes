@@ -1,0 +1,4 @@
+* text eol=lf
+skill-frontmatter-lint/tests/fixtures/15-crlf-bom/crlf-bom/SKILL.md -text whitespace=cr-at-eol
+skill-frontmatter-lint/tests/fixtures/16-invalid-utf8/invalid-utf8/SKILL.md -text
+skill-frontmatter-lint/tests/output-*.md -text
